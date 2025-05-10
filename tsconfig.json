@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    // 指定ECMAScript 目标版本：
+    "target": "ESNext",
+
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    // 决定如何处理模块
+    "moduleResolution": "Node",
+    // 启用所有严格类型检查选项
+    "strict": true,
+    // 在 .tsx 文件里支持JSX：
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    // 将每个文件作为单独的模块（与"ts.transpileModule" 类似）
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    // 忽略所有声明文件 （*.d.ts）的类型检查
+    "skipLibCheck": true,
+
+    // 若有未使用的局部变量则抛错
+    "noUnusedLocals": false,
+    // 若有未使用的参数则抛错
+    "noUnusedParameters": false,
+    // 在表达式和声明上有隐含的 any 类型时报错
+    "noImplicitAny": false,
+    // 在严格的 null 检查模式下，null 和 undefined 值不包含在任何类型里，只允许用它们自己和 any 来赋值（有个例外 undefined 可以赋值到 void）
+    "strictNullChecks": false,
+    // 禁用函数参数双向协变检查
+    "strictFunctionTypes": false,
+
+    // 编译过程中需要引入的库文件的列表
+    "lib": ["esnext", "dom", "es2017", "dom.iterable", "scripthost"],
+    // 解析非相对模块名的基准目录
+    "baseUrl": "./",
+    // 模块名到基于 baseUrl 的路径映射的列表。ts 文件中使用 @
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["dist", "node_modules"]
+}

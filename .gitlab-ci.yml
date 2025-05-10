@@ -1,0 +1,14 @@
+stages:         
+  - deploy
+
+deploy:run_app:
+  stage: deploy
+  retry:
+    max: 2
+  timeout: 2 minutes
+  only:
+    - main
+  script:
+    - sudo cp -r dist /home/ytwl_admin/
+  tags:
+    - utcloud

@@ -1,0 +1,100 @@
+import path from 'path'
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import legacy from '@vitejs/plugin-legacy'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import AutoImport from 'unplugin-auto-import/vite'
+// import { getThemeVariables } from 'ant-design-vue/dist/theme'
+
+const resolve = (dir: string) => path.join(__dirname, dir)
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    vueJsx(),
+    createSvgIconsPlugin({
+      // 指定要缓存的图标文件夹
+      iconDirs: [resolve('src/assets/svg')],
+      // 指定象征符号
+      symbolId: 'icon-[name]'
+    }),
+    legacy({
+      additionalLegacyPolyfills: ['regenerator-runtime/runtime']
+    }),
+    AutoImport({
+      imports: [
+        // 预先设置
+        'vue',
+        'vue-router',
+        {
+          '@/utils/PropTypes': [['default', 'PropTypes']],
+          '@/utils/index': [['*', 'utils']],
+          '@/use/index': [['*', 'use']],
+          '@/api/index': [['default', 'api']],
+          '@/store/index': [['*', 'store']]
+        }
+      ],
+      dts: './src/auto-imports.d.ts'
+    })
+  ],
+  resolve: {
+    // 设置别名
+    alias: {
+      '@': resolve('src')
+    }
+  },
+  css: {
+    // css预处理器
+    preprocessorOptions: {
+      less: {
+        additionalData: `
+          @import "./src/style/var.less";
+          @import "./src/style/mixin.less";
+        `,
+        modifyVars: {
+          'primary-color': '#00e5e5', // 全局主色
+          'success-color': '#16ce67', // 成功色
+          'warning-color': '#eca303', // 警告色
+          'error-color': '#f53d2d', // 错误色
+          'border-radius-base': '32px',
+
+          'body-background': '#0c0c0c',
+          'component-background': '#ffffff',
+
+          'text-color': '#dae4e5', // 主文本色
+          'text-color-secondary': '#b6b8bf', // 次文本色
+
+          'border-color-base': '#d7dbe6', // 边框色
+
+          'btn-default-color': '#dae4e5',
+          'btn-default-bg': 'rgba(255,255,255,.2)',
+          'btn-default-border': '1px solid rgba(255,255,255,.2)',
+
+          'btn-height-base': '40px',
+
+          'input-placeholder-color': '#768db3',
+          'input-icon-color': '#565761',
+          'input-icon-hover-color': '#b4c1d4'
+        },
+        javascriptEnabled: true
+      }
+    }
+  },
+  server: {
+    hmr: true,
+    proxy: {
+      '/api': {
+        // target: 'http://172.16.9.106:8001',
+        target: 'http://wx.dev.szutek.com',
+        changeOrigin: true
+      },
+      '/uploads': {
+        // target: 'http://172.16.9.106:8001',
+        target: 'http://wx.dev.szutek.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/uploads/, '')
+      }
+    }
+  }
+})
