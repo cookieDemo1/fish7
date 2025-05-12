@@ -1,0 +1,83 @@
+<template>
+  <div :class="{ 'condition-operation': true, active: checkbox }">
+    <div class="checkbox">
+      <a-checkbox v-model:checked="checkbox" @change="handleChange"> </a-checkbox>
+      <span style="font-size: 18px; padding-left: 10px" @click="checkbox = !checkbox">电机1</span>
+    </div>
+    <div class="button">
+      <span :class="{ btn: true, on: true, active: status === 1 }" @click="handleClick(1)"
+        >开启</span
+      >
+      <span :class="{ btn: true, off: true, active: status === 2 }" @click="handleClick(2)"
+        >关闭</span
+      >
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+  const checkbox = ref(false)
+  const status = ref(0)
+
+  const handleClick = (type: number) => {
+    console.log('type: ', type)
+    if (type === status.value) {
+      status.value = 0
+      checkbox.value = false
+    } else {
+      status.value = type
+      checkbox.value = true
+    }
+  }
+
+  const handleChange = (e: any) => {
+    const flag = e.target.checked
+    if (flag === true) {
+      status.value = 2
+    } else {
+      status.value = 0
+    }
+  }
+</script>
+
+<style lang="less" scoped>
+  .condition-operation {
+    height: 62px;
+    padding: 11px 20px;
+    background-color: #414a58;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &.active {
+      background-color: rgba(0, 229, 229, 0.1);
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: center;
+    }
+    .btn {
+      width: 56px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 32px;
+      text-align: center;
+      display: inline-block;
+      background-color: rgba(255, 255, 255, 0.2);
+      &.on.active {
+        background-color: #16ce67;
+        color: #0c0c0c;
+      }
+
+      &.off.active {
+        background-color: #f53d2d;
+        color: #0c0c0c;
+      }
+    }
+    .btn + .btn {
+      margin-left: 16px;
+    }
+  }
+</style>

@@ -65,7 +65,7 @@ export default defineConfig({
           'text-color': '#dae4e5', // 主文本色
           'text-color-secondary': '#b6b8bf', // 次文本色
 
-          'border-color-base': '#d7dbe6', // 边框色
+          'border-color-base': '#9ea0a6', // 边框色
 
           'btn-default-color': '#dae4e5',
           'btn-default-bg': 'rgba(255,255,255,.2)',
@@ -75,7 +75,9 @@ export default defineConfig({
 
           'input-placeholder-color': '#768db3',
           'input-icon-color': '#565761',
-          'input-icon-hover-color': '#b4c1d4'
+          'input-icon-hover-color': '#b4c1d4',
+
+          'checkbox-check-color': '#414a58'
         },
         javascriptEnabled: true
       }

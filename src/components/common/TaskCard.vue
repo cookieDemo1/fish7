@@ -1,6 +1,6 @@
 <template>
-  <div class="task-card">
-    <img :src="iconMap[type]" alt="" class="task-icon" />
+  <div class="task-card" @click="gotoPage">
+    <img :src="iconMap[type].icon" alt="" class="task-icon" />
     <div class="task-name">
       <slot></slot>
     </div>
@@ -17,11 +17,19 @@
   const props = defineProps({
     type: PropTypes.number.def(1)
   })
+
+  const router = useRouter()
+
   const iconMap = {
-    1: Scene,
-    2: Timing,
-    3: Condition,
-    4: Loop
+    1: { icon: Scene, path: '/auto-info-scene' },
+    2: { icon: Timing, path: '/auto-info-timing' },
+    3: { icon: Condition, path: '/auto-info-condition' },
+    4: { icon: Loop, path: '/auto-info-loop' }
+  }
+
+  const gotoPage = () => {
+    const path = iconMap[props.type].path
+    router.push(path)
   }
 </script>
 

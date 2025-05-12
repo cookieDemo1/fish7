@@ -28,7 +28,7 @@
       <template v-else>
         <div class="back" @click="router.go(-1)">
           <img src="@/assets/return_button@2x.png" class="back-icon" alt="" />
-          <span class="back-text">返回</span>
+          <span class="back-text">{{ text }}</span>
         </div>
       </template>
       <div class="info">
@@ -53,10 +53,13 @@
   const activeRoute = ref('')
   const route = useRoute()
   const router = useRouter()
+  const text = ref('')
   watch(
     route,
     () => {
+      console.log(route)
       activeRoute.value = route.path
+      text.value = (route.meta.text as string) || ''
     },
     {
       immediate: true
