@@ -31,38 +31,51 @@ import dcfOff from '@/assets/status/kaiguangb_icon@2x.png'
 export const imgMap = {
   1: {
     icon: fjIcon,
-    offline: fjOffline,
-    on: fjOn,
-    off: fjOff
+    0: fjOffline, // 0离线
+    1: fjOn, // 1开
+    2: fjOff, // 2关
+    name: '1#罗茨风机'
   },
   2: {
-    icon: xhsbIcon,
-    offline: xhsbOffline,
-    on: xhsbOn,
-    off: xhsbOff
+    icon: fjIcon,
+    0: fjOffline,
+    1: fjOn,
+    2: fjOff,
+    name: '2#罗茨风机'
   },
   3: {
-    icon: sjdIcon,
-    offline: sjdOffline,
-    on: sjdOn,
-    off: sjdOff
+    icon: xhsbIcon,
+    0: xhsbOffline,
+    1: xhsbOn,
+    2: xhsbOff,
+    name: '循环水泵'
   },
   4: {
-    icon: gljIcon,
-    offline: gljOffline,
-    on: gljOn,
-    off: gljOff
+    icon: sjdIcon,
+    0: sjdOffline,
+    1: sjdOn,
+    2: sjdOff,
+    name: '紫外线杀菌灯'
   },
   5: {
-    icon: psbIcon,
-    offline: psbOffline,
-    on: psbOn,
-    off: psbOff
+    icon: gljIcon,
+    0: gljOffline,
+    1: gljOn,
+    2: gljOff,
+    name: '微型过滤机'
   },
   6: {
+    icon: psbIcon,
+    0: psbOffline,
+    1: psbOn,
+    2: psbOff,
+    name: '微滤机喷水泵'
+  },
+  7: {
     icon: dcfIcon,
-    offline: dcfOffline,
-    on: dcfOn,
-    off: dcfOff
+    0: dcfOffline,
+    1: dcfOn,
+    2: dcfOff,
+    name: '电磁阀1'
   }
 }

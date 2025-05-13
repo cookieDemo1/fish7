@@ -15,16 +15,6 @@
 
   const locale = zhCN
 
-  // import { ConfigProvider } from 'ant-design-vue'
-  //       ConfigProvider.config({
-  //         theme: {
-  //           primaryColor: '#00a4ff', // 全局主色
-  //           successColor: '#0dc55d', // 成功色
-  //           warningColor: '#ee9e03', // 警告色
-  //           errorColor: '#f53a4e' // 错误色
-  //         }
-  //       })
-
   onMounted(() => {
     autofit.init({
       dw: 1024,
@@ -45,15 +35,9 @@
 
 <style scoped lang="less"></style>
 <style lang="less">
-  .chart-tooltip {
-    width: 120px;
-    .value {
-      font-size: 16px;
-      color: #202d40;
-    }
-    .name {
-      font-size: 14px;
-      color: #9ca1ad;
-    }
+  // 全局样式
+  .ant-message-notice-content {
+    border-radius: 4px !important;
+    color: #0c0c0c;
   }
 </style>

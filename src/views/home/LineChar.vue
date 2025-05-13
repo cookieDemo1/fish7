@@ -1,6 +1,6 @@
 <template>
   <div class="line-char">
-    <div v-if="true" class="offline">离线</div>
+    <div v-if="char?.status == '0'" class="offline">离线</div>
 
     <ul class="select">
       <li
@@ -16,6 +16,10 @@
     </ul>
 
     <div id="char" class="char"></div>
+
+    <div v-if="loading" class="loading">
+      <a-spin :spining="loading" tip="加载中..."></a-spin>
+    </div>
   </div>
 </template>
 
@@ -37,13 +41,7 @@
   // 引入 Canvas 渲染器，注意引入 CanvasRenderer 或者 SVGRenderer 是必须的一步
   import { CanvasRenderer } from 'echarts/renderers'
 
-  const options = ref([
-    { name: '溶解氧', value: '--', key: '', unit: 'mg/L' },
-    { name: '水温值', value: '--', key: '', unit: '℃' },
-    { name: 'PH值', value: '--', key: '', unit: 'PH' }
-  ])
-  const activeIndex = ref(0)
-
+  import { testData } from './test'
   // 注册必须的组件
   echarts.use([
     TitleComponent,
@@ -56,23 +54,70 @@
     UniversalTransition,
     CanvasRenderer
   ])
+  let myChart: any
+
+  const { char, getChar, loading } = use.useMainStateAction('char')
+  const options = ref([
+    { name: '溶解氧', unit: 'mg/L', key: 'oxygen', value: '' },
+    { name: '水温值', unit: '℃', key: 'temp', value: '' },
+    { name: 'PH值', unit: 'PH', key: 'ph', value: '' }
+  ])
+
+  const activeIndex = ref(0)
+
+  watch(
+    activeIndex,
+    (val) => {
+      const type = options.value[val].key
+      if (myChart) {
+        myChart.clear()
+      }
+      getChar({ type })
+      // =================
+      // nextTick(() => {
+      //   draw()
+      // })
+      // =================
+    },
+    {
+      immediate: true
+    }
+  )
+  watch(char, (val) => {
+    console.log('val', val)
+    const { date, sensor_data = { s20b: {} }, status, x, y } = val
+    const { s20b } = sensor_data
+    options.value.forEach((item) => {
+      item.value = s20b[item.key] || ''
+    })
+    draw()
+  })
+
+  onMounted(() => {
+    myChart = echarts.init(document.getElementById('char'))
+  })
 
   // 接下来的使用就跟之前一样，初始化图表，设置配置项
 
-  onMounted(() => {
-    var myChart = echarts.init(document.getElementById('char'))
+  const draw = () => {
+    const { date, x, y } = char.value
+    const unit = options.value[activeIndex.value].unit
+    console.log('unit', unit)
+    console.log('date', date)
+    console.log('x', x)
+    console.log('y', y)
 
-    var hours = ['00:00', '06:00', '12:00', '18:00', '24:00']
+    const array1D = y.flat().filter((item) => item !== '')
+    // 将字符串转换为数字
+    const numericArray = array1D.map(Number)
+    // 获取最大值和最小值
+    let max = Math.ceil(Math.max(...numericArray))
+    let min = Math.floor(Math.min(...numericArray))
 
-    // 模拟浓度数据（根据您的描述调整）
-    var dataToday = [2.1, 3.5, 4.2, 3.8, 2.5] // 浅蓝色 - 今天
-    var dataYesterday = [2.5, 4.0, 5.0, 4.5, 3.0] // 紫色 - 昨天
-    var data0413 = [3.0, 5.0, 6.0, 5.5, 4.0] // 绿色 - 04/13
-    var data0412 = [4.0, 6.5, 8.0, 7.0, 5.0] // 橙色 - 04/12
-    var data0411 = [2.8, 4.5, 5.5, 5.0, 3.5] // 粉色 - 04/11
+    // let min = tempMin - Math.ceil((tempMax - tempMin) * 0.1)
 
     // 配置项
-    var options = {
+    let charOptions = {
       tooltip: {
         trigger: 'axis',
         backgroundColor: '#49515e',
@@ -87,22 +132,22 @@
           var result = ''
           params.forEach(function (item) {
             let name = item.seriesName
-            if (name.indexOf('/') > -1) {
-              name = name.replace('/', '月')
-              name += '日'
-            }
+            // if (name.indexOf('/') > -1) {
+            //   name = name.replace('/', '月')
+            //   name += '日'
+            // }
             result +=
               `<div class="tooltip-item">` +
               `<span class="square-marker" style="background:${item.color}"></span>` +
               `<span class="series-name">${name} ${item.axisValue}</span>` +
-              `<span class="value">${item.value}${'mg/L'}</span>` +
+              `<span class="value">${item.value}${unit}</span>` +
               `</div>`
           })
           return result
         }
       },
       legend: {
-        data: ['今天', '昨天', '04/13', '04/12', '04/11'],
+        data: date,
         bottom: 10,
         textStyle: {
           color: '#fff'
@@ -122,7 +167,7 @@
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: hours,
+        data: x,
 
         axisLine: {
           lineStyle: {
@@ -130,7 +175,15 @@
           }
         },
         axisLabel: {
-          color: '#9EA0A6'
+          color: '#9EA0A6',
+          // 只显示特定时间点的标签
+          interval: 0,
+          formatter: function (value) {
+            console.log(value)
+
+            const showLabels = ['00:00', '06:00', '12:00', '18:00', '24:00']
+            return showLabels.includes(value) ? value : ''
+          }
         },
         // 隐藏刻度线
         axisTick: {
@@ -143,16 +196,16 @@
       },
       yAxis: {
         type: 'value',
-        min: 0,
-        max: 12,
-        interval: 3,
+        min: min,
+        max: max,
+        // interval: 3,
         nameTextStyle: {
           color: '#9EA0A6'
         },
 
         axisLabel: {
           color: '#9EA0A6',
-          formatter: '{value}mg/L'
+          formatter: `{value}${unit}`
         },
         splitLine: {
           lineStyle: {
@@ -167,10 +220,10 @@
 
       series: [
         {
-          name: '今天',
+          name: date[0],
           type: 'line',
           smooth: true,
-          data: dataToday,
+          data: y[0],
           symbol: 'none',
 
           lineStyle: {
@@ -182,10 +235,10 @@
           }
         },
         {
-          name: '昨天',
+          name: date[1],
           type: 'line',
           smooth: true,
-          data: dataYesterday,
+          data: y[1],
           symbol: 'none',
           lineStyle: {
             width: 2,
@@ -196,10 +249,10 @@
           }
         },
         {
-          name: '04/13',
+          name: date[2],
           type: 'line',
           smooth: true,
-          data: data0413,
+          data: y[2],
           symbol: 'none',
           lineStyle: {
             width: 2,
@@ -210,10 +263,10 @@
           }
         },
         {
-          name: '04/12',
+          name: date[3],
           type: 'line',
           smooth: true,
-          data: data0412,
+          data: y[3],
           symbol: 'none',
           lineStyle: {
             width: 2,
@@ -224,10 +277,10 @@
           }
         },
         {
-          name: '04/11',
+          name: date[4],
           type: 'line',
           smooth: true,
-          data: data0411,
+          data: y[4],
           symbol: 'none',
           lineStyle: {
             width: 2,
@@ -240,8 +293,8 @@
       ]
     }
 
-    myChart.setOption(options)
-  })
+    myChart.setOption(charOptions)
+  }
 </script>
 
 <style lang="less" scoped>
@@ -253,6 +306,7 @@
     padding: 20px 24px 0 24px;
     display: flex;
     flex-direction: column;
+    // overflow: hidden;
     // align-items: center;
     .select {
       height: 56px;
@@ -304,6 +358,19 @@
       text-align: center;
       color: #0c0c0c;
       font-size: 13px;
+    }
+
+    .loading {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
     }
   }
 </style>

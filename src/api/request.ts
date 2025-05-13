@@ -15,7 +15,7 @@ export interface Error {
 }
 
 const instance = axios.create({
-  timeout: 60000, // 请求超时时间
+  timeout: 100000, // 请求超时时间
   baseURL: window.location.origin
 })
 
@@ -23,14 +23,14 @@ const instance = axios.create({
 const errorHandler = (error: Error) => {
   if (error.response) {
     if (error.response.status === 401) {
-      store
-        .useUserStore()
-        .logout()
-        .then(() => {
-          setTimeout(() => {
-            window.location.reload()
-          }, 1500)
-        })
+      // store
+      //   .useUserStore()
+      //   .logout()
+      //   .then(() => {
+      //     setTimeout(() => {
+      //       window.location.reload()
+      //     }, 1500)
+      //   })
     } else {
       message.error(error.message)
     }

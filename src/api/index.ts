@@ -1,88 +1,18 @@
 import request, { BaseResponse } from '@/api/request'
 
 export const requestApi = {
-  userLogin: {
-    url: () => '/api/web/login',
+  switch: {
+    url: () => '/api/red/switches',
+    methods: ['GET']
+  },
+  controlSwitch: {
+    url: () => '/api/red/control',
     methods: ['POST']
   },
-  projects: {
-    url: () => '/api/web/projects',
-    methods: ['GET']
-  },
-  info: {
-    url: () => '/api/web/info',
-    methods: ['GET']
-  },
-  sensor: {
-    url: () => `/api/web/data`,
-    methods: ['GET']
-  },
-  chart: {
-    url: () => `/api/web/chart`,
-    methods: ['GET']
-  },
-  qrcode: {
-    url: () => `/api/web/qrcode`,
-    methods: ['GET']
-  },
-  scan: {
-    url: () => `/api/web/login/scan`,
+  char: {
+    url: () => '/api/red/sensor',
     methods: ['GET']
   }
-
-  // modelAdd: {
-  //   url: () => '/api/model/add/',
-  //   methods: ['POST']
-  // },
-  // modelUpdate: {
-  //   url: () => '/api/model/update/',
-  //   methods: ['PUT']
-  // },
-  // modelList: {
-  //   url: () => '/api/model/list/',
-  //   methods: ['GET']
-  // },
-  // modelDel: {
-  //   url: ({ id }) => `/api/model/del/?id=${id}`,
-  //   methods: ['DELETE']
-  // },
-  // overviewDevice: {
-  //   url: () => `/api/overview/device`,
-  //   methods: ['GET']
-  // },
-  // overviewSensor: {
-  //   url: () => `/api/overview/sensor`,
-  //   methods: ['GET']
-  // },
-  // overviewUser: {
-  //   url: () => `/api/overview/user`,
-  //   methods: ['GET']
-  // },
-  // dccMonthStat: {
-  //   url: () => `/api/overview/dccMonthStat`,
-  //   methods: ['GET']
-  // },
-  // sensorRatio: {
-  //   url: () => `/api/overview/sensorRatio`,
-  //   methods: ['GET']
-  // },
-  // overviewCityRank: {
-  //   url: () => `/api/overview/rank?key=city`,
-  //   methods: ['GET']
-  // },
-  // overviewProvinceRank: {
-  //   url: () => `/api/overview/rank?key=province`,
-  //   methods: ['GET']
-  // },
-  // overviewDccStatMap: {
-  //   url: () => `/api/overview/dccStatMap`,
-  //   methods: ['GET']
-  // }
-
-  // modelFile: {
-  //   url: ({ path }) => `/uploads/${path}`,
-  //   methods: ['GET']
-  // }
 }
 type METHODS = 'GET' | 'POST' | 'PUT' | 'DELETE'
 type RequestURL = (params?: any) => string

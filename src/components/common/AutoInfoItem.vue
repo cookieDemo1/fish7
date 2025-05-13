@@ -9,23 +9,28 @@
       <span v-if="status === 2" class="status-item off">关闭</span>
       <span v-if="status === 3" class="status-item failed">失败</span>
       <span v-if="status === 0" class="status-item loading">
-        <indicator />
+        <indicator></indicator>
       </span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { LoadingOutlined } from '@ant-design/icons-vue'
-  import { h } from 'vue'
+  import { h, defineComponent } from 'vue'
 
-  const indicator = h(LoadingOutlined, {
-    style: {
-      fontSize: '25px',
-      color: '#00E5E5',
-      fontWight: 'bold'
-    },
-    spin: true
+  import { LoadingOutlined } from '@ant-design/icons-vue'
+
+  const indicator = defineComponent({
+    render() {
+      return h(LoadingOutlined, {
+        style: {
+          fontSize: '25px',
+          color: '#00E5E5',
+          fontWeight: 'bold' // 修正拼写错误：fontWight → fontWeight
+        },
+        spin: true
+      })
+    }
   })
   const imgMap = constant.imgMap
   const props = defineProps({

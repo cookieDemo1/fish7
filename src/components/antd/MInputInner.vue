@@ -89,6 +89,7 @@
         line-height: 38px !important;
         color: @textPrimaryColor !important;
         background-color: #414a58 !important;
+        padding-left: 3px !important;
       }
       &-clear-icon {
         color: @textPrimaryColor!important;

@@ -86,6 +86,7 @@
     .ant-input {
       &,
       &:hover {
+        padding-left: 3px !important;
         font-size: 17px;
         line-height: 38px !important;
         color: @textPrimaryColor !important;

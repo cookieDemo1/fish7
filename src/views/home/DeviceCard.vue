@@ -1,24 +1,50 @@
 <template>
   <div class="device-card">
     <div class="info">
-      <img :src="imgMap[item.type].icon" class="icon" alt="" />
+      <img :src="imgMap[item.id].icon" class="icon" alt="" />
 
       <div class="name">
-        <span v-if="item.status === 0" class="offline">离线</span>
-        <span class="name-text">{{ item.name }}</span>
+        <!-- 设备没有离线状态 -->
+        <span v-if="item.status == 0" class="offline">离线</span>
+        <span class="name-text">{{ imgMap[item.id].name }}</span>
       </div>
     </div>
 
-    <img :src="imgMap[item.type]['on']" class="status-icon" alt="" />
+    <img :src="imgMap[item.id][item.status]" class="status-icon" alt="" @click="handleClick" />
   </div>
 </template>
 
 <script setup lang="ts">
+  import { message } from 'ant-design-vue'
+
   const imgMap = constant.imgMap
 
   const props = defineProps({
     item: PropTypes.object
   })
+
+  const emits = defineEmits(['callback'])
+
+  const { postControlSwitch } = use.useMainActions(['postControlSwitch'])
+
+  const handleClick = () => {
+    const status = props.item.status
+    if (status === 0) {
+      return message.warning('该设备当前离线')
+    }
+    const action = status === '1' ? 2 : 1
+    postControlSwitch({ DO: parseInt(props.item.id), action: action })
+      .then((res) => {
+        if (res.code !== 200) {
+          message.error('操作失败')
+        } else {
+          emits('callback')
+        }
+      })
+      .catch((err) => {
+        message.error('操作失败')
+      })
+  }
 </script>
 
 <style lang="less" scoped>

@@ -1,1 +1,0 @@
-import{_}from"./_plugin-vue_export-helper-c27b6911.js";import{e,f as o}from"./index-92e45478.js";const t={},c={class:"four-four"};function s(r,n){return e(),o("div",c)}const d=_(t,[["render",s],["__scopeId","data-v-b8f74364"]]);export{d as default};
