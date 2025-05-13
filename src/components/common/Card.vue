@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" :style="{ padding: paddingComputed }">
     <main>
       <slot></slot>
     </main>
@@ -9,7 +9,15 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  const props = defineProps({
+    padding: PropTypes.array.def([0])
+  })
+
+  const paddingComputed = computed(() => {
+    return props.padding.map((value) => `${value}px`).join(' ')
+  })
+</script>
 
 <style lang="less" scoped>
   .card {

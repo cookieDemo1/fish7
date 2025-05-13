@@ -141,6 +141,16 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
           text: '循环任务详情'
         },
         component: () => import('@/views/automatic/AutoInfoLoop.vue')
+      },
+      // 数据告警新增
+      {
+        path: '/warning-add',
+        name: 'warning-add',
+        meta: {
+          title: '数据告警-新增',
+          text: '返回'
+        },
+        component: () => import('@/views/automatic/WarningAdd.vue')
       }
     ]
   },

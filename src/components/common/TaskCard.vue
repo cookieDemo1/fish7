@@ -56,6 +56,7 @@
     .back-icon {
       width: 9px;
       height: 16px;
+      margin-left: 15px;
     }
   }
 </style>

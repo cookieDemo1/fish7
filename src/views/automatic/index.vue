@@ -76,7 +76,7 @@
   }
 
   const addWarning = () => {
-    console.log('add warning')
+    router.push('/warning-add')
   }
 </script>
 

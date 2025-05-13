@@ -30,6 +30,7 @@ export default defineConfig({
         {
           '@/utils/PropTypes': [['default', 'PropTypes']],
           '@/utils/index': [['*', 'utils']],
+          '@/utils/constant': [['*', 'constant']],
           '@/use/index': [['*', 'use']],
           '@/api/index': [['default', 'api']],
           '@/store/index': [['*', 'store']]
@@ -87,13 +88,11 @@ export default defineConfig({
     hmr: true,
     proxy: {
       '/api': {
-        // target: 'http://172.16.9.106:8001',
-        target: 'http://wx.dev.szutek.com',
+        target: 'http://172.16.14.239',
         changeOrigin: true
       },
       '/uploads': {
-        // target: 'http://172.16.9.106:8001',
-        target: 'http://wx.dev.szutek.com',
+        target: 'http://172.16.9.106:8001',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/uploads/, '')
       }
