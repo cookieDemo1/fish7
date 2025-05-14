@@ -1,5 +1,5 @@
 <template>
-  <div class="screen">
+  <div :key="storeRefresh.radom" class="screen">
     <a-config-provider :locale="locale" :auto-insert-space-in-button="false">
       <template #renderEmpty>
         <m-empty></m-empty>
@@ -14,6 +14,9 @@
   import autofit from '@/utils/autofit'
 
   const locale = zhCN
+
+  // 使用key刷新页面，location.reload()会导致页面退出全屏
+  const storeRefresh = store.useRefreshStore()
 
   onMounted(() => {
     autofit.init({

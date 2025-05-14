@@ -1,6 +1,6 @@
 <template>
   <div class="line-char">
-    <div v-if="char?.status == '0'" class="offline">离线</div>
+    <div v-if="char?.status === 2" class="offline">离线</div>
 
     <ul class="select">
       <li
@@ -140,7 +140,7 @@
               `<div class="tooltip-item">` +
               `<span class="square-marker" style="background:${item.color}"></span>` +
               `<span class="series-name">${name} ${item.axisValue}</span>` +
-              `<span class="value">${item.value}${unit}</span>` +
+              `<span class="value">${item.value || '--'}${unit}</span>` +
               `</div>`
           })
           return result
@@ -369,7 +369,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: rgba(255, 255, 255, 0.2);
+      background-color: transparent;
+      // background-color: rgba(255, 255, 255, 0.2);
       border-radius: 12px;
     }
   }

@@ -32,13 +32,15 @@
     if (status === 0) {
       return message.warning('该设备当前离线')
     }
-    const action = status === '1' ? 2 : 1
+    const action = status === 1 ? 2 : 1
     postControlSwitch({ DO: parseInt(props.item.id), action: action })
       .then((res) => {
         if (res.code !== 200) {
           message.error('操作失败')
         } else {
-          emits('callback')
+          setTimeout(() => {
+            emits('callback')
+          }, 2000)
         }
       })
       .catch((err) => {

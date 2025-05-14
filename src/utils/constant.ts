@@ -76,6 +76,6 @@ export const imgMap = {
     0: dcfOffline,
     1: dcfOn,
     2: dcfOff,
-    name: '电磁阀1'
+    name: '蛋分机'
   }
 }

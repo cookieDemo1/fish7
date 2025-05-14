@@ -16,7 +16,10 @@ export interface Error {
 
 const instance = axios.create({
   timeout: 100000, // 请求超时时间
-  baseURL: window.location.origin
+  // baseURL: window.location.origin.replace(':3000', '')
+  baseURL: import.meta.env.DEV
+    ? window.location.origin
+    : window.location.origin.replace(':3000', '')
 })
 
 // 异常拦截器

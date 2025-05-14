@@ -10,7 +10,6 @@ import AutoImport from 'unplugin-auto-import/vite'
 const resolve = (dir: string) => path.join(__dirname, dir)
 
 export default defineConfig({
-  base: '/api',
   plugins: [
     vue(),
     vueJsx(),
@@ -89,7 +88,7 @@ export default defineConfig({
     hmr: true,
     proxy: {
       '/api': {
-        target: 'http://172.16.14.239',
+        target: 'http://172.16.14.240',
         changeOrigin: true
       },
       '/uploads': {

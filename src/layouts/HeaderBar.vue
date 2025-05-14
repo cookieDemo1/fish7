@@ -26,7 +26,7 @@
       </template>
       <!-- 其他页面显示返回按钮 -->
       <template v-else>
-        <div class="back" @click="router.go(-1)">
+        <div class="back" @click="handleBack()">
           <img src="@/assets/return_button@2x.png" class="back-icon" alt="" />
           <span class="back-text">{{ text }}</span>
         </div>
@@ -34,11 +34,12 @@
       <div class="info">
         <div ref="timeRef" class="time"></div>
         <img
-          src="@/assets/exfuscreen_button@2x.png"
+          :src="fullscreen ? fullscreenIcon : nomralscreenIcon"
           alt=""
           class="icon full-screen"
           @click="onFullScreen"
         />
+
         <img src="@/assets/refe_button@2x.png" alt="" class="icon refresh" @click="onRefresh" />
       </div>
     </div>
@@ -46,14 +47,18 @@
 </template>
 
 <script setup lang="ts">
+  import fullscreenIcon from '@/assets/exfuscreen_button@2x.png'
+  import nomralscreenIcon from '@/assets/fuscreen_button@2x.png'
   import { asyncRoutes } from '@/config/router.config'
-
+  const { radom, setRadom } = store.useRefreshStore()
   const routes = [...asyncRoutes[0].children.slice(0, 2)]
 
   const activeRoute = ref('')
   const route = useRoute()
   const router = useRouter()
   const text = ref('')
+
+  const fullscreen = ref(!!document.fullscreenElement)
   watch(
     route,
     () => {
@@ -65,6 +70,10 @@
       immediate: true
     }
   )
+
+  const handleBack = () => {
+    router.go(-1)
+  }
 
   const timeRef = ref()
   let intervalId
@@ -92,17 +101,19 @@
       const element = document.documentElement // 整个页面
       if (element.requestFullscreen) {
         element.requestFullscreen()
+        fullscreen.value = true
       }
     } else {
       // 如果已经在全屏状态，则退出全屏
       if (document.exitFullscreen) {
         document.exitFullscreen()
+        fullscreen.value = false
       }
     }
   }
 
   const onRefresh = () => {
-    window.location.reload()
+    setRadom()
   }
 </script>
 
