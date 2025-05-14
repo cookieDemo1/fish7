@@ -10,6 +10,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 const resolve = (dir: string) => path.join(__dirname, dir)
 
 export default defineConfig({
+  base: '/api',
   plugins: [
     vue(),
     vueJsx(),
