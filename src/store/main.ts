@@ -63,7 +63,7 @@ export const useMainStore = defineStore('main', () => {
             updateState({ loading: { ...state.loading, [actionKey]: false } })
             const { code, data } = res
             if (code === 200) {
-              message.success('操作成功')
+              // message.success('操作成功')
             }
             resolve(res)
           })

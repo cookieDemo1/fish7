@@ -1,17 +1,17 @@
 import fjIcon from '@/assets/gufengji_img@2x.png'
 import fjOffline from '@/assets/status/jiansujlx_icon@2x.png'
-import fjOn from '@/assets/status/luocifjkai_icon@2x.png'
+import fjOn from '@/assets/status/luocifjkai_icon@2x.gif'
 import fjOff from '@/assets/status/jiansujgb_icon@2x.png'
 
 import xhsbIcon from '@/assets/xunhuanb_img@2x.png'
 import xhsbOffline from '@/assets/status/xunhsblx_icon@2x.png'
-import xhsbOn from '@/assets/status/xunhsbkai_icon@2x.png'
+import xhsbOn from '@/assets/status/xunhsbkai_icon@2x.gif'
 import xhsbOff from '@/assets/status/xunhsbgb_icon@2x.png'
 
 import sjdIcon from '@/assets/shajund_img@2x.png'
 import sjdOffline from '@/assets/status/dengglx_icon@2x.png'
-import sjdOn from '@/assets/status/kaiguankai_icon@2x.png'
-import sjdOff from '@/assets/status/kaiguangb_icon@2x.png'
+import sjdOn from '@/assets/status/denggkai_icon@2x.gif'
+import sjdOff from '@/assets/status/dengggb_icon@2x.png'
 
 import gljIcon from '@/assets/danfej_img@2x.png'
 import gljOffline from '@/assets/status/kaiguanlx_icon@2x.png'
@@ -20,7 +20,7 @@ import gljOff from '@/assets/status/kaiguangb_icon@2x.png'
 
 import psbIcon from '@/assets/liushuib_img@2x.png'
 import psbOffline from '@/assets/status/penshuiblx_icon@2x.png'
-import psbOn from '@/assets/status/penshuibkai_icon@2x.png'
+import psbOn from '@/assets/status/penshuibkai_icon@2x.gif'
 import psbOff from '@/assets/status/penshuibgb_icon@2x.png'
 
 import dcfIcon from '@/assets/kaiguan_img@2x.png'

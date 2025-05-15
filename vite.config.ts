@@ -54,7 +54,7 @@ export default defineConfig({
           @import "./src/style/mixin.less";
         `,
         modifyVars: {
-          'primary-color': '#00e5e5', // 全局主色
+          'primary-color': '#00e4fb', // 全局主色
           'success-color': '#16ce67', // 成功色
           'warning-color': '#eca303', // 警告色
           'error-color': '#f53d2d', // 错误色

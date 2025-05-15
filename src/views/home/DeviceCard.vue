@@ -9,13 +9,22 @@
         <span class="name-text">{{ imgMap[item.id].name }}</span>
       </div>
     </div>
-
-    <img :src="imgMap[item.id][item.status]" class="status-icon" alt="" @click="handleClick" />
+    <template v-if="!loading">
+      <img :src="imgMap[item.id][item.status]" class="status-icon" alt="" @click="handleClick" />
+    </template>
+    <template v-else>
+      <div :class="{ 'loading-icon': true, 'loading-on': item.status == 1 }">
+        <img :src="item.status == 1 ? loadingWhiteIcon : loadingIcon" alt="" />
+      </div>
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
   import { message } from 'ant-design-vue'
+
+  import loadingWhiteIcon from '@/assets/status/loading_white.png'
+  import loadingIcon from '@/assets/status/loading.png'
 
   const imgMap = constant.imgMap
 
@@ -25,6 +34,7 @@
 
   const emits = defineEmits(['callback'])
 
+  const loading = ref(false)
   const { postControlSwitch } = use.useMainActions(['postControlSwitch'])
 
   const handleClick = () => {
@@ -33,23 +43,37 @@
       return message.warning('该设备当前离线')
     }
     const action = status === 1 ? 2 : 1
+    loading.value = true
     postControlSwitch({ DO: parseInt(props.item.id), action: action })
       .then((res) => {
         if (res.code !== 200) {
+          loading.value = false
           message.error('操作失败')
         } else {
           setTimeout(() => {
+            message.success('操作成功')
+
             emits('callback')
+            loading.value = false
           }, 2000)
         }
       })
       .catch((err) => {
         message.error('操作失败')
+        loading.value = false
       })
   }
 </script>
 
 <style lang="less" scoped>
+  @keyframes rotate360 {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
   .device-card {
     width: 100%;
     height: 98px;
@@ -93,6 +117,27 @@
       right: 20px;
       width: 53px;
       height: 53px;
+    }
+
+    .loading-icon {
+      position: absolute;
+      top: 14px;
+      right: 20px;
+      width: 53px;
+      height: 53px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #646464;
+      &.loading-on {
+        background-color: @primaryColor;
+      }
+      img {
+        width: 32px;
+        height: 32px;
+        animation: rotate360 1.6s infinite linear;
+      }
     }
   }
 </style>

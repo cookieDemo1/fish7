@@ -228,10 +228,10 @@
 
           lineStyle: {
             width: 2,
-            color: '#00E5E5' // 浅蓝色
+            color: '#00E4FB' // 浅蓝色
           },
           itemStyle: {
-            color: '#00E5E5'
+            color: '#00E4FB'
           }
         },
         {
@@ -335,7 +335,7 @@
           color: #9ea0a6;
         }
         &.active {
-          background-color: #00e5e5;
+          background-color: #00e4fb;
           color: #0c0c0c;
           .name {
             color: #0c0c0c;

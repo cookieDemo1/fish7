@@ -25,7 +25,7 @@
       return h(LoadingOutlined, {
         style: {
           fontSize: '25px',
-          color: '#00E5E5',
+          color: '#00E4FB',
           fontWeight: 'bold' // 修正拼写错误：fontWight → fontWeight
         },
         spin: true
