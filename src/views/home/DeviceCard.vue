@@ -1,5 +1,5 @@
 <template>
-  <div class="device-card">
+  <div class="device-card" @click="handleClick">
     <div class="info">
       <img :src="imgMap[item.id].icon" class="icon" alt="" />
 
@@ -10,7 +10,7 @@
       </div>
     </div>
     <template v-if="!loading">
-      <img :src="imgMap[item.id][item.status]" class="status-icon" alt="" @click="handleClick" />
+      <img :src="imgMap[item.id][item.status]" class="status-icon" alt=""  />
     </template>
     <template v-else>
       <div :class="{ 'loading-icon': true, 'loading-on': item.status == 1 }">
