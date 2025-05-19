@@ -16,12 +16,13 @@
                 <div class="label">数据源</div>
                 <div class="value">
                   <a-form-item style="margin-bottom: 0">
-                    <m-select
+                    <normal-select placeholder="请选择数据源" suffix="测试"></normal-select>
+                    <!-- <m-select
                       placeholder="请选择数据源"
                       :options="dataSourceOptions"
                       text-align="right"
                     >
-                    </m-select>
+                    </m-select> -->
                   </a-form-item>
                 </div>
               </div>

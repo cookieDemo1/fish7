@@ -10,7 +10,7 @@
       </div>
     </div>
     <template v-if="!loading">
-      <img :src="imgMap[item.id][item.status]" class="status-icon" alt=""  />
+      <img :src="imgMap[item.id][item.status]" class="status-icon" alt="" />
     </template>
     <template v-else>
       <div :class="{ 'loading-icon': true, 'loading-on': item.status == 1 }">

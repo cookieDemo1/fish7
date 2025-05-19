@@ -6,8 +6,8 @@
     </div>
     <div class="header">
       <!-- 首页和自动化显示路由 -->
-      <div class="slot"></div>
-      <!-- <template v-if="activeRoute === '/home' || activeRoute === '/automatic'">
+      <!-- <div class="slot"></div> -->
+      <template v-if="activeRoute === '/home' || activeRoute === '/automatic'">
         <ul class="nav">
           <li
             v-for="item in routes"
@@ -30,7 +30,7 @@
           <img src="@/assets/return_button@2x.png" class="back-icon" alt="" />
           <span class="back-text">{{ text }}</span>
         </div>
-      </template> -->
+      </template>
       <div class="info">
         <div ref="timeRef" class="time"></div>
         <img

@@ -1,6 +1,7 @@
 <template>
   <div class="auto-info-timing">
-    <img class="more" src="@/assets/auto/gengd_nor@2x.png" alt="" />
+    <operation class="more"></operation>
+
     <card :padding="[28, 20, 20, 20]">
       <title-auto :icon="icon">2米鱼池定时杀菌</title-auto>
       <div class="date">

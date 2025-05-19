@@ -1,6 +1,6 @@
 <template>
   <div class="auto-info-condition">
-    <img class="more" src="@/assets/auto/gengd_nor@2x.png" alt="" />
+    <operation class="more"></operation>
     <card :padding="[28, 20, 20, 20]">
       <title-auto :icon="icon">自动循环水泵</title-auto>
       <Line style="margin-bottom: 24px"></Line>
