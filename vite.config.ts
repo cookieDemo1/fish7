@@ -5,8 +5,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import legacy from '@vitejs/plugin-legacy'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import AutoImport from 'unplugin-auto-import/vite'
-import { VantResolver } from 'unplugin-vue-components/resolvers'
-import Components from 'unplugin-vue-components/vite'
+
 // import { getThemeVariables } from 'ant-design-vue/dist/theme'
 
 const resolve = (dir: string) => path.join(__dirname, dir)
@@ -15,9 +14,9 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
-    Components({
-      resolvers: [VantResolver()]
-    }),
+    // Components({
+    //   resolvers: [VantResolver()]
+    // }),
     createSvgIconsPlugin({
       // 指定要缓存的图标文件夹
       iconDirs: [resolve('src/assets/svg')],
