@@ -9,13 +9,12 @@
               <div class="data-source" style="margin-top: -10px">
                 <div class="label">传感器</div>
                 <div class="value">
-                  <a-form-item style="margin-bottom: 0">
-                    <m-select
+                  <a-form-item>
+                    <normal-select
+                      :visible-option-num="3"
                       placeholder="请选择传感器"
-                      :options="dataSourceOptions"
-                      text-align="right"
-                    >
-                    </m-select>
+                      :options="sensorOptions"
+                    ></normal-select>
                   </a-form-item>
                 </div>
               </div>
@@ -25,30 +24,32 @@
 
               <div class="condition">
                 <div class="condition-item">
-                  <a-form-item style="margin-bottom: 0">
-                    <m-select placeholder="请选择"></m-select>
+                  <a-form-item>
+                    <normal-select
+                      text-align="left"
+                      :visible-option-num="3"
+                      placeholder="请选择"
+                      :options="dataOptions"
+                    ></normal-select>
                   </a-form-item>
                   <Line></Line>
                   <div class="tip">数据</div>
                 </div>
                 <div class="condition-item">
-                  <a-form-item style="margin-bottom: 0">
-                    <m-select
+                  <a-form-item>
+                    <normal-select
+                      text-align="left"
+                      :visible-option-num="3"
                       placeholder="请选择"
-                      :options="[
-                        { value: 1, label: '>' },
-                        { value: 2, label: '=' },
-                        { value: 3, label: '<' }
-                      ]"
-                    ></m-select>
+                      :options="conditionOptions"
+                    ></normal-select>
                   </a-form-item>
                   <Line></Line>
                   <div class="tip">关系</div>
                 </div>
                 <div class="condition-item">
-                  <a-form-item style="margin-bottom: 0">
-                    <m-input-inner></m-input-inner>
-                    <!-- <m-select placeholder="请选择"></m-select> -->
+                  <a-form-item>
+                    <m-input-inner placeholder="请输入"></m-input-inner>
                   </a-form-item>
                   <Line></Line>
                   <div class="tip">值</div>
@@ -59,31 +60,32 @@
 
               <div class="condition">
                 <div class="condition-item">
-                  <a-form-item style="margin-bottom: 0">
-                    <m-select placeholder="请选择"></m-select>
+                  <a-form-item>
+                    <normal-select
+                      text-align="left"
+                      :visible-option-num="3"
+                      placeholder="请选择"
+                      :options="dataOptions"
+                    ></normal-select>
                   </a-form-item>
                   <Line></Line>
                   <div class="tip">数据</div>
                 </div>
                 <div class="condition-item">
-                  <a-form-item style="margin-bottom: 0">
-                    <m-select
+                  <a-form-item>
+                    <normal-select
+                      text-align="left"
+                      :visible-option-num="3"
                       placeholder="请选择"
-                      :options="[
-                        { value: 1, label: '>' },
-                        { value: 2, label: '=' },
-                        { value: 3, label: '<' }
-                      ]"
-                    ></m-select>
+                      :options="conditionOptions"
+                    ></normal-select>
                   </a-form-item>
                   <Line></Line>
                   <div class="tip">关系</div>
                 </div>
                 <div class="condition-item">
-                  <a-form-item style="margin-bottom: 0">
-                    <m-input-inner></m-input-inner>
-
-                    <!-- <m-select placeholder="请选择"></m-select> -->
+                  <a-form-item>
+                    <m-input-inner placeholder="请输入"></m-input-inner>
                   </a-form-item>
                   <Line></Line>
                   <div class="tip">值</div>
@@ -104,38 +106,10 @@
   import icon from '@/assets/auto/shujgj_icon@2x.png'
   const router = useRouter()
 
-  const dataSourceOptions = ref([
-    {
-      value: 1,
-      label: '1#罗茨风机'
-    },
-    {
-      value: 2,
-      label: '2#罗茨风机'
-    },
-    {
-      value: 3,
-      label: '循环水泵'
-    },
-
-    {
-      value: 4,
-      label: '紫外线杀菌灯'
-    },
-    {
-      value: 5,
-      label: '微型过滤机'
-    },
-    {
-      value: 6,
-      label: '微滤机喷水泵'
-    },
-    {
-      value: 7,
-      label: '电磁阀1'
-    }
-  ])
-
+  const deviceOptions = use.useDeviceOptions()
+  const sensorOptions = use.useSensorOptions()
+  const conditionOptions = use.useConditionOptions()
+  const dataOptions = use.useDataOptions()
   const onSave = () => {
     console.log('onSave')
   }

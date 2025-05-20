@@ -1,10 +1,17 @@
 <template>
-  <div :class="{ 'condition-operation': true, active: checkbox }">
+  <div :class="{ 'condition-operation': true, active: checkbox }" @click="handleWrapperClick">
     <div class="checkbox">
-      <a-checkbox v-model:checked="checkbox" @change="handleChange"> </a-checkbox>
-      <span style="font-size: 18px; padding-left: 10px" @click="checkbox = !checkbox">电机1</span>
+      <a-checkbox v-model:checked="checkbox"> </a-checkbox>
+      <span style="font-size: 18px; padding-left: 10px">{{ item.text }}</span>
     </div>
-    <div class="button">
+    <div
+      class="button"
+      @click="
+        (event) => {
+          event.stopPropagation()
+        }
+      "
+    >
       <span :class="{ btn: true, on: true, active: status === 1 }" @click="handleClick(1)"
         >开启</span
       >
@@ -16,11 +23,22 @@
 </template>
 
 <script setup lang="ts">
-  const checkbox = ref(false)
-  const status = ref(0)
+  const checkbox = ref<boolean>(false)
+  const status = ref<number>(0)
+  const handleWrapperClick = () => {
+    checkbox.value = !checkbox.value
+  }
 
+  const props = defineProps({
+    item: PropTypes.shape({
+      text: PropTypes.string,
+      value: PropTypes.number
+    })
+  })
+
+  let flag = false
   const handleClick = (type: number) => {
-    console.log('type: ', type)
+    flag = true
     if (type === status.value) {
       status.value = 0
       checkbox.value = false
@@ -30,14 +48,23 @@
     }
   }
 
-  const handleChange = (e: any) => {
-    const flag = e.target.checked
-    if (flag === true) {
+  watch(checkbox, (newVal) => {
+    if (flag === true) return (flag = false)
+    if (newVal === true) {
       status.value = 2
     } else {
       status.value = 0
     }
-  }
+  })
+
+  // const handleChange = (e: any) => {
+  //   const flag = e.target.checked
+  //   if (flag === true) {
+  //     status.value = 2
+  //   } else {
+  //     status.value = 0
+  //   }
+  // }
 </script>
 
 <style lang="less" scoped>

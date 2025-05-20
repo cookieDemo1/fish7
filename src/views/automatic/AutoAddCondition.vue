@@ -16,13 +16,11 @@
                 <div class="label">数据源</div>
                 <div class="value">
                   <a-form-item style="margin-bottom: 0">
-                    <normal-select placeholder="请选择数据源" suffix="测试"></normal-select>
-                    <!-- <m-select
+                    <normal-select
+                      :visible-option-num="3"
                       placeholder="请选择数据源"
-                      :options="dataSourceOptions"
-                      text-align="right"
-                    >
-                    </m-select> -->
+                      :options="dataOptions"
+                    ></normal-select>
                   </a-form-item>
                 </div>
               </div>
@@ -33,28 +31,31 @@
               <div class="condition">
                 <div class="condition-item">
                   <a-form-item style="margin-bottom: 0">
-                    <m-select placeholder="请选择"></m-select>
+                    <normal-select
+                      :visible-option-num="3"
+                      placeholder="请选择"
+                      text-align="left"
+                      :options="dataOptions"
+                    ></normal-select>
                   </a-form-item>
                   <Line></Line>
                   <div class="tip">数据</div>
                 </div>
                 <div class="condition-item">
                   <a-form-item style="margin-bottom: 0">
-                    <m-select
+                    <normal-select
+                      :visible-option-num="3"
                       placeholder="请选择"
-                      :options="[
-                        { value: 1, label: '>' },
-                        { value: 2, label: '=' },
-                        { value: 3, label: '<' }
-                      ]"
-                    ></m-select>
+                      text-align="left"
+                      :options="conditionOptions"
+                    ></normal-select>
                   </a-form-item>
                   <Line></Line>
                   <div class="tip">关系</div>
                 </div>
                 <div class="condition-item">
                   <a-form-item style="margin-bottom: 0">
-                    <m-select placeholder="请选择"></m-select>
+                    <m-input-inner></m-input-inner>
                   </a-form-item>
                   <Line></Line>
                   <div class="tip">值</div>
@@ -65,8 +66,9 @@
             <form-title>执行操作</form-title>
 
             <condition-operation
-              v-for="i in 7"
-              :key="i"
+              v-for="(item, index) in options"
+              :key="index"
+              :item="item"
               class="wrapper-condition-operation"
             ></condition-operation>
           </a-form>
@@ -84,37 +86,10 @@
   import icon from '@/assets/auto/tiaojrw_icon@2x.png'
   const router = useRouter()
 
-  const dataSourceOptions = ref([
-    {
-      value: 1,
-      label: '1#罗茨风机'
-    },
-    {
-      value: 2,
-      label: '2#罗茨风机'
-    },
-    {
-      value: 3,
-      label: '循环水泵'
-    },
-
-    {
-      value: 4,
-      label: '紫外线杀菌灯'
-    },
-    {
-      value: 5,
-      label: '微型过滤机'
-    },
-    {
-      value: 6,
-      label: '微滤机喷水泵'
-    },
-    {
-      value: 7,
-      label: '电磁阀1'
-    }
-  ])
+  const options = use.useDeviceOptions()
+  const sensorOptions = use.useSensorOptions()
+  const conditionOptions = use.useConditionOptions()
+  const dataOptions = use.useDataOptions()
 
   const onSave = () => {
     console.log('onSave')

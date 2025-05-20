@@ -5,6 +5,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import legacy from '@vitejs/plugin-legacy'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { VantResolver } from '@vant/auto-import-resolver'
 
 // import { getThemeVariables } from 'ant-design-vue/dist/theme'
 
@@ -14,6 +16,12 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    AutoImport({
+      resolvers: [VantResolver()]
+    }),
+    Components({
+      resolvers: [VantResolver()]
+    }),
     // Components({
     //   resolvers: [VantResolver()]
     // }),
@@ -82,7 +90,10 @@ export default defineConfig({
           'input-icon-color': '#565761',
           'input-icon-hover-color': '#b4c1d4',
 
-          'checkbox-check-color': '#414a58'
+          'checkbox-check-color': '#414a58',
+          'van-border-color': 'rgba(218, 228, 229, 0.25)',
+          'primary-color-active': '#00E7FE',
+          'primary-color-hover': '#00E7FE'
         },
         javascriptEnabled: true
       }

@@ -60,4 +60,8 @@
     border-radius: 4px !important;
     color: #0c0c0c;
   }
+
+  .ant-form-item {
+    margin-bottom: 0 !important;
+  }
 </style>

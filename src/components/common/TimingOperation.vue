@@ -2,22 +2,22 @@
   <div :class="{ 'timing-operation': true, active: checkbox }">
     <div class="checkbox">
       <a-checkbox v-model:checked="checkbox"> </a-checkbox>
-      <span style="font-size: 18px; padding-left: 10px" @click.stop="checkbox = !checkbox"
-        >电机1</span
-      >
+      <span style="font-size: 18px; padding-left: 10px" @click.stop="checkbox = !checkbox">{{
+        item.text
+      }}</span>
     </div>
 
     <div class="item">
       <div class="label">开启时间</div>
       <div class="value">
-        <m-select placeholder="请选择开启时间" :options="[]" text-align="right"> </m-select>
+        <time-select v-model="form.start_time" placeholder="请选择开始时间"></time-select>
       </div>
     </div>
     <Line></Line>
     <div class="item">
       <div class="label">关闭时间</div>
       <div class="value">
-        <m-select placeholder="请选择关闭时间" :options="[]" text-align="right"> </m-select>
+        <time-select v-model="form.end_time" placeholder="请选择关闭时间"></time-select>
       </div>
     </div>
     <Line></Line>
@@ -26,6 +26,18 @@
 
 <script setup lang="ts">
   const checkbox = ref(false)
+
+  const props = defineProps({
+    item: PropTypes.shape({
+      text: PropTypes.string,
+      value: PropTypes.number
+    })
+  })
+
+  const form = ref({
+    start_time: '',
+    end_time: ''
+  })
 </script>
 
 <style lang="less" scoped>

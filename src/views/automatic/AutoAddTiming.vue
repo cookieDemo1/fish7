@@ -27,8 +27,9 @@
             <form-title>执行操作</form-title>
 
             <timing-operation
-              v-for="i in 7"
-              :key="i"
+              v-for="(item, index) in deviceOptions"
+              :key="index"
+              :item="item"
               class="wrapper-timing-operation"
             ></timing-operation>
           </a-form>
@@ -45,6 +46,8 @@
 <script setup lang="ts">
   import icon from '@/assets/auto/dingsrw_icon@2x.png'
   const router = useRouter()
+
+  const deviceOptions = use.useDeviceOptions()
 
   const dataOptions = [
     { label: '一', value: 1 },

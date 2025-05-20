@@ -2,15 +2,21 @@
   <div :class="{ 'loop-operation': true, active: checkbox }" @click.stop="checkbox = !checkbox">
     <div class="checkbox">
       <a-checkbox v-model:checked="checkbox"> </a-checkbox>
-      <span style="font-size: 18px; padding-left: 10px" @click.stop="checkbox = !checkbox"
-        >电机1</span
-      >
+      <span style="font-size: 18px; padding-left: 10px" @click.stop="checkbox = !checkbox">{{
+        item.text
+      }}</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
   const checkbox = ref(false)
+  const props = defineProps({
+    item: PropTypes.shape({
+      text: PropTypes.string,
+      value: PropTypes.number
+    })
+  })
 </script>
 
 <style lang="less" scoped>

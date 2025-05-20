@@ -15,14 +15,12 @@
               <div class="data-source">
                 <div class="label">开始时间</div>
                 <div class="value">
-                  <form-item>
-                    <m-select
+                  <a-form-item>
+                    <time-select
+                      v-model="form.start_time"
                       placeholder="请选择开始时间"
-                      :options="dataSourceOptions"
-                      text-align="right"
-                    >
-                    </m-select>
-                  </form-item>
+                    ></time-select>
+                  </a-form-item>
                 </div>
               </div>
               <Line></Line>
@@ -30,44 +28,59 @@
               <div class="data-source">
                 <div class="label">结束时间</div>
                 <div class="value">
-                  <form-item>
-                    <m-select
-                      placeholder="请选择结束时间"
-                      :options="dataSourceOptions"
-                      text-align="right"
-                    >
-                    </m-select>
-                  </form-item>
+                  <a-form-item>
+                    <time-select v-model="form.end_time" placeholder="请选择结束时间"></time-select>
+                  </a-form-item>
                 </div>
               </div>
               <Line></Line>
 
               <div class="data-source">
                 <div class="label">开启时长</div>
-                <div class="value">
-                  <form-item>
-                    <m-select
-                      placeholder="请选择开启时长"
-                      :options="dataSourceOptions"
-                      text-align="right"
-                    >
-                    </m-select>
-                  </form-item>
+                <div class="value-2">
+                  <div class="value-input">
+                    <a-form-item>
+                      <m-input-inner
+                        v-model="form.start_time_value"
+                        text-align="right"
+                        placeholder="请选择开启时长"
+                      ></m-input-inner>
+                    </a-form-item>
+                  </div>
+                  <div class="value-select">
+                    <a-form-item>
+                      <normal-select
+                        v-model="form.start_time_unit"
+                        :options="timeOptions"
+                        :visible-option-num="3"
+                      ></normal-select>
+                    </a-form-item>
+                  </div>
                 </div>
               </div>
               <Line></Line>
 
               <div class="data-source">
                 <div class="label">关闭时长</div>
-                <div class="value">
-                  <form-item>
-                    <m-select
-                      placeholder="请选择关闭时长"
-                      :options="dataSourceOptions"
-                      text-align="right"
-                    >
-                    </m-select>
-                  </form-item>
+                <div class="value-2">
+                  <div class="value-input">
+                    <a-form-item>
+                      <m-input-inner
+                        v-model="form.end_time_value"
+                        text-align="right"
+                        placeholder="请选择关闭时长"
+                      ></m-input-inner>
+                    </a-form-item>
+                  </div>
+                  <div class="value-select">
+                    <a-form-item>
+                      <normal-select
+                        v-model="form.end_time_unit"
+                        :options="timeOptions"
+                        :visible-option-num="3"
+                      ></normal-select>
+                    </a-form-item>
+                  </div>
                 </div>
               </div>
               <Line></Line>
@@ -75,14 +88,19 @@
               <div class="data-source">
                 <div class="label">循环时长</div>
                 <div class="value" style="text-align: right; font-size: 18px; font-weight: bold">
-                  --小时
+                  -- 小时
                 </div>
               </div>
             </form-card>
 
             <form-title>执行操作</form-title>
 
-            <loop-operation v-for="i in 7" :key="i" class="wrapper-loop-operation"></loop-operation>
+            <loop-operation
+              v-for="(item, index) in deviceOptions"
+              :key="index"
+              :item="item"
+              class="wrapper-loop-operation"
+            ></loop-operation>
           </a-form>
         </div>
       </div>
@@ -98,37 +116,17 @@
   import icon from '@/assets/auto/xunh_icon@2x.png'
   const router = useRouter()
 
-  const dataSourceOptions = ref([
-    {
-      value: 1,
-      label: '1#罗茨风机'
-    },
-    {
-      value: 2,
-      label: '2#罗茨风机'
-    },
-    {
-      value: 3,
-      label: '循环水泵'
-    },
+  const timeOptions = use.useTimeOptions()
+  const deviceOptions = use.useDeviceOptions()
 
-    {
-      value: 4,
-      label: '紫外线杀菌灯'
-    },
-    {
-      value: 5,
-      label: '微型过滤机'
-    },
-    {
-      value: 6,
-      label: '微滤机喷水泵'
-    },
-    {
-      value: 7,
-      label: '电磁阀1'
-    }
-  ])
+  const form = ref({
+    start_time: '',
+    end_time: '',
+    start_time_unit: 1,
+    start_time_value: '',
+    end_time_unit: 1,
+    end_time_value: ''
+  })
 
   const onSave = () => {
     console.log('onSave')
@@ -161,6 +159,19 @@
         }
         .value {
           width: 250px;
+        }
+
+        .value-2 {
+          width: 250px;
+          display: flex;
+
+          .value-input {
+            flex: 1;
+          }
+
+          .value-select {
+            width: 81px;
+          }
         }
       }
 

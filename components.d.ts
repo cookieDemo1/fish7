@@ -26,12 +26,15 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TaskCard: typeof import('./src/components/common/TaskCard.vue')['default']
+    TimePicker: typeof import('./src/components/common/TimePicker.vue')['default']
     TimeSelect: typeof import('./src/components/common/TimeSelect.vue')['default']
     TimingOperation: typeof import('./src/components/common/TimingOperation.vue')['default']
     TitleAuto: typeof import('./src/components/common/TitleAuto.vue')['default']
     TitleAutoInfo: typeof import('./src/components/common/TitleAutoInfo.vue')['default']
     VanDatetimeP: typeof import('vant/es')['DatetimeP']
     VanDatetimePicker: typeof import('vant/es')['DatetimePicker']
+    VanPicker: typeof import('vant/es')['Picker']
+    VanTimePicker: typeof import('vant/es')['TimePicker']
     WarningCard: typeof import('./src/components/common/WarningCard.vue')['default']
   }
 }

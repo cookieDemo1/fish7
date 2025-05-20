@@ -12,8 +12,9 @@
             <form-title style="margin-top: 15px">执行操作</form-title>
 
             <condition-operation
-              v-for="i in 7"
-              :key="i"
+              v-for="(item, index) in deviceOptions"
+              :key="index"
+              :item="item"
               class="wrapper-condition-operation"
             ></condition-operation>
           </a-form>
@@ -30,6 +31,8 @@
 <script setup lang="ts">
   import icon from '@/assets/auto/changjrw_icon@2x.png'
   const router = useRouter()
+
+  const deviceOptions = use.useDeviceOptions()
 
   const onSave = () => {
     console.log('onSave')

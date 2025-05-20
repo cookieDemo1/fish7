@@ -15,7 +15,6 @@
     ref="inputRef"
     v-model:value="value"
     class="m-input-inner m-input-number"
-    :allow-clear="true"
     v-bind="attrs"
   >
     <template v-for="name in Object.keys(slots)" #[name]>
@@ -27,7 +26,6 @@
     ref="inputRef"
     v-model:value="value"
     class="m-input-inner"
-    :allow-clear="true"
     v-bind="attrs"
     autocomplete="off"
   >
@@ -43,13 +41,14 @@
 
   const props = defineProps({
     type: PropTypes.oneOf(['input', 'number', 'password']).def('input'),
-    modelValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    modelValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    textAlign: PropTypes.oneOf(['left', 'center', 'right']).def('left')
   })
 
   const emit = defineEmits(['update:modelValue'])
 
   const inputRef = ref<HTMLInputElement>()
-
+  const textAlign = ref(props.textAlign)
   const value = computed({
     get: () => {
       return props.modelValue
@@ -68,37 +67,34 @@
 
 <style lang="less">
   .m-input-inner {
-    &.ant-input-affix-wrapper,
-    &.ant-input-affix-wrapper:hover {
-      line-height: 38px;
-      padding: 6px 0px;
-      background-color: #414a58;
-      border: none !important;
-      border-radius: 8px;
-      box-shadow: none !important;
-    }
+    // &.ant-input-affix-wrapper,
+    // &.ant-input-affix-wrapper:hover {
+    //   line-height: 38px;
+    //   padding: 6px 0px;
+    //   background-color: #414a58;
+    //   border: none !important;
+    //   border-radius: 8px;
+    //   box-shadow: none !important;
+    // }
 
-    .ant-input::placeholder {
+    &.ant-input::placeholder {
       color: #9a9a9a;
     }
 
-    .ant-input {
+    &.ant-input {
       &,
       &:hover {
+        text-align: v-bind(textAlign);
+        height: 50px;
+        line-height: 50px !important;
         font-size: 17px;
-        line-height: 38px !important;
         color: @textPrimaryColor !important;
         background-color: #414a58 !important;
         padding-left: 3px !important;
-      }
-      &-clear-icon {
-        color: @textPrimaryColor!important;
-        &:hover {
-          color: @textPrimaryColor!important;
-        }
-      }
-      &-suffix {
-        color: @textSubColor;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0;
       }
     }
 
