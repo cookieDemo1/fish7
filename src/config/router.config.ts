@@ -151,15 +151,6 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
           text: '返回'
         },
         component: () => import('@/views/automatic/WarningAdd.vue')
-      },
-      {
-        path: '/test',
-        name: 'test',
-        meta: {
-          title: '测试',
-          text: '返回'
-        },
-        component: () => import('@/views/Test.vue')
       }
     ]
   },

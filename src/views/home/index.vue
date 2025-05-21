@@ -2,7 +2,7 @@
   <div class="home">
     <a-row :gutter="[14, 14]">
       <a-col v-for="(item, index) in switchList" :key="index" :span="6">
-        <DeviceCard :item="item" @callback="() => getSwitch()" />
+        <DeviceCardMode :item="item" @callback="() => getSwitch()" />
       </a-col>
     </a-row>
     <div class="char">
@@ -12,7 +12,8 @@
 </template>
 
 <script setup lang="ts">
-  import DeviceCard from './DeviceCard.vue'
+  import DeviceCardMode from './DeviceCardMode.vue'
+
   import LineChar from './LineChar.vue'
 
   // switch是关键字需要重命名一下

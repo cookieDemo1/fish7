@@ -3,9 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --host --mode development --port 5000",
-    "build": "vue-tsc --noEmit --skipLibCheck && vite build --mode utek",
-    "build:utek": "vue-tsc --noEmit && vite build --mode utek",
+    "dev1": "vite --host --mode mode1 --port 5000",
+    "dev2": "vite --host --mode mode2 --port 5000",
+    "build1": "vue-tsc --noEmit --skipLibCheck && vite build --mode mode1",
+    "build2": "vue-tsc --noEmit --skipLibCheck && vite build --mode mode2",
     "preview": "vite preview",
     "serve": "vite preview --host",
     "lint": "eslint ./src --ext .vue,.js,.ts,.tsx",

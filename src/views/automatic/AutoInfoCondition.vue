@@ -1,6 +1,6 @@
 <template>
   <div class="auto-info-condition">
-    <operation class="more"></operation>
+    <operation class="more" title="条件任务"></operation>
     <card :padding="[28, 20, 20, 20]">
       <title-auto :icon="icon">自动循环水泵</title-auto>
       <Line style="margin-bottom: 24px"></Line>

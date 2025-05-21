@@ -5,6 +5,15 @@
     <div v-if="active" ref="operation" class="operation">
       <div class="text" @click="onEdit">修改</div>
       <div class="text" @click="onDelete">删除</div>
+
+      <modal-delete
+        :id="id"
+        v-model="showDelete"
+        :title="title"
+        @cancel="active = false"
+        @delete="onDelete"
+        @callback="handleDeleteCallback"
+      />
     </div>
   </div>
 </template>
@@ -17,16 +26,22 @@
   const active = ref(false)
   const props = defineProps({
     id: PropTypes.number.def(-1),
-    to: PropTypes.string.def('/')
+    to: PropTypes.string.def('/'),
+    title: PropTypes.string.def('')
   })
+
+  const showDelete = ref(false)
+
   const onEdit = () => {
     const path = props.to + '/' + props.id
     router.push(path)
   }
 
   const onDelete = () => {
-    message.success('删除成功')
-    console.log('delete: ', props.id)
+    showDelete.value = true
+  }
+  const handleDeleteCallback = () => {
+    // 删除成功发出去给父组件，重新获取数据
   }
 
   const top = ref(false)
@@ -50,6 +65,7 @@
 
   const handleClickOutside = (event) => {
     if (flag) return (flag = false)
+    if (showDelete.value) return
     if (operation.value && !operation.value.contains(event.target)) {
       active.value = false
     }

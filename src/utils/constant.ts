@@ -28,7 +28,14 @@ import dcfOffline from '@/assets/status/kaiguanlx_icon@2x.png'
 import dcfOn from '@/assets/status/kaiguankai_icon@2x.png'
 import dcfOff from '@/assets/status/kaiguangb_icon@2x.png'
 
-export const imgMap = {
+import xsbIcon from '@/assets/gaoycxb_img@2x.png'
+import kgIcon from '@/assets/kaiguan_img2@2x.png'
+import kgOffline from '@/assets/status/kaiguanlx_icon@2x.png'
+import kgOn from '@/assets/status/kaiguankai_icon@2x.png'
+import kgOff from '@/assets/status/kaiguangb_icon@2x.png'
+export const mode = import.meta.env.VITE_APP_MODE
+
+export const imgMap1 = {
   1: {
     icon: fjIcon,
     0: fjOffline, // 0离线
@@ -79,3 +86,67 @@ export const imgMap = {
     name: '蛋分机'
   }
 }
+
+export const imgMap2 = {
+  1: {
+    icon: fjIcon,
+    0: xhsbOffline, // 0离线
+    1: xhsbOn, // 1开
+    2: xhsbOff, // 2关
+    name: '回水泵',
+    isFrequency: true
+  },
+  2: {
+    icon: fjIcon,
+    0: fjOffline, // 0离线
+    1: fjOn, // 1开
+    2: fjOff, // 2关
+    name: '溶氧锥泵'
+  },
+  3: {
+    icon: kgIcon,
+    0: kgOffline, // 0离线
+    1: kgOn, // 1开
+    2: kgOff, // 2关
+    name: '备用380V'
+  },
+  4: {
+    icon: sjdIcon,
+    0: sjdOffline, // 0离线
+    1: sjdOn, // 1开
+    2: sjdOff, // 2关
+    name: '鱼苗训练灯'
+  },
+  5: {
+    icon: gljIcon,
+    0: gljOffline, // 0离线
+    1: gljOn, // 1开
+    2: gljOff, // 2关
+    name: '微型过滤机'
+  },
+  6: {
+    icon: xsbIcon,
+    0: kgOffline, // 0离线
+    1: kgOn, // 1开
+    2: kgOff, // 2关
+    name: '微滤机冲洗水泵'
+  },
+  7: {
+    icon: dcfIcon,
+    0: dcfOffline, // 0离线
+    1: dcfOn, // 1开
+    2: dcfOff, // 2关
+    name: '电磁阀24V'
+  },
+  8: {
+    icon: kgIcon,
+    0: kgOffline, // 0离线
+    1: kgOn, // 1开
+    2: kgOff, // 2关
+    name: '告警提示'
+  }
+}
+
+console.log(mode)
+
+export const imgMap = mode === 'mode1' ? imgMap1 : imgMap2

@@ -6,7 +6,7 @@
     </div>
     <div class="condition">触发条件：温度 &gt; 40</div>
     <div class="condition">恢复条件：温度 &lt; 3</div>
-    <operation :id="1" to="/warning"></operation>
+    <operation :id="1" to="/warning" title="告警设置"></operation>
   </div>
 </template>
 
