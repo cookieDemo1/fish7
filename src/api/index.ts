@@ -16,6 +16,14 @@ export const requestApi = {
   freq: {
     url: () => '/api/red/freq',
     methods: ['POST']
+  },
+  taskList: {
+    url: () => '/api/red/auto/tasks',
+    methods: ['GET']
+  },
+  warningList: {
+    url: () => '/api/red/auto/warn',
+    methods: ['GET']
   }
 }
 type METHODS = 'GET' | 'POST' | 'PUT' | 'DELETE'

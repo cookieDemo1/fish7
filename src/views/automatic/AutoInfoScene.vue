@@ -1,6 +1,6 @@
 <template>
   <div class="auto-info-scene">
-    <operation class="more" title="场景任务"></operation>
+    <!-- <operation class="more" title="场景任务"></operation> -->
 
     <card :padding="[28, 20, 20, 20]">
       <title-auto :icon="icon">一键浇水</title-auto>

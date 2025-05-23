@@ -33,6 +33,10 @@ import kgIcon from '@/assets/kaiguan_img2@2x.png'
 import kgOffline from '@/assets/status/kaiguanlx_icon@2x.png'
 import kgOn from '@/assets/status/kaiguankai_icon@2x.png'
 import kgOff from '@/assets/status/kaiguangb_icon@2x.png'
+
+import fqOn from '@/assets/status/fuqiukg_kai@2x.png'
+import fqOff from '@/assets/status/fuqiukg_guan@2x.png'
+
 export const mode = import.meta.env.VITE_APP_MODE
 
 export const imgMap1 = {
@@ -144,6 +148,13 @@ export const imgMap2 = {
     1: kgOn, // 1开
     2: kgOff, // 2关
     name: '告警提示'
+  },
+  9: {
+    icon: kgIcon,
+    0: fqOff, // 0离线
+    1: fqOn, // 1开
+    2: kgOff, // 2关
+    name: '悬浮球开关'
   }
 }
 

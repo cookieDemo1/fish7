@@ -1,6 +1,6 @@
 <template>
   <div class="auto-info-timing">
-    <operation class="more" title="定时任务"></operation>
+    <!-- <operation class="more" title="定时任务"></operation> -->
 
     <card :padding="[28, 20, 20, 20]">
       <title-auto :icon="icon">2米鱼池定时杀菌</title-auto>

@@ -1,19 +1,41 @@
 <template>
   <div class="home">
-    <a-row :gutter="[14, 14]">
-      <a-col v-for="(item, index) in switchList" :key="index" :span="6">
-        <DeviceCardMode :item="item" @callback="() => getSwitch()" />
-      </a-col>
-    </a-row>
+    <template v-if="mode === 'mode1'">
+      <div class="wrapper" style="padding: 0 24px">
+        <a-row :gutter="[14, 14]">
+          <a-col v-for="(item, index) in switchList" :key="index" :span="6">
+            <DeviceCardMode :item="item" @callback="() => getSwitch()" />
+          </a-col>
+        </a-row>
+      </div>
+    </template>
+    <template v-else>
+      <div class="wrapper-slider">
+        <div class="slider">
+          <!-- a-row放不了一行五个 -->
+          <div class="row">
+            <div v-for="(item, index) in switchList.slice(0, 5)" :key="'col1' + index" class="col">
+              <DeviceCardMode2 :item="item" @callback="() => getSwitch()"></DeviceCardMode2>
+            </div>
+          </div>
+          <div class="row">
+            <div v-for="(item, index) in switchList.slice(5)" :key="'col2' + index" class="col">
+              <DeviceCardMode2 :item="item" @callback="() => getSwitch()"></DeviceCardMode2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
     <div class="char">
-      <LineChar />
+      <!-- <LineChar /> -->
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
   import DeviceCardMode from './DeviceCardMode.vue'
-
+  import DeviceCardMode2 from './DeviceCardMode2.vue'
+  const mode = constant.mode
   import LineChar from './LineChar.vue'
 
   // switch是关键字需要重命名一下
@@ -23,7 +45,6 @@
   const switchList = ref([])
 
   watch(switchState, (val) => {
-    console.log(val)
     switchList.value = val
   })
 </script>
@@ -31,6 +52,41 @@
 <style lang="less" scoped>
   .home {
     .char {
+      margin-top: 12px;
+      padding: 0 24px;
+    }
+
+    .wrapper-slider {
+      width: 1024px;
+      overflow-x: scroll;
+      /* 隐藏滚动条 */
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE 和 Edge */
+
+      .slider {
+        padding: 0 24px;
+        width: 1626px;
+        overflow: visible;
+      }
+    }
+    .wrapper-slider::-webkit-scrollbar {
+      display: none; /* Chrome, Safari 和 Opera */
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: nowrap;
+
+      .col {
+        width: 306px;
+        flex-shrink: 0;
+      }
+      .col + .col {
+        margin-left: 12px;
+      }
+    }
+
+    .row + .row {
       margin-top: 12px;
     }
   }

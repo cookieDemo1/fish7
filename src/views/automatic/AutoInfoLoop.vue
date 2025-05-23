@@ -1,6 +1,6 @@
 <template>
   <div class="auto-info-loop">
-    <operation class="more" title="循环任务"></operation>
+    <!-- <operation class="more" title="循环任务"></operation> -->
 
     <card :padding="[28, 20, 20, 20]">
       <title-auto :icon="icon">循环增氧</title-auto>

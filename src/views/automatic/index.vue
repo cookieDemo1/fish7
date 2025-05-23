@@ -4,7 +4,8 @@
       <div class="container">
         <div class="title">
           <span>执行任务</span>
-          <img class="add-icon" src="@/assets/auto/tianjia_icon@2x.png" alt="" @click="addTast" />
+          <!-- 添加先隐藏 -->
+          <!-- <img class="add-icon" src="@/assets/auto/tianjia_icon@2x.png" alt="" @click="addTast" /> -->
         </div>
         <div class="content">
           <template v-if="false">
@@ -44,12 +45,13 @@
       <div class="container">
         <div class="title">
           <span>数据告警</span>
-          <img
+          <!-- 添加先隐藏 -->
+          <!-- <img
             class="add-icon"
             src="@/assets/auto/tianjia_icon@2x.png"
             alt=""
             @click="addWarning"
-          />
+          /> -->
         </div>
         <div class="content">
           <template v-if="false">
@@ -71,6 +73,16 @@
 
 <script setup lang="ts">
   const router = useRouter()
+
+  const {
+    warningList,
+    getWarningList,
+    loading: warningLoading
+  } = use.useMainStateAction('warningList')
+
+  const { taskList, getTaskList, loading: taskLoading } = use.useMainStateAction('taskList')
+  getWarningList()
+  getTaskList()
   const addTast = () => {
     router.push('/auto-add-overview')
   }

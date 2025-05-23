@@ -2,7 +2,7 @@
   <section class="main-layout">
     <header-bar></header-bar>
 
-    <main class="main">
+    <main class="main" :class="{ padding: isHome }">
       <router-view />
     </main>
   </section>
@@ -10,6 +10,18 @@
 
 <script setup lang="ts">
   import HeaderBar from './HeaderBar.vue'
+
+  const route = useRoute()
+  const isHome = ref(false)
+  watch(
+    route,
+    () => {
+      isHome.value = route.path === '/home'
+    },
+    {
+      immediate: true
+    }
+  )
 </script>
 
 <style scoped lang="less">
@@ -47,6 +59,10 @@
       overflow-x: hidden;
       overflow-y: auto;
       padding: 12px 24px;
+
+      &.padding {
+        padding: 12px 0;
+      }
     }
   }
 </style>
