@@ -13,7 +13,7 @@
     <div :class="{ info: true, center: item.freq == '-1' }">
       <div class="name">
         <!-- 设备没有离线状态 -->
-        <span v-if="item.status == 0" class="offline">离线</span>
+        <!-- <span v-if="item.status == 0" class="offline">离线</span> -->
         <span class="name-text">{{ item.name }}</span>
       </div>
       <div v-if="item.freq != '-1'" class="wrapper-icon">
@@ -126,8 +126,8 @@
           background-color: @primaryColor;
         }
         img {
-          width: 32px;
-          height: 32px;
+          width: 46px;
+          height: 46px;
           animation: rotate360 1.6s infinite linear;
         }
       }

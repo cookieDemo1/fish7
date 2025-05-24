@@ -2,47 +2,77 @@
   <div class="auto-index">
     <card class="task">
       <div class="container">
+        <m-loading :loading="taskLoading" tip="加载中..." :full="false"></m-loading>
         <div class="title">
           <span>执行任务</span>
           <!-- 添加先隐藏 -->
           <!-- <img class="add-icon" src="@/assets/auto/tianjia_icon@2x.png" alt="" @click="addTast" /> -->
         </div>
         <div class="content">
-          <template v-if="false">
-            <empty>未设置执行任务</empty>
-          </template>
-          <template v-else>
-            <div class="task-title">场景任务</div>
-            <a-row :gutter="[12, 12]">
-              <a-col v-for="i in 5" :key="i" :span="12">
-                <task-card>一键过滤过滤过滤过滤过滤过滤过滤过滤</task-card>
-              </a-col>
-            </a-row>
-            <div class="task-title" style="margin-top: 20px">定时任务</div>
-            <a-row :gutter="[12, 12]">
-              <a-col v-for="i in 5" :key="i" :span="12">
-                <task-card :type="2">一键过滤过滤过滤过滤过滤过滤过滤过滤</task-card>
-              </a-col>
-            </a-row>
+          <template
+            v-if="
+              !taskLoading &&
+              (taskList?.sense?.length ||
+                taskList?.timer?.length ||
+                taskList?.condition?.length ||
+                taskList?.circulation?.length)
+            "
+          >
+            <template v-if="taskList?.sense?.length">
+              <div class="task-title">场景任务</div>
+              <a-row :gutter="[12, 12]">
+                <a-col v-for="(item, index) in taskList.sense" :key="index" :span="12">
+                  <task-card :item="item" :type="1">{{ item.name }}</task-card>
+                </a-col>
+              </a-row>
+            </template>
+            <template v-if="taskList?.timer?.length">
+              <div class="task-title" style="margin-top: 20px">定时任务</div>
+              <a-row :gutter="[12, 12]">
+                <a-col v-for="(item, index) in taskList.timer" :key="index" :span="12">
+                  <task-card :item="item" :type="2">{{ item.name }}</task-card>
+                </a-col>
+              </a-row>
+            </template>
 
-            <div class="task-title" style="margin-top: 20px">条件任务</div>
-            <a-row :gutter="[12, 12]">
-              <a-col v-for="i in 5" :key="i" :span="12">
-                <task-card :type="3">一键过滤过滤过滤过滤过滤过滤过滤过滤</task-card>
-              </a-col>
-            </a-row>
-            <div class="task-title" style="margin-top: 20px">循环任务</div>
-            <a-row :gutter="[12, 12]">
-              <a-col v-for="i in 5" :key="i" :span="12">
-                <task-card :type="4">一键过滤过滤过滤过滤过滤过滤过滤过滤</task-card>
-              </a-col>
-            </a-row>
+            <template v-if="taskList?.condition?.length">
+              <div class="task-title" style="margin-top: 20px">条件任务</div>
+              <a-row :gutter="[12, 12]">
+                <a-col v-for="(item, index) in taskList.condition" :key="index" :span="12">
+                  <task-card :item="item" :type="3">{{ item.name }}</task-card>
+                </a-col>
+              </a-row>
+            </template>
+
+            <template v-if="taskList?.circulation?.length">
+              <div class="task-title" style="margin-top: 20px">循环任务</div>
+              <a-row :gutter="[12, 12]">
+                <a-col v-for="(item, index) in taskList.circulation" :key="index" :span="12">
+                  <task-card :item="item" :type="4">{{ item.name }}</task-card>
+                </a-col>
+              </a-row>
+            </template>
+          </template>
+          <template
+            v-if="
+              !taskLoading &&
+              !(
+                taskList?.sense?.length ||
+                taskList?.timer?.length ||
+                taskList?.condition?.length ||
+                taskList?.circulation?.length
+              )
+            "
+          >
+            <empty>未设置执行任务</empty>
           </template>
         </div>
       </div>
     </card>
     <card class="warning">
       <div class="container">
+        <m-loading :loading="warningLoading" tip="加载中..." :full="false"></m-loading>
+
         <div class="title">
           <span>数据告警</span>
           <!-- 添加先隐藏 -->
@@ -54,16 +84,34 @@
           /> -->
         </div>
         <div class="content">
-          <template v-if="false">
-            <empty>未设置数据告警</empty>
-          </template>
-          <template v-else>
+          <!-- 
+          {
+    "id": 2,
+    "sensor_id": null,
+    "warn_id": null,
+    "triggering": {
+        "arg": "ph",
+        "compare": "=",
+        "value": "20.0"
+    },
+    "recovery": {
+        "arg": "ph",
+        "compare": "=",
+        "value": "30.0"
+    }
+}
+          -->
+          <template v-if="warningList?.list?.length && !warningLoading">
             <warning-card
-              v-for="i in 5"
-              :key="i"
+              v-for="(item, index) in warningList.list"
+              :key="index"
+              :item="item"
               class="warning-wrap-card"
-              title="溶解氧+水温+PH传感器"
+              title="溶解氧+温度+PH 三合一传感器"
             ></warning-card>
+          </template>
+          <template v-if="!warningList?.list?.length && !warningLoading">
+            <empty>未设置数据告警</empty>
           </template>
         </div>
       </div>
@@ -83,12 +131,26 @@
   const { taskList, getTaskList, loading: taskLoading } = use.useMainStateAction('taskList')
   getWarningList()
   getTaskList()
+
+  watch(warningList, () => {
+    console.log('warningList', warningList.value)
+  })
+
+  watch(taskList, () => {
+    console.log('taskList', taskList.value)
+  })
   const addTast = () => {
     router.push('/auto-add-overview')
   }
 
   const addWarning = () => {
     router.push('/warning-add')
+  }
+
+  const warninOption = {
+    oxygen: '溶解氧',
+    temp: '温度',
+    ph: 'PH'
   }
 </script>
 
@@ -117,6 +179,7 @@
     .container {
       // display: flex;
       // flex-direction: column;
+      position: relative;
 
       height: 100%;
       .title {

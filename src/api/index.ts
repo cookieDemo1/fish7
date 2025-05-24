@@ -1,4 +1,5 @@
 import request, { BaseResponse } from '@/api/request'
+import { exec } from 'child_process'
 
 export const requestApi = {
   switch: {
@@ -24,6 +25,10 @@ export const requestApi = {
   warningList: {
     url: () => '/api/red/auto/warn',
     methods: ['GET']
+  },
+  executeTask: {
+    url: () => '/api/red/auto/sceneExec',
+    methods: ['POST']
   }
 }
 type METHODS = 'GET' | 'POST' | 'PUT' | 'DELETE'

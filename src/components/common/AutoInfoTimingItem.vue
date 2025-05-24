@@ -4,9 +4,9 @@
     <div class="info">
       <div class="name">{{ name }}</div>
       <div class="value">
-        <span>08:00:00 开启</span>
+        <span>{{ item.on || '--' }} 开启</span>
         <span class="split">|</span>
-        <span>20:00:00 关闭</span>
+        <span>{{ item.off || '--' }} 关闭</span>
       </div>
     </div>
   </div>
@@ -15,8 +15,9 @@
 <script setup lang="ts">
   const imgMap = constant.imgMap
   const props = defineProps({
-    type: PropTypes.number.isRequired,
-    name: PropTypes.string.def('')
+    type: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    name: PropTypes.string.def(''),
+    item: PropTypes.any.def({})
   })
 </script>
 

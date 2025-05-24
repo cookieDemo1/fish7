@@ -4,13 +4,18 @@
       <img class="icon" :src="imgMap[type].icon" alt="" />
       <div class="name">{{ name }}</div>
     </div>
-    <div v-if="status !== undefined" class="status">
-      <span v-if="status === 1" class="status-item on">开启</span>
-      <span v-if="status === 2" class="status-item off">关闭</span>
-      <span v-if="status === 3" class="status-item failed">失败</span>
+    <div v-if="result[index] !== undefined" class="status">
+      <span v-if="result[index] === true && successValue === true" class="status-item on"
+        >开启</span
+      >
+      <span v-if="result[index] === true && successValue === false" class="status-item off"
+        >关闭</span
+      >
+      <span v-if="result[index] === false" class="status-item off">关闭</span>
+      <!-- <span v-if="status === 3" class="status-item failed">失败</span>
       <span v-if="status === 0" class="status-item loading">
         <indicator></indicator>
-      </span>
+      </span> -->
     </div>
   </div>
 </template>
@@ -34,9 +39,12 @@
   })
   const imgMap = constant.imgMap
   const props = defineProps({
-    type: PropTypes.number.isRequired,
+    type: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     name: PropTypes.string.def(''),
-    status: PropTypes.number.def(undefined)
+    index: PropTypes.number.def(0),
+    result: PropTypes.array.def([]),
+    successValue: PropTypes.bool.def(true)
+    // status: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).def(undefined)
   })
 </script>
 

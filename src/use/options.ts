@@ -24,15 +24,15 @@ export const useDataOptions = () => {
   const options = [
     {
       text: '溶解氧',
-      value: 1
+      value: 'oxygen'
     },
     {
       text: '温度',
-      value: 2
+      value: 'temp'
     },
     {
       text: 'PH',
-      value: 3
+      value: 'ph'
     }
   ]
   return options
@@ -52,15 +52,15 @@ export const useConditionOptions = () => {
   const options = [
     {
       text: '＞',
-      value: 1
+      value: '>'
     },
     {
       text: '＝',
-      value: 2
+      value: '='
     },
     {
       text: '＜',
-      value: 3
+      value: '<'
     }
   ]
   return options

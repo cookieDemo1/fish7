@@ -2,7 +2,7 @@
   <div :key="storeRefresh.radom" class="screen">
     <a-config-provider :locale="locale" :auto-insert-space-in-button="false">
       <template #renderEmpty>
-        <m-empty></m-empty>
+        <empty></empty>
       </template>
       <router-view />
     </a-config-provider>
@@ -63,5 +63,9 @@
 
   .ant-form-item {
     margin-bottom: 0 !important;
+  }
+
+  .ant-form-item-explain-error {
+    color: #fb6051 !important;
   }
 </style>

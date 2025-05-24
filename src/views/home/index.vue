@@ -27,7 +27,7 @@
       </div>
     </template>
     <div class="char">
-      <!-- <LineChar /> -->
+      <LineChar />
     </div>
   </div>
 </template>
@@ -35,8 +35,9 @@
 <script setup lang="ts">
   import DeviceCardMode from './DeviceCardMode.vue'
   import DeviceCardMode2 from './DeviceCardMode2.vue'
-  const mode = constant.mode
   import LineChar from './LineChar.vue'
+
+  const mode = constant.mode
 
   // switch是关键字需要重命名一下
   const { getSwitch, switch: switchState } = use.useMainStateAction('switch')

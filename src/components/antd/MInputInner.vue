@@ -67,16 +67,28 @@
 
 <style lang="less">
   .m-input-inner {
-    // &.ant-input-affix-wrapper,
-    // &.ant-input-affix-wrapper:hover {
-    //   line-height: 38px;
-    //   padding: 6px 0px;
-    //   background-color: #414a58;
-    //   border: none !important;
-    //   border-radius: 8px;
-    //   box-shadow: none !important;
-    // }
-
+    &.ant-input-number {
+      height: 50px;
+      line-height: 50px;
+      border: none !important;
+      border-radius: 0;
+      width: 100%;
+      background: transparent !important;
+      outline: none !important;
+      box-shadow: none !important;
+      .ant-input-number-input,
+      .ant-input-number-input :hover {
+        padding: 0 0 0 3px;
+        border-radius: 0;
+        height: 50px;
+        line-height: 50px !important;
+        font-size: 17px;
+        color: @textPrimaryColor !important;
+        &::placeholder {
+          color: #9a9a9a;
+        }
+      }
+    }
     &.ant-input::placeholder {
       color: #9a9a9a;
     }
@@ -119,4 +131,10 @@
   .m-input-number {
     width: 100%;
   }
+
+  // .ant-form-item-has-error .ant-input-number,
+  // .ant-form-item-has-error .ant-picker {
+  //   background-color: none !important;
+  //   border: none !important;
+  // }
 </style>

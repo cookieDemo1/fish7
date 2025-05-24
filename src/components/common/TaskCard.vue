@@ -15,10 +15,12 @@
   import Loop from '@/assets/auto/xunh_icon@2x.png'
 
   const props = defineProps({
-    type: PropTypes.number.def(1)
+    type: PropTypes.number.def(1),
+    item: PropTypes.any.def({})
   })
 
   const router = useRouter()
+  const { setItem } = store.useItemStore()
 
   const iconMap = {
     1: { icon: Scene, path: '/auto-info-scene' },
@@ -29,6 +31,7 @@
 
   const gotoPage = () => {
     const path = iconMap[props.type].path
+    setItem(props.item)
     router.push(path)
   }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div v-if="loading" class="loading-wrapper">
-    <a-spin tip="操作中..." :indicator="indicator"></a-spin>
+    <a-spin :tip="$props.tip" :indicator="indicator"></a-spin>
   </div>
 </template>
 
@@ -8,8 +8,12 @@
   import { LoadingOutlined } from '@ant-design/icons-vue'
 
   const props = defineProps({
-    loading: PropTypes.bool.isRequired
+    loading: PropTypes.bool.isRequired,
+    full: PropTypes.bool.def(true),
+    tip: PropTypes.string.def('操作中...')
   })
+
+  const position = ref(props.full ? 'fixed' : 'absolute')
 
   const indicator = defineComponent({
     render() {
@@ -27,7 +31,7 @@
 
 <style lang="less" scoped>
   .loading-wrapper {
-    position: fixed;
+    position: v-bind(position);
     top: 0;
     right: 0;
     bottom: 0;

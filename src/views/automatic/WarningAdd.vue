@@ -4,93 +4,97 @@
       <title-auto :icon="icon">数据告警-新增</title-auto>
       <div class="wrapper">
         <div class="form">
-          <a-form>
+          <a-form ref="formRef" :model="formData" :rules="rules">
             <form-card>
-              <div class="data-source" style="margin-top: -10px">
-                <div class="label">传感器</div>
-                <div class="value">
-                  <a-form-item>
+              <a-form-item name="sensor">
+                <div class="data-source" style="margin-top: -10px">
+                  <div class="label">传感器</div>
+                  <div class="value">
                     <normal-select
+                      v-model="formData.sensor"
                       :visible-option-num="3"
                       placeholder="请选择传感器"
                       :options="sensorOptions"
                     ></normal-select>
-                  </a-form-item>
+                  </div>
                 </div>
-              </div>
-              <Line></Line>
+
+                <Line></Line>
+              </a-form-item>
 
               <div class="inner-title">触发条件</div>
-
-              <div class="condition">
-                <div class="condition-item">
-                  <a-form-item>
+              <a-form-item name="compare1">
+                <div class="condition">
+                  <div class="condition-item">
                     <normal-select
+                      v-model="formData.recovery.arg"
                       text-align="left"
                       :visible-option-num="3"
                       placeholder="请选择"
                       :options="dataOptions"
                     ></normal-select>
-                  </a-form-item>
-                  <Line></Line>
-                  <div class="tip">数据</div>
-                </div>
-                <div class="condition-item">
-                  <a-form-item>
+                    <Line></Line>
+                    <div class="tip">数据</div>
+                  </div>
+                  <div class="condition-item">
                     <normal-select
+                      v-model="formData.triggering.compare"
                       text-align="left"
                       :visible-option-num="3"
                       placeholder="请选择"
                       :options="conditionOptions"
                     ></normal-select>
-                  </a-form-item>
-                  <Line></Line>
-                  <div class="tip">关系</div>
+                    <Line></Line>
+                    <div class="tip">关系</div>
+                  </div>
+                  <div class="condition-item">
+                    <m-input-inner
+                      v-model="formData.triggering.value"
+                      placeholder="请输入"
+                      type="number"
+                    ></m-input-inner>
+                    <Line></Line>
+                    <div class="tip">值</div>
+                  </div>
                 </div>
-                <div class="condition-item">
-                  <a-form-item>
-                    <m-input-inner placeholder="请输入"></m-input-inner>
-                  </a-form-item>
-                  <Line></Line>
-                  <div class="tip">值</div>
-                </div>
-              </div>
+              </a-form-item>
 
               <div class="inner-title">恢复条件</div>
-
-              <div class="condition">
-                <div class="condition-item">
-                  <a-form-item>
+              <a-form-item name="compare2">
+                <div class="condition">
+                  <div class="condition-item">
                     <normal-select
+                      v-model="formData.recovery.arg"
                       text-align="left"
                       :visible-option-num="3"
                       placeholder="请选择"
                       :options="dataOptions"
                     ></normal-select>
-                  </a-form-item>
-                  <Line></Line>
-                  <div class="tip">数据</div>
-                </div>
-                <div class="condition-item">
-                  <a-form-item>
+
+                    <Line></Line>
+                    <div class="tip">数据</div>
+                  </div>
+                  <div class="condition-item">
                     <normal-select
+                      v-model="formData.recovery.compare"
                       text-align="left"
                       :visible-option-num="3"
                       placeholder="请选择"
                       :options="conditionOptions"
                     ></normal-select>
-                  </a-form-item>
-                  <Line></Line>
-                  <div class="tip">关系</div>
+                    <Line></Line>
+                    <div class="tip">关系</div>
+                  </div>
+                  <div class="condition-item">
+                    <m-input-inner
+                      v-model="formData.recovery.value"
+                      placeholder="请输入"
+                    ></m-input-inner>
+                    <Line></Line>
+                    <div class="tip">值</div>
+                  </div>
                 </div>
-                <div class="condition-item">
-                  <a-form-item>
-                    <m-input-inner placeholder="请输入"></m-input-inner>
-                  </a-form-item>
-                  <Line></Line>
-                  <div class="tip">值</div>
-                </div>
-              </div>
+              </a-form-item>
             </form-card>
           </a-form>
         </div>
@@ -103,16 +107,103 @@
 </template>
 
 <script setup lang="ts">
+  import { message } from 'ant-design-vue'
   import icon from '@/assets/auto/shujgj_icon@2x.png'
   const router = useRouter()
 
-  const deviceOptions = use.useDeviceOptions()
   const sensorOptions = use.useSensorOptions()
   const conditionOptions = use.useConditionOptions()
   const dataOptions = use.useDataOptions()
-  const onSave = () => {
-    console.log('onSave')
+
+  const formRef = ref(null)
+  const formData = ref<any>({
+    sensor: 1,
+    triggering: {
+      arg: '',
+      compare: '',
+      value: ''
+    },
+    recovery: {
+      arg: '',
+      compare: '',
+      value: ''
+    }
+  })
+
+  watch(
+    () => formData.value.triggering.arg,
+    (newVal) => {
+      formData.value.recovery.arg = newVal
+    }
+  )
+
+  watch(
+    () => formData.value.recovery.arg,
+    (newVal) => {
+      formData.value.triggering.arg = newVal
+    }
+  )
+
+  const rules = {
+    sensor: [{ required: true, message: '请选择传感器', trigger: 'change' }],
+    compare1: [
+      {
+        validator: (rule, value) => {
+          if (!formData.value.triggering.arg) {
+            return Promise.reject('请选择数据')
+          }
+          if (!formData.value.triggering.compare) {
+            return Promise.reject('请选择触发条件关系')
+          }
+          if (!formData.value.triggering.value) {
+            return Promise.reject('请输入触发条件值')
+          }
+          return Promise.resolve()
+        },
+        trigger: []
+      }
+    ],
+    compare2: [
+      {
+        validator: (rule, value) => {
+          if (!formData.value.recovery.arg) {
+            return Promise.reject('请选择数据')
+          }
+          if (!formData.value.recovery.compare) {
+            return Promise.reject('请选择恢复条件关系')
+          }
+          if (!formData.value.recovery.value) {
+            return Promise.reject('请输入恢复条件值')
+          }
+          return Promise.resolve()
+        },
+        trigger: []
+      }
+    ]
   }
+
+  const onSave = () => {
+    formRef.value
+      .validate()
+      .then((res) => {
+        const payload = { ...formData.value }
+        console.log('payload', payload)
+      })
+      .catch((err) => {
+        console.log('catch')
+        message.error('请输入正确的数据')
+      })
+  }
+
+  watch(
+    formData,
+    () => {
+      formRef.value.clearValidate()
+    },
+    {
+      deep: true
+    }
+  )
 </script>
 
 <style lang="less" scoped>
@@ -140,7 +231,7 @@
           font-size: 18px;
         }
         .value {
-          width: 250px;
+          width: 280px;
         }
       }
 
