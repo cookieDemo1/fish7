@@ -4,19 +4,22 @@
       <title-auto :icon="icon">场景任务-新增</title-auto>
       <div class="wrapper">
         <div class="form">
-          <a-form>
-            <a-form-item>
-              <m-input placeholder="请输入任务名称"></m-input>
-            </a-form-item>
+          <a-form ref="formRef" :model="formData" :rules="rules">
+            <!-- {{ formData }} -->
+            <m-form-item name="name">
+              <m-input v-model="formData.name" placeholder="请输入任务名称"></m-input>
+            </m-form-item>
 
             <form-title style="margin-top: 15px">执行操作</form-title>
-
-            <condition-operation
-              v-for="(item, index) in deviceOptions"
-              :key="index"
-              :item="item"
-              class="wrapper-condition-operation"
-            ></condition-operation>
+            <m-form-item name="switch">
+              <condition-operation
+                v-for="(item, index) in deviceOptions"
+                :key="index"
+                :item="item"
+                class="wrapper-condition-operation"
+                @change="handleChange"
+              ></condition-operation>
+            </m-form-item>
           </a-form>
         </div>
       </div>
@@ -29,13 +32,46 @@
 </template>
 
 <script setup lang="ts">
+  import { message } from 'ant-design-vue'
   import icon from '@/assets/auto/changjrw_icon@2x.png'
   const router = useRouter()
 
   const deviceOptions = use.useDeviceOptions()
+  const formRef = ref(null)
+
+  const formData = ref({
+    name: '',
+    switch: []
+  })
+
+  const handleChange = (key, value) => {}
+
+  const rules = {
+    name: [{ required: true, message: '请输入任务名称', trigger: 'blur' }],
+    switch: [
+      {
+        validator: (rule, value) => {
+          if (!formData.value.switch.length) {
+            return Promise.reject('请选择执行操作')
+          }
+        },
+        message: '请选择执行操作',
+        trigger: ''
+      }
+    ]
+  }
 
   const onSave = () => {
-    console.log('onSave')
+    formRef.value
+      .validate()
+      .then((res) => {
+        const payload = { ...formData.value }
+        console.log('payload', payload)
+      })
+      .catch((err) => {
+        console.log('catch')
+        message.error('请输入正确的数据')
+      })
   }
 </script>
 

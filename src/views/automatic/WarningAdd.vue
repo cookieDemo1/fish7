@@ -6,7 +6,7 @@
         <div class="form">
           <a-form ref="formRef" :model="formData" :rules="rules">
             <form-card>
-              <a-form-item name="sensor">
+              <m-form-item name="sensor">
                 <div class="data-source" style="margin-top: -10px">
                   <div class="label">传感器</div>
                   <div class="value">
@@ -20,10 +20,10 @@
                 </div>
 
                 <Line></Line>
-              </a-form-item>
+              </m-form-item>
 
               <div class="inner-title">触发条件</div>
-              <a-form-item name="compare1">
+              <m-form-item name="compare1">
                 <div class="condition">
                   <div class="condition-item">
                     <normal-select
@@ -57,10 +57,10 @@
                     <div class="tip">值</div>
                   </div>
                 </div>
-              </a-form-item>
+              </m-form-item>
 
               <div class="inner-title">恢复条件</div>
-              <a-form-item name="compare2">
+              <m-form-item name="compare2">
                 <div class="condition">
                   <div class="condition-item">
                     <normal-select
@@ -94,7 +94,7 @@
                     <div class="tip">值</div>
                   </div>
                 </div>
-              </a-form-item>
+              </m-form-item>
             </form-card>
           </a-form>
         </div>

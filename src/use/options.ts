@@ -1,13 +1,25 @@
 export const useDeviceOptions = () => {
-  const options = [
-    { text: '1#罗茨风机', value: 1 },
-    { text: '2#罗茨风机', value: 2 },
-    { text: '循环水泵', value: 3 },
-    { text: '紫外线杀菌灯', value: 4 },
-    { text: '微型过滤机', value: 5 },
-    { text: '微滤机喷水泵', value: 6 },
-    { text: '蛋分机', value: 7 }
-  ]
+  const { getSwitch, switch: switchState } = use.useMainStateAction('switch')
+  const options = ref([])
+  if (!options.value.length) {
+    getSwitch()
+  }
+
+  watch(
+    switchState,
+    (newVal) => {
+      if (newVal) {
+        options.value = []
+        for (let i = 0; i < newVal.length; i++) {
+          options.value.push({ text: newVal[i].name, value: newVal[i].id })
+        }
+      }
+    },
+    {
+      immediate: true
+    }
+  )
+
   return options
 }
 

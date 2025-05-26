@@ -6,7 +6,7 @@
         <div class="title">
           <span>执行任务</span>
           <!-- 添加先隐藏 -->
-          <!-- <img class="add-icon" src="@/assets/auto/tianjia_icon@2x.png" alt="" @click="addTast" /> -->
+          <img class="add-icon" src="@/assets/auto/tianjia_icon@2x.png" alt="" @click="addTast" />
         </div>
         <div class="content">
           <template
@@ -76,31 +76,14 @@
         <div class="title">
           <span>数据告警</span>
           <!-- 添加先隐藏 -->
-          <!-- <img
+          <img
             class="add-icon"
             src="@/assets/auto/tianjia_icon@2x.png"
             alt=""
             @click="addWarning"
-          /> -->
+          />
         </div>
         <div class="content">
-          <!-- 
-          {
-    "id": 2,
-    "sensor_id": null,
-    "warn_id": null,
-    "triggering": {
-        "arg": "ph",
-        "compare": "=",
-        "value": "20.0"
-    },
-    "recovery": {
-        "arg": "ph",
-        "compare": "=",
-        "value": "30.0"
-    }
-}
-          -->
           <template v-if="warningList?.list?.length && !warningLoading">
             <warning-card
               v-for="(item, index) in warningList.list"
@@ -147,7 +130,7 @@
     router.push('/warning-add')
   }
 
-  const warninOption = {
+  const warningOption = {
     oxygen: '溶解氧',
     temp: '温度',
     ph: 'PH'

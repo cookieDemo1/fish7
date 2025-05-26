@@ -7,12 +7,12 @@
       <card-second>
         <div class="item">
           <span class="name">传感器：</span>
-          <span class="value">溶解氧+温度+PH 三合一传感器</span>
+          {{ item.arg === 'DI8' ? '浮球开关' : '溶解氧+温度+PH 三合一传感器' }}
         </div>
         <div class="item">
           <span class="name">条件：</span>
           <span class="value"
-            >{{ item.arg }}{{ compareOptions[item.compare] }}{{ item.value }}</span
+            >{{ warningOption[item.arg] }}{{ compareOptions[item.compare] }}{{ item.value }}</span
           >
         </div>
       </card-second>
@@ -53,6 +53,12 @@
     '>': '＞',
     '=': '＝',
     '<': '＜'
+  }
+  const warningOption = {
+    oxygen: '溶解氧',
+    temp: '温度',
+    ph: 'PH',
+    DI8: 'DI8'
   }
   const test = {
     id: '91',

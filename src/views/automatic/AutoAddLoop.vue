@@ -4,103 +4,96 @@
       <title-auto :icon="icon">循环任务-新增</title-auto>
       <div class="wrapper">
         <div class="form">
-          <a-form>
-            <a-form-item>
-              <m-input placeholder="请输入任务名称"></m-input>
-            </a-form-item>
+          <a-form ref="formRef" :model="formData" :rules="rules">
+            <m-form-item name="name">
+              <m-input v-model="formData.name" placeholder="请输入任务名称"></m-input>
+            </m-form-item>
 
             <form-title style="margin-top: 15px">运行时间</form-title>
-
-            <form-card style="padding-top: 10px; padding-bottom: 10px">
-              <div class="data-source">
-                <div class="label">开始时间</div>
-                <div class="value">
-                  <a-form-item>
+            <m-form-item name="time">
+              <form-card style="padding-top: 10px; padding-bottom: 10px">
+                <div class="data-source">
+                  <div class="label">开始时间</div>
+                  <div class="value">
                     <time-select
-                      v-model="form.start_time"
+                      v-model="formData.time.start"
                       placeholder="请选择开始时间"
                     ></time-select>
-                  </a-form-item>
+                  </div>
                 </div>
-              </div>
-              <Line></Line>
+                <Line></Line>
 
-              <div class="data-source">
-                <div class="label">结束时间</div>
-                <div class="value">
-                  <a-form-item>
-                    <time-select v-model="form.end_time" placeholder="请选择结束时间"></time-select>
-                  </a-form-item>
+                <div class="data-source">
+                  <div class="label">结束时间</div>
+                  <div class="value">
+                    <time-select
+                      v-model="formData.time.end"
+                      placeholder="请选择结束时间"
+                    ></time-select>
+                  </div>
                 </div>
-              </div>
-              <Line></Line>
+                <Line></Line>
 
-              <div class="data-source">
-                <div class="label">开启时长</div>
-                <div class="value-2">
-                  <div class="value-input">
-                    <a-form-item>
+                <div class="data-source">
+                  <div class="label">开启时长</div>
+                  <div class="value-2">
+                    <div class="value-input">
                       <m-input-inner
-                        v-model="form.start_time_value"
+                        v-model="formData.time.open_duration"
                         text-align="right"
                         placeholder="请选择开启时长"
                       ></m-input-inner>
-                    </a-form-item>
-                  </div>
-                  <div class="value-select">
-                    <a-form-item>
+                    </div>
+                    <div class="value-select">
                       <normal-select
-                        v-model="form.start_time_unit"
+                        v-model="formData.time.open_unit"
                         :options="timeOptions"
                         :visible-option-num="3"
                       ></normal-select>
-                    </a-form-item>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <Line></Line>
+                <Line></Line>
 
-              <div class="data-source">
-                <div class="label">关闭时长</div>
-                <div class="value-2">
-                  <div class="value-input">
-                    <a-form-item>
+                <div class="data-source">
+                  <div class="label">关闭时长</div>
+                  <div class="value-2">
+                    <div class="value-input">
                       <m-input-inner
-                        v-model="form.end_time_value"
+                        v-model="formData.time.shutdown_duration"
                         text-align="right"
                         placeholder="请选择关闭时长"
                       ></m-input-inner>
-                    </a-form-item>
-                  </div>
-                  <div class="value-select">
-                    <a-form-item>
+                    </div>
+                    <div class="value-select">
                       <normal-select
-                        v-model="form.end_time_unit"
+                        v-model="formData.time.shutdown_unit"
                         :options="timeOptions"
                         :visible-option-num="3"
                       ></normal-select>
-                    </a-form-item>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <Line></Line>
+                <Line></Line>
 
-              <div class="data-source">
-                <div class="label">循环时长</div>
-                <div class="value" style="text-align: right; font-size: 18px; font-weight: bold">
-                  -- 小时
+                <div class="data-source">
+                  <div class="label">循环时长</div>
+                  <div class="value" style="text-align: right; font-size: 18px; font-weight: bold">
+                    -- 小时
+                  </div>
                 </div>
-              </div>
-            </form-card>
+              </form-card>
+            </m-form-item>
 
             <form-title>执行操作</form-title>
-
-            <loop-operation
-              v-for="(item, index) in deviceOptions"
-              :key="index"
-              :item="item"
-              class="wrapper-loop-operation"
-            ></loop-operation>
+            <m-form-item name="switch">
+              <loop-operation
+                v-for="(item, index) in deviceOptions"
+                :key="index"
+                :item="item"
+                class="wrapper-loop-operation"
+              ></loop-operation>
+            </m-form-item>
           </a-form>
         </div>
       </div>
@@ -114,22 +107,63 @@
 
 <script setup lang="ts">
   import icon from '@/assets/auto/xunh_icon@2x.png'
+  import { message } from 'ant-design-vue'
   const router = useRouter()
 
   const timeOptions = use.useTimeOptions()
   const deviceOptions = use.useDeviceOptions()
 
-  const form = ref({
-    start_time: '',
-    end_time: '',
-    start_time_unit: 1,
-    start_time_value: '',
-    end_time_unit: 1,
-    end_time_value: ''
+  const formRef = ref(null)
+  const formData = ref({
+    name: '',
+    time: {
+      start: '',
+      end: '',
+      open_unit: 1,
+      open_duration: '',
+      shutdown_unit: 1,
+      shutdown_duration: '',
+      cycle_duration: ''
+    },
+    switch: []
   })
 
+  const rules = {
+    name: [{ required: true, message: '请输入任务名称', trigger: 'blur' }],
+    time: [
+      {
+        validator: (rule, value) => {
+          if (!formData.value.time.start) {
+            return Promise.reject('请选择开始时间')
+          }
+          if (!formData.value.time.open_duration) {
+            return Promise.reject('请设置开启时长')
+          }
+          if (!formData.value.time.end) {
+            return Promise.reject('请选择结束时间')
+          }
+          if (!formData.value.time.shutdown_duration) {
+            return Promise.reject('请设置关闭时长')
+          }
+          return Promise.resolve()
+        },
+        trigger: []
+      }
+    ],
+    switch: []
+  }
+
   const onSave = () => {
-    console.log('onSave')
+    formRef.value
+      .validate()
+      .then((res) => {
+        const payload = { ...formData.value }
+        console.log('payload', payload)
+      })
+      .catch((err) => {
+        console.log('catch')
+        message.error('请输入正确的数据')
+      })
   }
 </script>
 

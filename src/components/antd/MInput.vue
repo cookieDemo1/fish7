@@ -73,9 +73,9 @@
     &.ant-input-affix-wrapper:hover {
       line-height: 38px;
       padding: 4px 20px;
-      background-color: #414a58;
+      background-color: #414a58 !important;
       border: none !important;
-      border-radius: 8px;
+      border-radius: 8px !important;
       box-shadow: none !important;
     }
 

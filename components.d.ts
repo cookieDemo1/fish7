@@ -18,6 +18,7 @@ declare module 'vue' {
     FormTitle: typeof import('./src/components/common/FormTitle.vue')['default']
     Line: typeof import('./src/components/common/Line.vue')['default']
     LoopOperation: typeof import('./src/components/common/LoopOperation.vue')['default']
+    MFormItem: typeof import('./src/components/antd/MFormItem.vue')['default']
     MInput: typeof import('./src/components/antd/MInput.vue')['default']
     MInputInner: typeof import('./src/components/antd/MInputInner.vue')['default']
     MLoading: typeof import('./src/components/common/MLoading.vue')['default']

@@ -4,34 +4,39 @@
       <title-auto :icon="icon">定时任务-新增</title-auto>
       <div class="wrapper">
         <div class="form">
-          <a-form>
-            <a-form-item>
-              <m-input placeholder="请输入任务名称"></m-input>
-            </a-form-item>
+          <a-form ref="formRef" :model="formData" :rules="rules">
+            <m-form-item name="name">
+              <m-input v-model="formData.name" placeholder="请输入任务名称"></m-input>
+            </m-form-item>
 
             <form-title style="margin-top: 15px">执行日期</form-title>
 
-            <form-card style="padding-top: 11px; padding-bottom: 11px">
-              <div class="data-select">
-                <div
-                  v-for="item in dataOptions"
-                  :key="item.label"
-                  :class="{ 'data-select-item': true, active: form.date.includes(item.value) }"
-                  @click="handleSelect(item.value)"
-                >
-                  {{ item.label }}
+            <m-form-item name="week">
+              <form-card style="padding-top: 11px; padding-bottom: 11px">
+                <div class="data-select">
+                  <div
+                    v-for="item in dataOptions"
+                    :key="item.label"
+                    :class="{
+                      'data-select-item': true,
+                      active: formData.week.includes(item.value)
+                    }"
+                    @click="handleWeekSelect(item.value)"
+                  >
+                    {{ item.label }}
+                  </div>
                 </div>
-              </div>
-            </form-card>
-
+              </form-card>
+            </m-form-item>
             <form-title>执行操作</form-title>
-
-            <timing-operation
-              v-for="(item, index) in deviceOptions"
-              :key="index"
-              :item="item"
-              class="wrapper-timing-operation"
-            ></timing-operation>
+            <m-form-item name="switch">
+              <timing-operation
+                v-for="(item, index) in deviceOptions"
+                :key="index"
+                :item="item"
+                class="wrapper-timing-operation"
+              ></timing-operation>
+            </m-form-item>
           </a-form>
         </div>
       </div>
@@ -45,7 +50,10 @@
 
 <script setup lang="ts">
   import icon from '@/assets/auto/dingsrw_icon@2x.png'
+  import { message } from 'ant-design-vue'
+
   const router = useRouter()
+  const formRef = ref(null)
 
   const deviceOptions = use.useDeviceOptions()
 
@@ -58,23 +66,49 @@
     { label: '六', value: 6 },
     { label: '日', value: 7 }
   ]
-
-  const form = ref({
-    date: []
+  const formData = ref({
+    name: '',
+    week: [],
+    switch: []
   })
 
-  const handleSelect = (value: number) => {
-    const tempDate = [...form.value.date]
-    if (tempDate.includes(value)) {
-      tempDate.splice(form.value.date.indexOf(value), 1)
+  const rules = {
+    name: [{ required: true, message: '请输入任务名称', trigger: 'blur' }],
+    week: [
+      {
+        validator: (rule, value) => {
+          if (!formData.value.week.length) {
+            return Promise.reject('请选择执行日期')
+          }
+          return Promise.resolve()
+        },
+        trigger: []
+      }
+    ],
+    switch: []
+  }
+
+  const handleWeekSelect = (value: number) => {
+    const tempweek = [...formData.value.week]
+    if (tempweek.includes(value)) {
+      tempweek.splice(formData.value.week.indexOf(value), 1)
     } else {
-      tempDate.push(value)
+      tempweek.push(value)
     }
-    form.value.date = tempDate
+    formData.value.week = tempweek
   }
 
   const onSave = () => {
-    console.log('onSave')
+    formRef.value
+      .validate()
+      .then((res) => {
+        const payload = { ...formData.value }
+        console.log('payload', payload)
+      })
+      .catch((err) => {
+        console.log('catch')
+        message.error('请输入正确的数据')
+      })
   }
 </script>
 

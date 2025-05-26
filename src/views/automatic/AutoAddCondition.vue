@@ -19,7 +19,7 @@
                     <normal-select
                       :visible-option-num="3"
                       placeholder="请选择数据源"
-                      :options="dataOptions"
+                      :options="sensorOptions"
                     ></normal-select>
                   </a-form-item>
                 </div>
@@ -91,6 +91,17 @@
   const conditionOptions = use.useConditionOptions()
   const dataOptions = use.useDataOptions()
 
+  const formRef = ref(null)
+  const formData = ref<any>({
+    name: '',
+    sensor: {
+      sensor_id: 1,
+      arg: '',
+      compare: '',
+      value: ''
+    },
+    switch: []
+  })
   const onSave = () => {
     console.log('onSave')
   }
