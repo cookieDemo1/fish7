@@ -4,73 +4,73 @@
       <title-auto :icon="icon">条件任务-新增</title-auto>
       <div class="wrapper">
         <div class="form">
-          <a-form>
-            <a-form-item>
-              <m-input placeholder="请输入任务名称"></m-input>
-            </a-form-item>
+          <a-form ref="formRef" :model="formData" :rules="rules">
+            <m-form-item name="name">
+              <m-input v-model="formData.name" placeholder="请输入任务名称"></m-input>
+            </m-form-item>
 
             <form-title style="margin-top: 15px">执行条件</form-title>
-
-            <form-card>
-              <div class="data-source" style="margin-top: -10px">
-                <div class="label">数据源</div>
-                <div class="value">
-                  <a-form-item style="margin-bottom: 0">
+            <m-form-item name="sensor">
+              <form-card>
+                <div class="data-source" style="margin-top: -10px">
+                  <div class="label">数据源</div>
+                  <div class="value">
                     <normal-select
+                      v-model="formData.sensor.sensor_id"
                       :visible-option-num="3"
                       placeholder="请选择数据源"
                       :options="sensorOptions"
                     ></normal-select>
-                  </a-form-item>
+                  </div>
                 </div>
-              </div>
-              <Line></Line>
+                <Line></Line>
 
-              <div class="inner-title">条件</div>
+                <div class="inner-title">条件</div>
 
-              <div class="condition">
-                <div class="condition-item">
-                  <a-form-item style="margin-bottom: 0">
+                <div class="condition">
+                  <div class="condition-item">
                     <normal-select
+                      v-model="formData.sensor.arg"
                       :visible-option-num="3"
                       placeholder="请选择"
                       text-align="left"
                       :options="dataOptions"
                     ></normal-select>
-                  </a-form-item>
-                  <Line></Line>
-                  <div class="tip">数据</div>
-                </div>
-                <div class="condition-item">
-                  <a-form-item style="margin-bottom: 0">
+                    <Line></Line>
+                    <div class="tip">数据</div>
+                  </div>
+                  <div class="condition-item">
                     <normal-select
+                      v-model="formData.sensor.compare"
                       :visible-option-num="3"
                       placeholder="请选择"
                       text-align="left"
                       :options="conditionOptions"
                     ></normal-select>
-                  </a-form-item>
-                  <Line></Line>
-                  <div class="tip">关系</div>
+                    <Line></Line>
+                    <div class="tip">关系</div>
+                  </div>
+                  <div class="condition-item">
+                    <m-input-inner
+                      v-model="formData.sensor.value"
+                      placeholder="请输入"
+                    ></m-input-inner>
+                    <Line></Line>
+                    <div class="tip">值</div>
+                  </div>
                 </div>
-                <div class="condition-item">
-                  <a-form-item style="margin-bottom: 0">
-                    <m-input-inner></m-input-inner>
-                  </a-form-item>
-                  <Line></Line>
-                  <div class="tip">值</div>
-                </div>
-              </div>
-            </form-card>
+              </form-card>
+            </m-form-item>
 
             <form-title>执行操作</form-title>
-
-            <condition-operation
-              v-for="(item, index) in options"
-              :key="index"
-              :item="item"
-              class="wrapper-condition-operation"
-            ></condition-operation>
+            <m-form-item name="switch">
+              <condition-operation
+                v-for="(item, index) in options"
+                :key="index"
+                :item="item"
+                class="wrapper-condition-operation"
+              ></condition-operation>
+            </m-form-item>
           </a-form>
         </div>
       </div>
@@ -83,6 +83,8 @@
 </template>
 
 <script setup lang="ts">
+  import { message } from 'ant-design-vue'
+
   import icon from '@/assets/auto/tiaojrw_icon@2x.png'
   const router = useRouter()
 
@@ -102,9 +104,61 @@
     },
     switch: []
   })
-  const onSave = () => {
-    console.log('onSave')
+
+  const rules = {
+    name: [{ required: true, message: '请输入任务名称', trigger: 'change' }],
+    sensor: [
+      {
+        validator: (rule, value) => {
+          if (!formData.value.sensor_id) {
+            return Promise.reject('请选择数据源')
+          }
+          if (!formData.value.arg) {
+            return Promise.reject('请选择数据')
+          }
+          if (!formData.value.compare) {
+            return Promise.reject('请输入触发条件')
+          }
+          if (!formData.value.value) {
+            return Promise.reject('请输入触发条件值')
+          }
+          return Promise.resolve()
+        },
+        trigger: []
+      }
+    ],
+    switch: [
+      {
+        validator: (rule, value) => {
+          return Promise.resolve()
+        },
+        trigger: []
+      }
+    ]
   }
+
+  const onSave = () => {
+    formRef.value
+      .validate()
+      .then((res) => {
+        const payload = { ...formData.value }
+        console.log('payload', payload)
+      })
+      .catch((err) => {
+        console.log('catch')
+        message.error('请输入正确的数据')
+      })
+  }
+
+  watch(
+    formData,
+    () => {
+      formRef.value.clearValidate()
+    },
+    {
+      deep: true
+    }
+  )
 </script>
 
 <style lang="less" scoped>
@@ -132,7 +186,7 @@
           font-size: 18px;
         }
         .value {
-          width: 250px;
+          width: 285px;
         }
       }
 
