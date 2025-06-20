@@ -106,12 +106,12 @@ export default defineConfig({
         // target: 'http://172.16.14.240',
         target: 'http://127.0.0.1:3000',
         changeOrigin: true
-      },
-      '/uploads': {
-        target: 'http://172.16.9.106:8001',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/uploads/, '')
       }
+      // '/uploads': {
+      //   target: 'http://172.16.9.106:8001',
+      //   changeOrigin: true,
+      //   rewrite: (path) => path.replace(/^\/uploads/, '')
+      // }
     }
   }
 })

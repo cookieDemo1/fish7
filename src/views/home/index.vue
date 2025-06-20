@@ -10,9 +10,9 @@
       </div>
     </template>
     <template v-else>
-      <div class="wrapper-slider">
+      <!-- 可左右滚动 -->
+      <!-- <div class="wrapper-slider">
         <div class="slider">
-          <!-- a-row放不了一行五个 -->
           <div class="row">
             <div v-for="(item, index) in switchList.slice(0, 5)" :key="'col1' + index" class="col">
               <DeviceCardMode2 :item="item" @callback="() => getSwitch()"></DeviceCardMode2>
@@ -24,6 +24,17 @@
             </div>
           </div>
         </div>
+      </div> -->
+      <div class="wrapper" style="padding: 0 24px">
+        <a-row :gutter="[14, 14]">
+          <a-col
+            v-for="(item, index) in switchList"
+            :key="index"
+            :span="item.freq == '-1' ? 6 : 12"
+          >
+            <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
+          </a-col>
+        </a-row>
       </div>
     </template>
     <div class="char">
@@ -34,6 +45,7 @@
 
 <script setup lang="ts">
   import DeviceCardMode from './DeviceCardMode.vue'
+  import DeviceCardMode3 from './DeviceCardMode3.vue'
   import DeviceCardMode2 from './DeviceCardMode2.vue'
   import LineChar from './LineChar.vue'
 
