@@ -66,3 +66,41 @@ export const checkAccountRule = (rule: any, value: string) => {
     }
   })
 }
+
+export function toSeconds(time = '') {
+  const [hours, minutes, seconds] = time.split(':').map(Number)
+  const res = hours * 3600 + minutes * 60 + seconds
+  return res
+}
+
+export function secondsTostring(seconds: number) {
+  const h = Math.floor(seconds / 3600)
+  const m = Math.floor((seconds % 3600) / 60)
+  const s = seconds % 60
+  let result = ''
+  if (h > 0) result += `${h}小时`
+  if (m > 0) result += `${m}分钟`
+  if (s > 0) result += `${s}秒`
+  return result || '0秒' // 处理秒数为0的情况
+}
+
+const weekOptions = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+export function formatWeek(item: any) {
+  const res = Array.from(Array(7))
+    .map((i, index) => {
+      return item[`w${index + 1}`] == '1' ? weekOptions[index] : ''
+    })
+    .filter((item) => item)
+  return res.length === 7 ? '每天' : res.join('、')
+}
+
+export function secondsToTime(seconds) {
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor((seconds % 3600) / 60)
+  const secs = seconds % 60
+
+  // 格式化输出（补零处理）
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(
+    secs
+  ).padStart(2, '0')}`
+}

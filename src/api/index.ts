@@ -1,5 +1,9 @@
 import request, { BaseResponse } from '@/api/request'
-import { exec } from 'child_process'
+
+export const GET = 'GET'
+export const POST = 'POST'
+export const DELETE = 'DELETE'
+export const PUT = 'PUT'
 
 export const requestApi = {
   switch: {
@@ -18,18 +22,62 @@ export const requestApi = {
     url: () => '/api/red/freq',
     methods: ['POST']
   },
-  taskList: {
-    url: () => '/api/red/auto/tasks',
-    methods: ['GET']
+  taskSwitch: {
+    url: () => `/api/red/auto/task/sub/switch`,
+    methods: [GET]
   },
-  warningList: {
-    url: () => '/api/red/auto/warn',
-    methods: ['GET']
+  subTask: {
+    url: ({ id = '' }) => `/api/red/auto/task/sub?id=${id}`,
+    methods: [GET, POST, PUT, DELETE]
   },
-  executeTask: {
-    url: () => '/api/red/auto/sceneExec',
-    methods: ['POST']
+  autoTask: {
+    url: () => `/api/red/auto/task`,
+    methods: [GET]
+  },
+  autoTaskScene: {
+    url: ({ id = '' }) => `/api/red/auto/task/scene?id=${id}`,
+    methods: [POST, PUT, DELETE]
+  },
+  autoTaskSceneExec: {
+    url: () => `/api/red/auto/task/scene/exec`,
+    methods: [POST]
+  },
+  autoTaskTimer: {
+    url: ({ id = '' }) => `/api/red/auto/task/timer?id=${id}`,
+    methods: [POST, PUT, DELETE]
+  },
+  autoTaskCondition: {
+    url: ({ id = '' }) => `/api/red/auto/task/condition?id=${id}`,
+    methods: [POST, PUT, DELETE]
+  },
+  autoTaskConditionOption: {
+    url: () => `/api/red/auto/condition/option`,
+    methods: [GET]
+  },
+  autoTaskLoop: {
+    url: ({ id = '' }) => `/api/red/auto/task/cycle?id=${id}`,
+    methods: [POST, PUT, DELETE]
+  },
+  autoTaskDetail: {
+    url: ({ id = '' }) => `/api/red/auto/task/detail?id=${id}`,
+    methods: [GET]
+  },
+  autoTaskDisable: {
+    url: ({ id = '' }) => `/api/red/auto/task/disable?id=${id}`,
+    methods: [POST]
   }
+  // taskList: {
+  //   url: () => '/api/red/auto/tasks',
+  //   methods: ['GET']
+  // },
+  // warningList: {
+  //   url: () => '/api/red/auto/warn',
+  //   methods: ['GET']
+  // },
+  // executeTask: {
+  //   url: () => '/api/red/auto/sceneExec',
+  //   methods: ['POST']
+  // }
 }
 type METHODS = 'GET' | 'POST' | 'PUT' | 'DELETE'
 type RequestURL = (params?: any) => string
@@ -37,82 +85,44 @@ type RequestAction = (params?: any) => Promise<BaseResponse>
 type RequestActions = Record<METHODS, (url: RequestURL) => RequestAction>
 const requestActions: RequestActions = {
   GET: (url) => (params) => {
-    const { simple = true, ...rest } = params ?? {}
-    if (simple) {
-      return request({
-        url: url(params),
-        method: 'GET',
-        params: rest
-      })
-    } else {
-      const { search, headers } = rest ?? {}
-      return request({
-        url: url(params),
-        method: 'GET',
-        headers,
-        params: search
-      })
-    }
+    const { headers = {}, ...data } = params ?? {}
+    return request({
+      url: url(params || {}),
+      method: 'GET',
+      headers,
+      data
+    })
   },
 
   POST: (url) => (params) => {
-    const { simple = true, ...rest } = params ?? {}
-    if (simple) {
-      return request({
-        url: url(params),
-        method: 'POST',
-        data: rest
-      })
-    } else {
-      const { search, headers, data } = rest ?? {}
-      return request({
-        url: url(params),
-        method: 'POST',
-        params: search,
-        headers,
-        data
-      })
-    }
+    const { headers = {}, ...data } = params ?? {}
+
+    return request({
+      url: url(params || {}),
+      method: 'POST',
+      headers,
+      data
+    })
   },
 
   PUT: (url) => (params) => {
-    const { simple = true, ...rest } = params ?? {}
-    if (simple) {
-      return request({
-        url: url(params),
-        method: 'PUT',
-        data: rest
-      })
-    } else {
-      const { search, headers, data } = rest ?? {}
-      return request({
-        url: url(params),
-        method: 'PUT',
-        params: search,
-        headers,
-        data
-      })
-    }
+    const { headers = {}, ...data } = params ?? {}
+    return request({
+      url: url(params || {}),
+      method: 'PUT',
+      headers,
+      data
+    })
   },
 
   DELETE: (url) => (params) => {
-    const { simple = true, ...rest } = params ?? {}
-    if (simple) {
-      return request({
-        url: url(params),
-        method: 'DELETE',
-        data: rest
-      })
-    } else {
-      const { search, headers, data } = rest ?? {}
-      return request({
-        url: url(params),
-        method: 'DELETE',
-        params: search,
-        headers,
-        data
-      })
-    }
+    const { headers = {}, ...data } = params ?? {}
+    return request({
+      url: url(params || {}),
+      method: 'DELETE',
+      headers,
+      data
+    })
   }
 }
 

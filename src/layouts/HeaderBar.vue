@@ -51,7 +51,7 @@
   import nomralscreenIcon from '@/assets/fuscreen_button@2x.png'
   import { asyncRoutes } from '@/config/router.config'
   const { radom, setRadom } = store.useRefreshStore()
-  const routes = [...asyncRoutes[0].children.slice(0, 2)]
+  const routes = [...asyncRoutes[0].children].filter((item) => item.meta.menu)
 
   const activeRoute = ref('')
   const route = useRoute()

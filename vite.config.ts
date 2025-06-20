@@ -70,23 +70,23 @@ export default defineConfig({
           'success-color': '#16ce67', // 成功色
           'warning-color': '#eca303', // 警告色
           'error-color': '#f53d2d', // 错误色
-          'border-radius-base': '32px',
+          // 'border-radius-base': '32px',
 
-          'body-background': '#0c0c0c',
-          'component-background': '#ffffff',
+          'body-background': '#000916',
+          'component-background': '#1F2839',
 
           'text-color': '#dae4e5', // 主文本色
           'text-color-secondary': '#b6b8bf', // 次文本色
 
-          'border-color-base': '#9ea0a6', // 边框色
+          'border-color-base': '#39566B', // 边框色
 
           'btn-default-color': '#dae4e5',
           'btn-default-bg': 'rgba(255,255,255,.2)',
           'btn-default-border': '1px solid rgba(255,255,255,.2)',
 
           'btn-height-base': '40px',
-
-          'input-placeholder-color': '#768db3',
+          'border-radius-base': '2px', // 组件/浮层圆角
+          'input-placeholder-color': '#9EA0A6',
           'input-icon-color': '#565761',
           'input-icon-hover-color': '#b4c1d4',
 
@@ -104,7 +104,8 @@ export default defineConfig({
     proxy: {
       '/api': {
         // target: 'http://172.16.14.240',
-        target: 'http://127.0.0.1:3000',
+        // target: 'http://127.0.0.1:3000',
+        target: 'http://172.16.9.106:1885',
         changeOrigin: true
       }
       // '/uploads': {

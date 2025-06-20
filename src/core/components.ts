@@ -1,19 +1,24 @@
-import { App } from 'vue'
-import { h } from 'vue'
-import Antd, { message, notification, Spin } from 'ant-design-vue'
-import 'ant-design-vue/dist/antd.variable.less'
-import { LoadingOutlined } from '@ant-design/icons-vue'
-import JsonViewer from 'vue3-json-viewer'
-// if you used v1.0.5 or latster ,you should add import "vue3-json-viewer/dist/index.css"
-import 'vue3-json-viewer/dist/index.css'
+import 'ant-design-vue/dist/antd.less'
 
+import { LoadingOutlined } from '@ant-design/icons-vue'
+import Antd, { message, notification, Spin } from 'ant-design-vue'
+import { BarChart, GaugeChart, LineChart, PieChart, RadarChart } from 'echarts/charts'
+import {
+  GridComponent,
+  LegendComponent,
+  TitleComponent,
+  TooltipComponent
+} from 'echarts/components'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
-import { PieChart, LineChart, BarChart } from 'echarts/charts'
-import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
+import { App } from 'vue'
+import { h } from 'vue'
 import VChart, { THEME_KEY } from 'vue-echarts'
 use([
+  TitleComponent,
   CanvasRenderer,
+  RadarChart,
+  GaugeChart,
   LineChart,
   PieChart,
   BarChart,
@@ -21,7 +26,6 @@ use([
   TooltipComponent,
   LegendComponent
 ])
-// provide(THEME_KEY, 'dark')
 
 message.config({
   top: `70px`,
@@ -50,12 +54,15 @@ const layoutComponent = import.meta.glob('../components/layout/*.vue', {
   eager: true,
   import: 'default'
 })
+const modalComponent = import.meta.glob('../components/modal/*.vue', {
+  eager: true,
+  import: 'default'
+})
 
-const files = Object.assign({}, antdComponent, commonComponent, layoutComponent)
+const files = Object.assign({}, antdComponent, commonComponent, layoutComponent, modalComponent)
 
 export const setupComponents = (app: App) => {
   app.use(Antd)
-  app.use(JsonViewer)
   Object.keys(files).forEach((path) => {
     const name = path.replace(/.*\/|\.vue/g, '')
     const component = files[path] || {}

@@ -8,6 +8,21 @@ const NotFound = () => import('@/views/404.vue')
 const Home = () => import('@/views/home/index.vue')
 const Automatic = () => import('@/views/automatic/index.vue')
 
+const AutoPage = () => import('@/views/auto/index.vue')
+const CompostaskAdd = () => import('@/views/auto/CompostaskAdd.vue')
+const CompostaskScene = () => import('@/views/auto/CompostaskScene.vue')
+const CompostaskSceneDetail = () => import('@/views/auto/CompostaskSceneDetail.vue')
+const CompostaskTimer = () => import('@/views/auto/CompostaskTimer.vue')
+const CompostaskTimerDetail = () => import('@/views/auto/CompostaskTimerDetail.vue')
+const CompostaskCondition = () => import('@/views/auto/CompostaskCondition.vue')
+const CompostaskConditionDetail = () => import('@/views/auto/CompostaskConditionDetail.vue')
+const CompostaskLoop = () => import('@/views/auto/CompostaskLoop.vue')
+const CompostaskLoopDetail = () => import('@/views/auto/CompostaskLoopDetail.vue')
+// const DataWarning = () => import('@/views/auto/DataWarning.vue');
+
+const ChildtaskManage = () => import('@/views/auto/ChildtaskManage.vue')
+const ChildtaskAdd = () => import('@/views/auto/ChildtaskAdd.vue')
+
 import homeNormal from '@/assets/button_home_nor@2x.png'
 import homeActive from '@/assets/button_home_click@2x.png'
 import autoNormal from '@/assets/button_auto_nor@2x.png'
@@ -43,114 +58,94 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         meta: {
           title: '首页',
           normal: homeNormal,
-          active: homeActive
+          active: homeActive,
+          menu: true
         },
         component: Home
       },
       {
-        path: '/automatic',
-        name: 'automatic',
-        meta: {
-          title: '自动化',
-          normal: autoNormal,
-          active: autoActive
-        },
-        component: Automatic
+        path: '/automation',
+        name: 'automation',
+        meta: { title: '自动化', normal: autoNormal, active: autoActive, menu: true },
+        component: AutoPage,
+        props: (route) => route.query
       },
       {
-        path: '/auto-add-overview',
-        name: 'auto-add-overview',
-        meta: {
-          title: '新增自动化',
-          text: '返回'
-        },
-        component: () => import('@/views/automatic/AutoAddOverview.vue')
-      },
-
-      // 新增
-      {
-        path: '/auto-add-scene',
-        name: 'auto-add-scene',
-        meta: {
-          title: '场景任务-新增',
-          text: '返回'
-        },
-        component: () => import('@/views/automatic/AutoAddScene.vue')
+        path: '/childtask/manage',
+        name: 'childtaskManage',
+        meta: { title: '子任务管理', menu: false },
+        component: ChildtaskManage,
+        props: (route) => route.query
       },
       {
-        path: '/auto-add-timing',
-        name: 'auto-add-timing',
-        meta: {
-          title: '定时任务-新增',
-          text: '返回'
-        },
-        component: () => import('@/views/automatic/AutoAddTiming.vue')
+        path: '/childtask/add',
+        name: 'childtaskAdd',
+        meta: { title: '增加子任务', menu: false },
+        component: ChildtaskAdd,
+        props: (route) => route.query
       },
       {
-        path: '/auto-add-condition',
-        name: 'auto-add-condition',
-        meta: {
-          title: '条件任务-新增',
-          text: '返回'
-        },
-        component: () => import('@/views/automatic/AutoAddCondition.vue')
+        path: '/automation/add',
+        name: 'compostaskAdd',
+        meta: { title: '新增任务', menu: false },
+        component: CompostaskAdd,
+        props: (route) => route.query
       },
       {
-        path: '/auto-add-loop',
-        name: 'auto-add-loop',
-        meta: {
-          title: '循环任务-新增',
-          text: '返回'
-        },
-        component: () => import('@/views/automatic/AutoAddLoop.vue')
-      },
-
-      // 详情
-      {
-        path: '/auto-info-scene',
-        name: 'auto-info-scene',
-        meta: {
-          title: '场景任务-详情',
-          text: '场景任务详情'
-        },
-        component: () => import('@/views/automatic/AutoInfoScene.vue')
+        path: '/automation/task/scene',
+        name: 'compostaskScene',
+        meta: { title: '场景任务', menu: false },
+        component: CompostaskScene,
+        props: (route) => route.query
       },
       {
-        path: '/auto-info-timing',
-        name: 'auto-info-timing',
-        meta: {
-          title: '定时任务-详情',
-          text: '定时任务详情'
-        },
-        component: () => import('@/views/automatic/AutoInfoTiming.vue')
+        path: '/automation/task/scene/detail',
+        name: 'compostaskSceneDetail',
+        meta: { title: '场景任务详情', menu: false },
+        component: CompostaskSceneDetail,
+        props: (route) => route.query
       },
       {
-        path: '/auto-info-condition',
-        name: 'auto-info-condition',
-        meta: {
-          title: '条件任务-详情',
-          text: '条件任务详情'
-        },
-        component: () => import('@/views/automatic/AutoInfoCondition.vue')
+        path: '/automation/task/timer',
+        name: 'compostaskTimer',
+        meta: { title: '定时任务', menu: false },
+        component: CompostaskTimer,
+        props: (route) => route.query
       },
       {
-        path: '/auto-info-loop',
-        name: 'auto-info-loop',
-        meta: {
-          title: '循环任务-详情',
-          text: '循环任务详情'
-        },
-        component: () => import('@/views/automatic/AutoInfoLoop.vue')
+        path: '/automation/task/timer/detail',
+        name: 'compostaskTimerDetail',
+        meta: { title: '定时任务详情', menu: false },
+        component: CompostaskTimerDetail,
+        props: (route) => route.query
       },
-      // 数据告警新增
       {
-        path: '/warning-add',
-        name: 'warning-add',
-        meta: {
-          title: '数据告警-新增',
-          text: '返回'
-        },
-        component: () => import('@/views/automatic/WarningAdd.vue')
+        path: '/automation/task/condition',
+        name: 'compostaskCondition',
+        meta: { title: '条件任务', menu: false },
+        component: CompostaskCondition,
+        props: (route) => route.query
+      },
+      {
+        path: '/automation/task/condition/detail',
+        name: 'compostaskConditionDetail',
+        meta: { title: '条件任务详情', menu: false },
+        component: CompostaskConditionDetail,
+        props: (route) => route.query
+      },
+      {
+        path: '/automation/task/loop',
+        name: 'compostaskLoop',
+        meta: { title: '循环任务', menu: false },
+        component: CompostaskLoop,
+        props: (route) => route.query
+      },
+      {
+        path: '/automation/task/loop/detail',
+        name: 'compostaskLoopDetail',
+        meta: { title: '循环任务详情', menu: false },
+        component: CompostaskLoopDetail,
+        props: (route) => route.query
       }
     ]
   },

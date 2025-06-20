@@ -15,22 +15,14 @@ html {
 body {
   text-rendering: optimizeSpeed; /* 文本显示：当绘制文本时，浏览器会着重渲染速度而不是清晰度和几何精度 */
   word-break: break-all; /* 规定自动换行的处理方法：允许在单词内换行 */
-  //-webkit-user-select: none; /* 禁止选中文本 */
-  -webkit-text-size-adjust: none; /* 禁止调整字体大小 */
+  user-select: none; /* 禁止选中文本 */
+  text-size-adjust: none; /* 禁止调整字体大小 */
   box-sizing: border-box; /* 元素的总高度和宽度：设置的边框和内边距的值是包含在 width 内的 */
-  font-family: Helvetica, Tahoma, Arial, serif, 'PingFangSC-Regular', 'Hiragino Sans GB', 'Heiti SC',
+  font-family: Helvetica, Tahoma, Arial, 'PingFangSC-Regular', 'Hiragino Sans GB', 'Heiti SC',
     'Microsoft YaHei', 'WenQuanYi Micro Hei';
   font-size: 14px;
   line-height: 1.4;
-  // overflow: hidden;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-ul {
-  list-style: none;
+  color: #fff;
 }
 
 /* 使图像更容易工作 */
@@ -42,26 +34,33 @@ picture {
 
 /* 滚动条 */
 ::-webkit-scrollbar {
-  width: 8px; /* 纵向滚动条 */
-  height: 8px; /* 横向滚动条 */
+  width: 6px; /* 纵向滚动条 */
+  height: 6px; /* 横向滚动条 */
   background-color: transparent;
-  max-height: 25px;
 }
 /* 滚动条轨道 */
 ::-webkit-scrollbar-track {
-  border-radius: 4px;
+  border-radius: 8px;
   background-color: transparent;
 }
 
 /* 滚动条滑块 */
 ::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background: rgba(213, 224, 255, 0.25);
-  max-height: 25px;
+  border-radius: 12px;
+  // background: @disabledColor;
+  // opacity: 0.6;
+  background: transparent;
 }
 
 :hover::-webkit-scrollbar-thumb {
   border-radius: 12px;
-  background: rgba(213, 224, 255, 0.25);
-  max-height: 25px;
+  background: @disabledColor;
+  opacity: 0.6;
+}
+
+.elli {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+  white-space: nowrap;
 }
