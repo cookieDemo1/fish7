@@ -45,8 +45,8 @@
 
 <script setup lang="ts">
   import DeviceCardMode from './DeviceCardMode.vue'
-  import DeviceCardMode3 from './DeviceCardMode3.vue'
   import DeviceCardMode2 from './DeviceCardMode2.vue'
+  import DeviceCardMode3 from './DeviceCardMode3.vue'
   import LineChar from './LineChar.vue'
 
   const mode = constant.mode
