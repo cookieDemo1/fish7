@@ -168,7 +168,7 @@
   }
 
   .card-container {
-    width: 1300px;
+    width: 750px;
   }
 
   .task {
@@ -222,7 +222,7 @@
       overflow: auto;
       .content {
         width: 666px;
-        margin: 0 auto;
+        margin: 20px auto 0;
       }
     }
   }

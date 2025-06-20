@@ -116,7 +116,7 @@
   }
 
   .card-container {
-    width: 1300px;
+    width: 750px;
     // & + .card-container {
     // 	margin-left: 32px;
     // }
