@@ -46,7 +46,7 @@
   const emits = defineEmits(['callback'])
 
   const loading = ref(false)
-  const { postControlSwitch } = use.useMainActions(['postControlSwitch'])
+  const { postControlSwitch } = use.useMainAction('postControlSwitch')
 
   const handleClick = () => {
     const status = props.item.status

@@ -8,6 +8,7 @@
     :closable="false"
     centered
     v-bind="attrs"
+    :title="title"
   >
     <template v-for="name in Object.keys(slots)" #[name]>
       <slot :name="name"></slot>

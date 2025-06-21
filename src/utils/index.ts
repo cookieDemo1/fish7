@@ -1,3 +1,13 @@
+export const times = Array.from(Array(24))
+  .map((item, index) => {
+    const hh = index < 10 ? '0' + index : '' + index
+    return Array.from(Array(12)).map((item, index) => {
+      const mm = index < 2 ? '0' + index * 5 : '' + index * 5
+      return `${hh}:${mm}`
+    })
+  })
+  .concat(['24:00'])
+  .flat()
 export const createDebounce = (fn, delay) => {
   let timer // 创建一个标记用来存放定时器的返回值
   return function () {

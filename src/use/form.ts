@@ -1,19 +1,23 @@
 import { useVisible } from './index'
-import { useMainActions } from './pinia'
+import { useMainAction } from './pinia'
 
 interface UseFormParams {
   formData: any
   resetAction?: Function
+  completeAction?: Function
   actionName: MainAction
 }
 
-export const useForm = ({ props, emit }, { formData, resetAction, actionName }: UseFormParams) => {
-  const { [actionName]: action } = useMainActions([actionName])
+export const useForm = (
+  { props, emit },
+  { formData, resetAction, completeAction, actionName }: UseFormParams
+) => {
+  const { [actionName]: action } = useMainAction(actionName)
   const { visible, watchVisible } = useVisible({ props, emit })
   const okButton = ref(false)
   const formRef = ref()
   const form = reactive({ ...formData })
-  const changeForm = reactive({})
+  const changeForm = reactive<any>({})
 
   watchVisible(() => {
     okButton.value = false
@@ -33,6 +37,7 @@ export const useForm = ({ props, emit }, { formData, resetAction, actionName }: 
             if (res.code === 200) {
               emit('callback')
               visible.value = false
+              completeAction && completeAction()
             }
           })
           .catch((e) => {
@@ -53,10 +58,11 @@ export const useDelete = (
   { props, emit },
   { formData, resetAction, actionName }: UseFormParams
 ) => {
-  const { [actionName]: action } = useMainActions([actionName])
+  const { [actionName]: action } = useMainAction(actionName)
   const { visible, watchVisible } = useVisible({ props, emit })
   const okButton = ref(false)
   const form = reactive({ ...formData })
+  const changeForm = reactive({})
 
   watchVisible(() => {
     okButton.value = false
@@ -65,7 +71,7 @@ export const useDelete = (
 
   function onOk() {
     okButton.value = true
-    const params = { ...form }
+    const params = { ...form, ...changeForm }
     action(params)
       .then((res) => {
         okButton.value = false
@@ -79,5 +85,39 @@ export const useDelete = (
       })
   }
 
-  return { visible, okButton, form, onOk }
+  return { visible, okButton, form, changeForm, onOk }
+}
+
+export const useComfirm = (
+  { props, emit },
+  { formData, resetAction, actionName }: UseFormParams
+) => {
+  const { [actionName]: action } = useMainAction(actionName)
+  const { visible, watchVisible } = useVisible({ props, emit })
+  const okButton = ref(false)
+  const form = reactive({ ...formData })
+  const changeForm = reactive({})
+
+  watchVisible(() => {
+    okButton.value = false
+    resetAction && resetAction()
+  })
+
+  function onOk() {
+    okButton.value = true
+    const params = { ...form, ...changeForm }
+    action(params)
+      .then((res) => {
+        okButton.value = false
+        if (res.code === 200) {
+          emit('callback')
+          visible.value = false
+        }
+      })
+      .catch(() => {
+        okButton.value = false
+      })
+  }
+
+  return { visible, okButton, form, changeForm, onOk }
 }

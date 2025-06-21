@@ -63,6 +63,7 @@
     .title {
       font-size: 24px;
       color: #dae4e5;
+      margin-bottom: 20px;
     }
     .items {
       padding: 0 23px;

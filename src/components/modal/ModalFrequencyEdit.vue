@@ -1,6 +1,7 @@
 <template>
   <m-modal v-model="visible" :width="672" title="回水泵">
     <div class="m-modal-wrapper">
+      <div class="title">回水泵</div>
       <div class="content">
         <div class="left">频率</div>
         <div class="slider">
@@ -48,7 +49,7 @@
     100: '100%'
   })
 
-  const { postFreq } = use.useMainActions(['postFreq'])
+  const { postFreq } = use.useMainAction('postFreq')
 
   watch(
     () => props.modelValue,
@@ -78,7 +79,7 @@
       .then((res) => {
         if (res.code !== 200) {
           loading.value = false
-          message.error('设置失败')
+          // message.error('设置失败')
         } else {
           setTimeout(() => {
             message.success('设置成功')
@@ -89,7 +90,7 @@
         }
       })
       .catch((err) => {
-        message.error('设置失败')
+        // message.error('设置失败')
         loading.value = false
       })
   }
@@ -97,12 +98,19 @@
 
 <style lang="less" scoped>
   .m-modal-wrapper {
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      padding-top: 40px;
+      padding-bottom: 38px;
+      text-align: center;
+    }
     .content {
       // padding-bottom: 28px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       color: #dae4e5;
       font-size: 16px;
-      padding: 0 40px 28px 40px;
+      padding: 0 40px 70px 40px;
       display: flex;
       .left {
         margin-right: 20px;
@@ -123,15 +131,16 @@
       // text-align: center;
     }
     .footer {
-      height: 47px;
-      line-height: 47px;
+      height: 80px;
+      line-height: 80px;
       display: flex;
       align-items: center;
       .footer-item {
         flex: 1;
         text-align: center;
         color: #dae4e5;
-        font-size: 16px;
+        font-size: 20px;
+        font-weight: 500;
       }
       .ok {
         border-left: 1px solid rgba(255, 255, 255, 0.15);
