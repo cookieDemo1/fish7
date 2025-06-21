@@ -1,108 +1,107 @@
 <template>
-  <a-time-picker
-    v-model:value="value"
-    class="m-time-picker"
-    popup-class-name="m-popup-time-picker"
-    :bordered="false"
-    :allow-clear="false"
-    size="large"
-    format="HH:mm:ss"
-    value-format="HH:mm:ss"
-    v-bind="attrs"
-  >
-    <template #suffixIcon>
-      <!-- <smile-outlined class="ant-select-suffix" /> -->
-      <down-outlined class="ant-picker-suffix" style="width: 12px; height: 12px" />
-    </template>
-    <template v-for="name in Object.keys(slots)" #[name]>
-      <slot :name="name"></slot>
-    </template>
-  </a-time-picker>
+  <div class="m-time-picker" @click="handleShow">
+    <slot>
+      <div class="time-inner" :class="{ right: align === 'right' }">
+        <template v-if="valueStr">
+          <div class="time-text">{{ valueStr }}</div>
+        </template>
+        <template v-else>
+          <div class="time-placeholder">{{ placeholder }}</div>
+        </template>
+        <svg-icon class="arrow" name="jiantou_icon"></svg-icon>
+      </div>
+    </slot>
+
+    <modal-time-picker
+      v-model="show"
+      :default-value="value"
+      @callback="handleComfirm"
+    ></modal-time-picker>
+  </div>
 </template>
 
-<script setup lang="ts">
-  import { DownOutlined } from '@ant-design/icons-vue'
-  const slots = useSlots()
-  const attrs = useAttrs()
-
+<script lang="ts" setup>
   const props = defineProps({
-    modelValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    disabled: PropTypes.bool.def(false),
+    placeholder: PropTypes.string.def('请选择'),
+    modelValue: PropTypes.string.def(''),
+    align: PropTypes.oneOf(['left', 'right']).def('right'),
+    fomatter: PropTypes.func
   })
-
-  const emit = defineEmits(['update:modelValue'])
+  const emit = defineEmits(['update:modelValue', 'callback'])
 
   const value = computed({
     get: () => {
+      // seconds & hh:mm:ss
       return props.modelValue
     },
     set: (value) => {
       emit('update:modelValue', value)
     }
   })
+
+  const valueStr = computed(() => {
+    if (value.value) {
+      if (props.fomatter) {
+        return props.fomatter(value.value)
+      } else {
+        return value.value
+      }
+    }
+    return ''
+  })
+
+  const show = ref(false)
+  function handleShow() {
+    if (props.disabled) {
+      return
+    }
+    show.value = true
+  }
+
+  function handleComfirm(res) {
+    value.value = res
+  }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
   .m-time-picker {
-    &.m-time-picker-right {
-      .ant-picker-input > input {
-        text-align: right;
-        font-size: 18px;
+    cursor: pointer;
+    .time-inner {
+      min-width: 100px;
+      display: flex;
+      align-items: center;
+      .time-text {
+        flex: 1;
+        font-size: 20px;
+        color: #dae4e5;
       }
-      .ant-picker-suffix {
+      .time-placeholder {
+        flex: 1;
+        font-size: 20px;
         color: #99acbf;
       }
-    }
-
-    .ant-picker-clear {
-      // background: transparent;
-    }
-  }
-  // .modal-time-picker {
-  // 	width: 100%;
-  // 	opacity: 0;
-  // }
-  .m-popup-time-picker {
-    // .ant-picker-panel-container {
-    // 	background: #1f2839;
-    // }
-
-    .ant-picker-panel {
-      border-color: #414a58 !important;
-
-      .ant-picker-time-panel-column:not(:first-child) {
-        border-color: #414a58;
-      }
-
-      .ant-picker-footer {
-        border-top-color: #414a58;
-        .ant-btn-primary[disabled],
-        .ant-btn-primary[disabled]:hover,
-        .ant-btn-primary[disabled]:focus,
-        .ant-btn-primary[disabled]:active {
-          background-color: #414a58;
+      &.right {
+        display: flex;
+        justify-content: flex-end;
+        .time-text {
+          text-align: right;
+        }
+        .time-placeholder {
+          text-align: right;
         }
       }
-    }
 
-    .ant-picker-time-panel-column
-      > li.ant-picker-time-panel-cell
-      .ant-picker-time-panel-cell-inner {
-      font-size: 18px;
-      color: #99acbf;
-      text-align: center;
-      height: 38px;
-      line-height: 38px;
-      &:hover {
-        background-color: #414a58;
+      .arrow {
+        margin-left: 12px;
+        width: 9px;
+        height: 16px;
+        margin-top: 3px;
+        // transition: all linear 0.1s;
+        // &.rotate {
+        // 	transform: rotate(180deg);
+        // }
       }
-    }
-    .ant-picker-time-panel-column
-      > li.ant-picker-time-panel-cell-selected
-      .ant-picker-time-panel-cell-inner {
-      background-color: #414a58;
-      font-weight: bold;
-      font-size: 18px;
-      color: #dae4e5;
     }
   }
 </style>

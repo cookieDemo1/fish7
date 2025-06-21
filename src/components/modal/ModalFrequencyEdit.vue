@@ -17,7 +17,7 @@
           <span>
             <a-input-number
               v-model:value="value"
-              class="m-input-number"
+              class="m-input-number2"
               :min="0"
               :max="100"
             ></a-input-number>
@@ -176,7 +176,7 @@
     }
   }
 
-  .m-input-number {
+  .m-input-number2 {
     background-color: #181d26;
     border-radius: 8px;
     border: none;

@@ -72,8 +72,8 @@
       align-items: center;
       .item {
         cursor: pointer;
-        width: 350px;
-        height: 350px;
+        width: 400px;
+        height: 300px;
         padding: 50px 0;
         background: #414a58;
         border-radius: 24px;
@@ -90,7 +90,7 @@
           color: #dae4e5;
         }
         .arrow {
-          margin-top: 80px;
+          margin-top: 50px;
           width: 32px;
           height: 25px;
         }

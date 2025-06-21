@@ -56,6 +56,7 @@
     height: 90px;
     background: #414a58;
     border-radius: 8px;
+    margin-top: 20px;
     // margin-top: 24px;
 
     display: flex;

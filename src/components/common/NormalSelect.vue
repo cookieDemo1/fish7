@@ -8,7 +8,7 @@
     </div>
     <div v-if="isOpen" class="select-modal-wrapper" @click="isOpen = false">
       <div class="select-modal" @click.stop="() => {}">
-        <div class="title">{{ text }}</div>
+        <!-- <div class="title">{{ text }}</div> -->
 
         <van-picker
           ref="picker"
@@ -16,7 +16,7 @@
           :show-toolbar="false"
           :columns="options"
           :option-height="50"
-          :visible-option-num="visibleOptionNum"
+          :visible-option-num="5"
           @confirm="onConfirm"
         />
 
@@ -39,7 +39,7 @@
       })
     ).def([]),
     placeholder: PropTypes.string.def('请选择'),
-    visibleOptionNum: PropTypes.number.def(5),
+    visibleOptionNum: PropTypes.number.def(3),
     textAlign: PropTypes.string.def('right')
   })
   const emit = defineEmits(['update:modelValue'])

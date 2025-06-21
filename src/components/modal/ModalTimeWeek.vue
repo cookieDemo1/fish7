@@ -10,12 +10,7 @@
             <div class="time-card">
               <div class="select-item">
                 <div class="label">时间</div>
-                <m-time-picker
-                  v-model="form.time"
-                  class="m-time-picker-right"
-                  placeholder="请选择"
-                  align="right"
-                ></m-time-picker>
+                <m-time-picker v-model="form.time"></m-time-picker>
               </div>
             </div>
           </m-form-item>
@@ -40,8 +35,16 @@
         </m-form>
       </div>
       <div class="modal-footer">
-        <a-button type="link" class="button" style="color: #dae4e5" @click="visible = false"
+        <a-button
+          v-if="item.type === 'add'"
+          type="link"
+          class="button"
+          style="color: #dae4e5"
+          @click="visible = false"
           >取消</a-button
+        >
+        <a-button v-else type="link" class="button" style="color: #ff5446" @click="onDelete"
+          >删除</a-button
         >
         <a-button type="link" class="button" @click="onOk">保存</a-button>
       </div>
@@ -93,8 +96,6 @@
   }
 
   function resetAction() {
-    console.log('here1')
-    // console.log(tempComposTask.value.time, props.index, props.type);
     Object.assign(
       form,
       props.item.type === 'add'
@@ -112,6 +113,10 @@
     )
   }
 
+  function onDelete() {
+    visible.value = false
+    tempComposTask.value.time.splice(props.item.index, 1)
+  }
   function onOk() {
     okButton.value = true
     formRef.value
@@ -151,7 +156,7 @@
 
 <style lang="less" scoped>
   .modal-body {
-    height: 400px;
+    height: 320px;
   }
 
   .time-card {

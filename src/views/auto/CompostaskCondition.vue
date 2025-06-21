@@ -22,47 +22,48 @@
                   <div class="condition-card">
                     <div class="select-item">
                       <div class="label">数据源</div>
-                      <m-select
+                      <normal-select
                         v-model="form.sensor_id"
                         class="select m-select-right"
                         placeholder="请选择数据源"
                         :options="level_1"
                       >
-                      </m-select>
+                      </normal-select>
                     </div>
                     <div class="condition-item">
                       <div class="label">条件</div>
                       <a-row :gutter="[22, 22]">
                         <a-col :span="8">
-                          <m-select
+                          <normal-select
                             v-model="form.arg"
                             class="m-select-compact"
                             placeholder="请选择"
                             :options="level_2"
                           >
-                          </m-select>
+                          </normal-select>
                           <div class="line"></div>
                           <div class="val">数据</div>
                         </a-col>
                         <a-col :span="8">
-                          <m-select
+                          <normal-select
                             v-model="form.compare"
                             class="m-select-compact"
                             placeholder="请选择"
                             :options="compareOptions"
                           >
-                          </m-select>
+                          </normal-select>
                           <div class="line"></div>
                           <div class="val">关系</div>
                         </a-col>
                         <a-col :span="8">
-                          <m-input-number
+                          <m-input-inner
                             v-model="form.value"
                             class="m-input-number-compact"
                             placeholder="请输入"
                             :bordered="false"
                             :controls="false"
-                          ></m-input-number>
+                            type="number"
+                          ></m-input-inner>
                           <div class="line"></div>
                           <div class="val">值</div>
                         </a-col>
@@ -161,7 +162,7 @@
   const level_1 = computed(() => {
     const { list = [] } = autoTaskConditionOption.value || {}
     const { level_1 = [] } = list[0] || {}
-    return level_1.map((item) => ({ ...item, label: item.name, value: item.id }))
+    return level_1.map((item) => ({ ...item, text: item.name, value: item.id }))
   })
   const level_2_obj = computed(() => {
     const { list = [] } = autoTaskConditionOption.value || {}
@@ -177,7 +178,7 @@
       const type = (level_1.value[index] || {})['type']
       return (level_2_obj.value[type] || []).map((item) => ({
         ...item,
-        label: item.v,
+        text: item.v,
         value: item.k
       }))
     }
@@ -185,9 +186,9 @@
   })
 
   const compareOptions = [
-    { label: '>', value: '>' },
-    { label: '=', value: '=' },
-    { label: '<', value: '<' }
+    { text: '>', value: '>' },
+    { text: '=', value: '=' },
+    { text: '<', value: '<' }
   ]
 
   const rules = {
@@ -369,7 +370,7 @@
       justify-content: space-between;
       align-items: center;
       .select {
-        width: 200px;
+        width: 350px;
       }
       .label {
         font-size: 20px;

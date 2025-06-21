@@ -34,7 +34,7 @@ declare module 'vue' {
     MForm: typeof import('./src/components/antd/MForm.vue')['default']
     MFormItem: typeof import('./src/components/antd/MFormItem.vue')['default']
     MInput: typeof import('./src/components/antd/MInput.vue')['default']
-    MInputInner: typeof import('./src/components/antd.backup/MInputInner.vue')['default']
+    MInputInner: typeof import('./src/components/antd/MInputInner.vue')['default']
     MInputNumber: typeof import('./src/components/antd/MInputNumber.vue')['default']
     MInputPassword: typeof import('./src/components/antd/MInputPassword.vue')['default']
     MList: typeof import('./src/components/antd/MList.vue')['default']

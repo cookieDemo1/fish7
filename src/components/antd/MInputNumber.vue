@@ -3,7 +3,6 @@
     v-model:value="value"
     class="m-input-number"
     :allow-clear="true"
-    :bordered="false"
     :controls="false"
     size="large"
     v-bind="attrs"
@@ -36,13 +35,12 @@
 
 <style lang="less">
   .m-input-number {
-    &.m-input-number-right {
-      .ant-input-number-input {
-        text-align: right;
-        padding: 0;
-      }
-    }
     &.m-input-number-compact {
+      background-color: transparent !important;
+      box-shadow: none !important;
+      outline: none !important;
+      border-color: transparent;
+      width: 100%;
       .ant-input-number-input {
         padding: 0;
       }

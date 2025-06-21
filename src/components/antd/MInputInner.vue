@@ -3,8 +3,7 @@
     v-if="props.type === 'password'"
     ref="inputRef"
     v-model:value="value"
-    class="m-input"
-    :allow-clear="true"
+    class="m-input-inner"
     v-bind="attrs"
   >
     <template v-for="name in Object.keys(slots)" #[name]>
@@ -15,8 +14,7 @@
     v-else-if="props.type === 'number'"
     ref="inputRef"
     v-model:value="value"
-    class="m-input m-input-number"
-    :allow-clear="true"
+    class="m-input-inner m-input-number"
     v-bind="attrs"
   >
     <template v-for="name in Object.keys(slots)" #[name]>
@@ -27,8 +25,7 @@
     v-else
     ref="inputRef"
     v-model:value="value"
-    class="m-input"
-    :allow-clear="true"
+    class="m-input-inner"
     v-bind="attrs"
     autocomplete="off"
   >
@@ -44,13 +41,14 @@
 
   const props = defineProps({
     type: PropTypes.oneOf(['input', 'number', 'password']).def('input'),
-    modelValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    modelValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    textAlign: PropTypes.oneOf(['left', 'center', 'right']).def('left')
   })
 
   const emit = defineEmits(['update:modelValue'])
 
   const inputRef = ref<HTMLInputElement>()
-
+  const textAlign = ref(props.textAlign)
   const value = computed({
     get: () => {
       return props.modelValue
@@ -68,39 +66,48 @@
 </script>
 
 <style lang="less">
-  .m-input {
-    &.ant-input-affix-wrapper,
-    &.ant-input-affix-wrapper:hover {
-      line-height: 38px;
-      padding: 4px 20px;
-      background-color: #414a58 !important;
+  .m-input-inner {
+    &.ant-input-number {
+      height: 50px;
+      line-height: 50px;
       border: none !important;
-      border-radius: 8px !important;
+      border-radius: 0;
+      width: 100%;
+      background: transparent !important;
+      outline: none !important;
       box-shadow: none !important;
+      .ant-input-number-input,
+      .ant-input-number-input :hover {
+        padding: 0 0 0 3px;
+        border-radius: 0;
+        height: 50px;
+        line-height: 50px !important;
+        font-size: 17px;
+        color: @textPrimaryColor !important;
+        &::placeholder {
+          color: #9a9a9a;
+        }
+      }
     }
-
-    .ant-input::placeholder {
+    &.ant-input::placeholder {
       color: #9a9a9a;
     }
 
-    .ant-input {
+    &.ant-input {
       &,
       &:hover {
-        padding-left: 3px !important;
+        text-align: v-bind(textAlign);
+        height: 50px;
+        line-height: 50px !important;
         font-size: 17px;
-        line-height: 38px !important;
         color: @textPrimaryColor !important;
         background-color: #414a58 !important;
+        padding-left: 3px !important;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0;
       }
-      &-clear-icon {
-        color: @textPrimaryColor!important;
-        &:hover {
-          color: @textPrimaryColor!important;
-        }
-      }
-      // &-suffix {
-      //   color: @textSubColor;
-      // }
     }
 
     &.ant-input-affix-wrapper.readonly {
@@ -124,4 +131,10 @@
   .m-input-number {
     width: 100%;
   }
+
+  // .ant-form-item-has-error .ant-input-number,
+  // .ant-form-item-has-error .ant-picker {
+  //   background-color: none !important;
+  //   border: none !important;
+  // }
 </style>
