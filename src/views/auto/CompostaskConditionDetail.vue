@@ -22,7 +22,7 @@
                       <div class="condition-item">传感器：{{ autoTaskInfo.sensor_name }}</div>
                       <div class="condition-item">
                         条件：{{
-                          `${autoTaskInfo.arg} ${autoTaskInfo.compare} ${autoTaskInfo.value}`
+                          `${autoTaskInfo.arg_name} ${autoTaskInfo.compare} ${autoTaskInfo.value}`
                         }}
                       </div>
                     </div>
