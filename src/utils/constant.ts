@@ -222,6 +222,6 @@ export const imgMap3 = {
   }
 }
 
-console.log(mode)
+console.log('mode: ', mode)
 
 export const imgMap = mode === 'mode1' ? imgMap1 : mode === 'mode2' ? imgMap2 : imgMap3

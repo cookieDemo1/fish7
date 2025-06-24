@@ -1,1 +1,0 @@
-import{_ as e,f as _,g as c}from"./index-5c916cc8.js";const o={},s={class:"four-four"};function t(a,n){return _(),c("div",s,"404")}const d=e(o,[["render",t],["__scopeId","data-v-96a99b0e"]]);export{d as default};
