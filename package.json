@@ -5,8 +5,10 @@
   "scripts": {
     "dev1": "vite --host --mode mode1 --port 5000",
     "dev2": "vite --host --mode mode2 --port 5000",
+    "dev3": "vite --host --mode mode3 --port 5000",
     "build1": "vue-tsc --noEmit --skipLibCheck && vite build --mode mode1",
     "build2": "vue-tsc --noEmit --skipLibCheck && vite build --mode mode2",
+    "build3": "vue-tsc --noEmit --skipLibCheck && vite build --mode mode3",
     "preview": "vite preview",
     "serve": "vite preview --host",
     "lint": "eslint ./src --ext .vue,.js,.ts,.tsx",

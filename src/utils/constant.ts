@@ -158,6 +158,70 @@ export const imgMap2 = {
   }
 }
 
+export const imgMap3 = {
+  1: {
+    icon: fjIcon,
+    0: xhsbOffline, // 0离线
+    1: xhsbOn, // 1开
+    2: xhsbOff, // 2关
+    name: '循环水泵',
+    isFrequency: true
+  },
+  2: {
+    icon: fjIcon,
+    0: fjOffline, // 0离线
+    1: fjOn, // 1开
+    2: fjOff, // 2关
+    name: '风机1'
+  },
+  3: {
+    icon: fjIcon,
+    0: fjOffline, // 0离线
+    1: fjOn, // 1开
+    2: fjOff, // 2关
+    name: '风机2'
+  },
+  4: {
+    icon: gljIcon,
+    0: gljOffline, // 0离线
+    1: gljOn, // 1开
+    2: gljOff, // 2关
+    name: '微型过滤机'
+  },
+
+  5: {
+    icon: xsbIcon,
+    0: kgOffline, // 0离线
+    1: kgOn, // 1开
+    2: kgOff, // 2关
+    name: '除氮机1'
+  },
+
+  6: {
+    icon: xsbIcon,
+    0: kgOffline, // 0离线
+    1: kgOn, // 1开
+    2: kgOff, // 2关
+    name: '除氮机2'
+  },
+
+  7: {
+    icon: xsbIcon,
+    0: kgOffline, // 0离线
+    1: kgOn, // 1开
+    2: kgOff, // 2关
+    name: '臭氧机'
+  },
+
+  8: {
+    icon: kgIcon,
+    0: fqOff, // 0离线
+    1: fqOn, // 1开
+    2: kgOff, // 2关
+    name: '悬浮球开关'
+  }
+}
+
 console.log(mode)
 
-export const imgMap = mode === 'mode1' ? imgMap1 : imgMap2
+export const imgMap = mode === 'mode1' ? imgMap1 : mode === 'mode2' ? imgMap2 : imgMap3

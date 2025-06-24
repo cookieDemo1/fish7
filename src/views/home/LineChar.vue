@@ -57,10 +57,10 @@
 
   const { char, getChar, loading } = use.useMainStateAction('char')
   const options = ref([
-    { name: '溶解氧', unit: 'mg/L', key: 'oxygen', value: '' },
-    { name: '水温值', unit: '℃', key: 'temp', value: '' },
-    { name: 'PH值', unit: 'PH', key: 'ph', value: '' },
-    { name: '液位', unit: '米', key: 'level', value: '' }
+    { name: '溶解氧', unit: 'mg/L', key: 'oxygen', value: '--' },
+    { name: '水温值', unit: '℃', key: 'temp', value: '--' },
+    { name: 'PH值', unit: 'PH', key: 'ph', value: '--' },
+    { name: '液位', unit: '米', key: 'level', value: '--' }
   ])
 
   const activeIndex = ref(0)
@@ -89,7 +89,7 @@
     const { date, sensor_data = { s20b: {} }, status, x, y } = val
     const { s20b } = sensor_data
     options.value.forEach((item) => {
-      item.value = s20b[item.key] || ''
+      item.value = s20b[item.key] !== null || s20b[item.key] !== undefined ? s20b[item.key] : '--'
     })
     draw()
   })

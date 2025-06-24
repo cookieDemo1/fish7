@@ -10,7 +10,7 @@
       </div> -->
 
     <!-- 可左右滚动 -->
-    <template v-if="switchList.length >= 8">
+    <template v-if="mode === 'mode3'">
       <div class="wrapper-slider">
         <div class="slider">
           <div class="row">
@@ -26,7 +26,7 @@
         </div>
       </div>
     </template>
-    <template v-else>
+    <template v-if="mode === 'mode2' || mode === 'mode1'">
       <div class="wrapper" style="padding: 0 24px">
         <a-row :gutter="[14, 14]">
           <a-col
