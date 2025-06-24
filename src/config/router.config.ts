@@ -6,7 +6,7 @@ const MainLayout = () => import('@/layouts/MainLayout.vue')
 //404
 const NotFound = () => import('@/views/404.vue')
 const Home = () => import('@/views/home/index.vue')
-const Automatic = () => import('@/views/automatic/index.vue')
+// const Automatic = () => import('@/views/automatic/index.vue')
 
 const AutoPage = () => import('@/views/auto/index.vue')
 const CompostaskAdd = () => import('@/views/auto/CompostaskAdd.vue')
@@ -66,7 +66,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       {
         path: '/automation',
         name: 'automation',
-        meta: { title: '自动化', normal: autoNormal, active: autoActive, menu: true },
+        meta: { title: '自动化', normal: autoNormal, active: autoActive, menu: false },
         component: AutoPage,
         props: (route) => route.query
       },

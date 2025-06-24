@@ -59,7 +59,8 @@
   const options = ref([
     { name: '溶解氧', unit: 'mg/L', key: 'oxygen', value: '' },
     { name: '水温值', unit: '℃', key: 'temp', value: '' },
-    { name: 'PH值', unit: 'PH', key: 'ph', value: '' }
+    { name: 'PH值', unit: 'PH', key: 'ph', value: '' },
+    { name: '液位', unit: '米', key: 'level', value: '' }
   ])
 
   const activeIndex = ref(0)
@@ -71,6 +72,7 @@
       if (myChart) {
         myChart.clear()
       }
+      console.log('type', type)
       getChar({ type })
       // =================
       // nextTick(() => {

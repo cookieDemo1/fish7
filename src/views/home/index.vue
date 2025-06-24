@@ -1,30 +1,32 @@
 <template>
   <div class="home">
-    <template v-if="mode === 'mode1'">
-      <div class="wrapper" style="padding: 0 24px">
+    <!-- 第一版带图标的 -->
+    <!-- <div class="wrapper" style="padding: 0 24px">
         <a-row :gutter="[14, 14]">
           <a-col v-for="(item, index) in switchList" :key="index" :span="6">
             <DeviceCardMode :item="item" @callback="() => getSwitch()" />
           </a-col>
         </a-row>
-      </div>
-    </template>
-    <template v-else>
-      <!-- 可左右滚动 -->
-      <!-- <div class="wrapper-slider">
+      </div> -->
+
+    <!-- 可左右滚动 -->
+    <template v-if="switchList.length >= 8">
+      <div class="wrapper-slider">
         <div class="slider">
           <div class="row">
-            <div v-for="(item, index) in switchList.slice(0, 5)" :key="'col1' + index" class="col">
+            <div v-for="(item, index) in switchList.slice(0, 4)" :key="'col1' + index" class="col">
               <DeviceCardMode2 :item="item" @callback="() => getSwitch()"></DeviceCardMode2>
             </div>
           </div>
           <div class="row">
-            <div v-for="(item, index) in switchList.slice(5)" :key="'col2' + index" class="col">
+            <div v-for="(item, index) in switchList.slice(4)" :key="'col2' + index" class="col">
               <DeviceCardMode2 :item="item" @callback="() => getSwitch()"></DeviceCardMode2>
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
+    </template>
+    <template v-else>
       <div class="wrapper" style="padding: 0 24px">
         <a-row :gutter="[14, 14]">
           <a-col
@@ -78,7 +80,10 @@
 
       .slider {
         padding: 0 24px;
-        width: 1626px;
+        // 一行5个
+        // width: 1626px;
+        // 一行四个
+        width: 1308px;
         overflow: visible;
       }
     }

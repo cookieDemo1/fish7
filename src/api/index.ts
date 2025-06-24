@@ -15,7 +15,7 @@ export const requestApi = {
     methods: ['POST']
   },
   char: {
-    url: () => '/api/red/sensor',
+    url: ({ type }) => `/api/red/sensor?type=${type}`,
     methods: ['GET']
   },
   freq: {
