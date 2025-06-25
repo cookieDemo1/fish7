@@ -6,8 +6,7 @@
     </div>
     <div class="header">
       <!-- 首页和自动化显示路由 -->
-      <!-- <div class="slot"></div> -->
-      <template v-if="activeRoute === '/home' || activeRoute === '/automatic'">
+      <template v-if="activeRoute === '/home' || activeRoute === '/automation'">
         <ul class="nav">
           <li
             v-for="item in routes"
@@ -23,8 +22,15 @@
 
             <span>{{ item.meta.title }}</span>
           </li>
+
+          <!-- 小程序码，不在路由中 -->
+          <li class="nav-item" :class="{ active: actions.showCode }" @click="actions.handleCode">
+            <img class="route-icon" :src="actions.showCode ? activeMiniIcon : normalMiniIcon" />
+            <span>小程序</span>
+          </li>
         </ul>
       </template>
+      <!-- 其他页面显示返回 -->
       <template v-else>
         <div class="back" @click="handleBack()">
           <img src="@/assets/return_button@2x.png" class="back-icon" alt="" />
@@ -44,14 +50,22 @@
       </div>
     </div>
   </header>
+
+  <modal-code v-model="actions.showCode"></modal-code>
 </template>
 
 <script setup lang="ts">
   import fullscreenIcon from '@/assets/exfuscreen_button@2x.png'
   import nomralscreenIcon from '@/assets/fuscreen_button@2x.png'
+
+  import normalMiniIcon from '@/assets/button_xiaocx_nor@2x.png'
+  import activeMiniIcon from '@/assets/button_xiaocx_click@2x.png'
+
   import { asyncRoutes } from '@/config/router.config'
   const { radom, setRadom } = store.useRefreshStore()
   const routes = [...asyncRoutes[0].children].filter((item) => item.meta.menu)
+
+  const { actions } = use.useActions(['code'])
 
   const activeRoute = ref('')
   const route = useRoute()
@@ -168,6 +182,8 @@
       }
 
       .nav {
+        position: relative;
+        z-index: 999;
         display: flex;
         margin: 0;
         padding: 0;
@@ -186,7 +202,8 @@
           }
         }
         .nav-item + .nav-item {
-          margin-left: 45px;
+          // margin-left: 45px;
+          margin-left: 20px;
         }
       }
 

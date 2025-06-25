@@ -66,7 +66,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       {
         path: '/automation',
         name: 'automation',
-        meta: { title: '自动化', normal: autoNormal, active: autoActive, menu: false },
+        meta: { title: '自动化', normal: autoNormal, active: autoActive, menu: true },
         component: AutoPage,
         props: (route) => route.query
       },

@@ -42,6 +42,7 @@ declare module 'vue' {
     MModal: typeof import('./src/components/antd/MModal.vue')['default']
     ModalChildtaskAdd: typeof import('./src/components/modal/ModalChildtaskAdd.vue')['default']
     ModalChildtaskDetail: typeof import('./src/components/modal/ModalChildtaskDetail.vue')['default']
+    ModalCode: typeof import('./src/components/modal/ModalCode.vue')['default']
     ModalDelete: typeof import('./src/components/modal/ModalDelete.vue')['default']
     ModalDeviceAdd: typeof import('./src/components/modal/ModalDeviceAdd.vue')['default']
     ModalDeviceChange: typeof import('./src/components/modal/ModalDeviceChange.vue')['default']
