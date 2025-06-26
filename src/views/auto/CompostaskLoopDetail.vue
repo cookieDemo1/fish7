@@ -164,7 +164,7 @@
   }
 
   .card-container {
-    width: 1300px;
+    width: 750px;
   }
 
   .task {
