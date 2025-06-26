@@ -21,7 +21,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
+dist
+dist.rar
+dist.zip
 # eslint cache
 .eslintcache
 src/auto-imports.d.ts
