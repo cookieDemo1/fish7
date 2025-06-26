@@ -4,7 +4,7 @@
       <h3 class="title">小程序：远程控制码</h3>
 
       <div class="code-wrapper">
-        <img src="code.png" alt="code" />
+        <img src="" alt="QR Code" />
       </div>
 
       <p class="tip">请使用微信扫一扫，解锁手机远程控制！</p>

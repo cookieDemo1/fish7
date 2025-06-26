@@ -11,7 +11,9 @@
         @click="activeIndex = index"
       >
         <div class="value">{{ item.value }} {{ item.unit }}</div>
-        <div class="name">{{ item.name }}</div>
+        <div class="name">
+          {{ item.name }} {{ index === activeIndex && char?.status === 2 ? '(离线)' : '' }}
+        </div>
       </li>
     </ul>
 
@@ -89,7 +91,10 @@
     const { date, sensor_data = { s20b: {} }, status, x, y } = val
     const { s20b } = sensor_data
     options.value.forEach((item) => {
-      item.value = s20b[item.key] !== null || s20b[item.key] !== undefined ? s20b[item.key] : '--'
+      item.value =
+        s20b[item.key] !== null && s20b[item.key] !== undefined && s20b[item.key] !== ''
+          ? s20b[item.key]
+          : '--'
     })
     draw()
   })

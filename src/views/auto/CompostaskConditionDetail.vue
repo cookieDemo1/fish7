@@ -169,6 +169,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    overflow: auto;
     .task-info {
       padding-left: 32px;
       .title {

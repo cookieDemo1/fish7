@@ -3,6 +3,7 @@
     <div class="modal-content">
       <div class="modal-title">
         {{ item.type === 'add' ? '添加执行时间' : '修改执行时间' }}
+        <svg-icon class="right-icon" name="guanbib_button" @click="visible = false"></svg-icon>
       </div>
       <div class="modal-body">
         <m-form ref="formRef" class="form" :model="form" :rules="rules" style="height: 100%">

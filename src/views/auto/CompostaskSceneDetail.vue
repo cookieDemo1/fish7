@@ -154,8 +154,10 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    overflow: auto;
     .task-info {
       padding-left: 32px;
+
       .title {
         font-size: 28px;
         color: #dae4e5;
