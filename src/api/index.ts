@@ -65,6 +65,10 @@ export const requestApi = {
   autoTaskDisable: {
     url: ({ id = '' }) => `/api/red/auto/task/disable?id=${id}`,
     methods: [POST]
+  },
+  sn: {
+    url: () => `/api/red/sn`,
+    methods: [GET]
   }
   // taskList: {
   //   url: () => '/api/red/auto/tasks',

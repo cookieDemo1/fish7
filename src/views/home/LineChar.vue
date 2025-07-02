@@ -3,18 +3,20 @@
     <div v-if="char?.status === 2" class="offline">离线</div>
 
     <ul class="select">
-      <li
-        v-for="(item, index) in options"
-        :key="index"
-        class="option"
-        :class="{ active: index === activeIndex }"
-        @click="activeIndex = index"
-      >
-        <div class="value">{{ item.value }} {{ item.unit }}</div>
-        <div class="name">
-          {{ item.name }} {{ index === activeIndex && char?.status === 2 ? '(离线)' : '' }}
-        </div>
-      </li>
+      <template v-for="(option, index) in options">
+        <li
+          v-if="option.show"
+          :key="index"
+          class="option"
+          :class="{ active: index === activeIndex }"
+          @click="activeIndex = index"
+        >
+          <div class="value">{{ option.value }} {{ option.unit }}</div>
+          <div class="name">
+            {{ option.name }} {{ index === activeIndex && char?.status === 2 ? '(离线)' : '' }}
+          </div>
+        </li>
+      </template>
     </ul>
 
     <div id="char" class="char"></div>
@@ -58,11 +60,11 @@
   let myChart: any
 
   const { char, getChar, loading } = use.useMainStateAction('char')
-  const options = ref([
-    { name: '溶解氧', unit: 'mg/L', key: 'oxygen', value: '--' },
-    { name: '水温值', unit: '℃', key: 'temp', value: '--' },
-    { name: 'PH值', unit: 'PH', key: 'ph', value: '--' },
-    { name: '液位', unit: '米', key: 'level', value: '--' }
+  const options = ref<any>([
+    { name: '溶解氧', unit: 'mg/L', key: 'oxygen', value: '--', show: false },
+    { name: '水温值', unit: '℃', key: 'temp', value: '--', show: false },
+    { name: 'PH值', unit: 'PH', key: 'ph', value: '--', show: false },
+    { name: '液位', unit: '米', key: 'level', value: '--', show: false }
   ])
 
   const activeIndex = ref(0)
@@ -74,7 +76,7 @@
       if (myChart) {
         myChart.clear()
       }
-      console.log('type', type)
+      // console.log('type', type)
       getChar({ type })
       // =================
       // nextTick(() => {
@@ -87,7 +89,6 @@
     }
   )
   watch(char, (val) => {
-    console.log('val', val)
     const { date, sensor_data = { s20b: {} }, status, x, y } = val
     const { s20b } = sensor_data
     options.value.forEach((item) => {
@@ -95,6 +96,8 @@
         s20b[item.key] !== null && s20b[item.key] !== undefined && s20b[item.key] !== ''
           ? s20b[item.key]
           : '--'
+
+      item.show = s20b[item.key] !== null && s20b[item.key] !== undefined
     })
     draw()
   })
@@ -108,10 +111,10 @@
   const draw = () => {
     const { date, x, y } = char.value
     const unit = options.value[activeIndex.value].unit
-    console.log('unit', unit)
-    console.log('date', date)
-    console.log('x', x)
-    console.log('y', y)
+    // console.log('unit', unit)
+    // console.log('date', date)
+    // console.log('x', x)
+    // console.log('y', y)
 
     const array1D = y.flat().filter((item) => item !== '')
     // 将字符串转换为数字
@@ -185,8 +188,6 @@
           // 只显示特定时间点的标签
           interval: 0,
           formatter: function (value) {
-            console.log(value)
-
             const showLabels = ['00:00', '06:00', '12:00', '18:00', '24:00']
             return showLabels.includes(value) ? value : ''
           }
@@ -305,7 +306,7 @@
 
 <style lang="less" scoped>
   .line-char {
-    height: 290px;
+    height: 280px;
     background-color: #1f2838;
     border-radius: 12px;
     position: relative;

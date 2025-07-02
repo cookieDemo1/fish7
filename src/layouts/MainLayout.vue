@@ -61,7 +61,7 @@
       padding: 12px 24px;
 
       &.padding {
-        padding: 12px 0;
+        padding: 12px 0 25px 0;
       }
     }
   }

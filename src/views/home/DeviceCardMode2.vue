@@ -2,7 +2,7 @@
   <div class="device-card" @click="handleClick">
     <div class="icon">
       <template v-if="!loading">
-        <img :src="imgMap[item.id][item.status]" class="status-icon" alt="" />
+        <img :src="imgMap[item.icon_type][item.status]" class="status-icon" alt="" />
       </template>
       <template v-else>
         <div :class="{ 'loading-icon': true, 'loading-on': item.status == 1 }">
@@ -51,7 +51,7 @@
   const handleClick = () => {
     const status = props.item.status
 
-    if (props.item.di_do === 'di') {
+    if (props.item.is_di) {
       return message.warning('DI状态无法控制')
     }
     if (status === 0) {
@@ -60,7 +60,7 @@
 
     const action = status === 1 ? 2 : 1
     loading.value = true
-    postControlSwitch({ DO: parseInt(props.item.id), action: action })
+    postControlSwitch({ DO: props.item.do, action: action })
       .then((res) => {
         if (res.code !== 200) {
           loading.value = false
