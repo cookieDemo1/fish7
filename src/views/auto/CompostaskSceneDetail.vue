@@ -112,7 +112,8 @@
     loading.value = true
     const params = {
       type,
-      id
+      id,
+      task_id: autoTaskInfo.value.id
     }
     postAutoTaskSceneExec(params)
       .then((res) => {
