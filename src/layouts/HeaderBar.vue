@@ -24,10 +24,10 @@
           </li>
 
           <!-- 小程序码，不在路由中 -->
-          <!-- <li class="nav-item" :class="{ active: actions.showCode }" @click="actions.handleCode">
+          <li class="nav-item" :class="{ active: actions.showCode }" @click="actions.handleCode">
             <img class="route-icon" :src="actions.showCode ? activeMiniIcon : normalMiniIcon" />
             <span>小程序</span>
-          </li> -->
+          </li>
         </ul>
       </template>
       <!-- 其他页面显示返回 -->
