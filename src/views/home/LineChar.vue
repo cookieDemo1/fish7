@@ -69,25 +69,37 @@
 
   const activeIndex = ref(0)
 
+  let type = ''
+  let timeout = null
+  const startLoop = () => {
+    getChar({ type }).finally(() => {
+      timeout = setTimeout(startLoop, 30000)
+    })
+  }
+
+  const stopLoop = () => {
+    timeout && clearTimeout(timeout)
+  }
   watch(
     activeIndex,
     (val) => {
-      const type = options.value[val].key
+      type = options.value[val].key
       if (myChart) {
         myChart.clear()
       }
-      // console.log('type', type)
-      getChar({ type })
-      // =================
-      // nextTick(() => {
-      //   draw()
-      // })
-      // =================
+
+      // getChar({ type })
+      startLoop()
     },
     {
       immediate: true
     }
   )
+
+  onBeforeUnmount(() => {
+    stopLoop()
+  })
+
   watch(char, (val) => {
     const { date, sensor_data = { s20b: {} }, status, x, y } = val
     const { s20b } = sensor_data
