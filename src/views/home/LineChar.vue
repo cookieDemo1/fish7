@@ -70,25 +70,24 @@
   const activeIndex = ref(0)
 
   let type = ''
-  let timeout = null
+  let interval = null
   const startLoop = () => {
-    getChar({ type }).finally(() => {
-      timeout = setTimeout(startLoop, 30000)
-    })
+    getChar({ type })
+    interval = setInterval(() => {
+      getChar({ type })
+    }, 10000)
   }
 
   const stopLoop = () => {
-    timeout && clearTimeout(timeout)
+    interval && clearInterval(interval)
+    interval = null
   }
   watch(
     activeIndex,
     (val) => {
       type = options.value[val].key
-      if (myChart) {
-        myChart.clear()
-      }
-
-      // getChar({ type })
+      myChart && myChart.clear()
+      stopLoop()
       startLoop()
     },
     {
