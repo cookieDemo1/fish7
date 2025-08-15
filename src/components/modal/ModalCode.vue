@@ -4,7 +4,7 @@
       <h3 class="title">小程序：远程控制码</h3>
 
       <div class="code-wrapper">
-        <img src="/xiaochengx_img.png" alt="QR Code" />
+        <img src="/xiaochengx_img.png" alt="QR Code" style="border-radius: 6px" />
       </div>
 
       <p class="tip">请使用微信扫一扫，解锁手机远程控制！</p>
@@ -64,7 +64,7 @@
 
       .code-wrapper {
         width: 200px;
-        height: 200px;
+        // height: 200px;
         margin: 35px auto;
         padding: 18px;
         background-image: url('@/assets/saomiao_icon@2x.png');
