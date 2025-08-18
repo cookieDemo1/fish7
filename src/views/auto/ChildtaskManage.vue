@@ -1,7 +1,7 @@
 <template>
   <page-container>
     <div class="page-inner">
-      <card-container class="card-container" title="子任务管理">
+      <card-container class="card-container" :title="$t('Sub-task management')">
         <template #action>
           <m-button-link>
             <template #icon>
@@ -23,9 +23,9 @@
 
       <modal-delete
         v-model="actions.showDelete"
-        title="删除子任务"
-        message="确定删除该子任务吗？"
-        ok-text="删除"
+        :title="$t('Delete the sub-task')"
+        :message="$t('Are you sure to delete this sub-task?')"
+        :ok-text="$t('Delete')"
         :item="actions.item"
         action-name="deleteSubTask"
         @callback="getData"

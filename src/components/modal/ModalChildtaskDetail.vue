@@ -18,14 +18,16 @@
                   <div class="dot-wrapper">
                     <div class="dot" :class="opeItem.action == 1 ? 'green' : 'red'"></div>
                   </div>
-                  <div class="action">{{ opeItem.action == 1 ? '开启设备' : '关闭设备' }}：</div>
+                  <div class="action">
+                    {{ opeItem.action == 1 ? $t('Start device') : $t('Close device') }}：
+                  </div>
                   <div class="name">{{ opeItem.name }}</div>
                 </template>
                 <template v-else>
                   <div class="dot-wrapper">
                     <svg-icon class="icon" name="ddshij_h_icon"></svg-icon>
                   </div>
-                  <div class="action">等待时长：</div>
+                  <div class="action">{{ $t('Waiting duration') }}：</div>
                   <div class="name">{{ secondsTostring(opeItem.seconds) }}</div>
                 </template>
               </div>

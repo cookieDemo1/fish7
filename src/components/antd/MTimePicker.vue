@@ -6,7 +6,7 @@
           <div class="time-text">{{ valueStr }}</div>
         </template>
         <template v-else>
-          <div class="time-placeholder">{{ placeholder }}</div>
+          <div class="time-placeholder">{{ placeholder || $t('Please select') }}</div>
         </template>
         <svg-icon class="arrow" name="jiantou_icon"></svg-icon>
       </div>
@@ -23,7 +23,7 @@
 <script lang="ts" setup>
   const props = defineProps({
     disabled: PropTypes.bool.def(false),
-    placeholder: PropTypes.string.def('请选择'),
+    placeholder: PropTypes.string.def(''),
     modelValue: PropTypes.string.def(''),
     align: PropTypes.oneOf(['left', 'right']).def('right'),
     fomatter: PropTypes.func

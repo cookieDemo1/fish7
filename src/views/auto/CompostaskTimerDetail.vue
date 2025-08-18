@@ -8,16 +8,16 @@
             <div class="tags">
               <div class="task-type">
                 <svg-icon class="icon" name="dingsrw_icon"></svg-icon>
-                智能定时任务
+                {{ $t('Intelligent scheduled task') }}
               </div>
-              <div v-if="autoTaskInfo.disable == '1'" class="task-status">已禁用</div>
+              <div v-if="autoTaskInfo.disable == '1'" class="task-status">{{ $t('Disabled') }}</div>
             </div>
 
             <div class="container">
               <div class="content">
                 <m-spin :spinning="loading">
                   <div class="task-item">
-                    <div class="title">执行时间</div>
+                    <div class="title">{{ $t('Execution time') }}</div>
                     <div class="timer-card">
                       <div
                         v-for="(item, index) in autoTaskInfo.time"
@@ -35,7 +35,7 @@
                   </div>
 
                   <div class="task-item">
-                    <div class="title">执行任务</div>
+                    <div class="title">{{ $t('Execute task') }}</div>
                     <div class="childtask-list">
                       <div
                         v-for="(item, index) in autoTaskInfo.sub_tasks"
@@ -58,7 +58,11 @@
         </div>
 
         <more-actions
-          :menu-items="[autoTaskInfo.disable == '1' ? '启用' : '禁用', '修改', '删除']"
+          :menu-items="[
+            autoTaskInfo.disable == '1' ? $t('Enable') : $t('Disable'),
+            $t('Edit'),
+            $t('Delete')
+          ]"
           @item-click="handleItemClick"
         ></more-actions>
       </card-container>
@@ -66,9 +70,9 @@
 
     <modal-delete
       v-model="actions.showDelete"
-      title="删除任务"
-      message="确定删除该任务吗？"
-      ok-text="删除"
+      :title="$t('Delete task')"
+      :message="$t('Are you sure to delete this task?')"
+      :ok-text="$t('Delete')"
       :item="actions.item"
       action-name="deleteAutoTaskTimer"
       @callback="handleBack"

@@ -8,16 +8,22 @@
     </div>
 
     <div class="item">
-      <div class="label">开启时间</div>
+      <div class="label">{{ $t('Start time') }}</div>
       <div class="value">
-        <time-select v-model="form.start_time" placeholder="请选择开始时间"></time-select>
+        <time-select
+          v-model="form.start_time"
+          :placeholder="$t('Please select the start time')"
+        ></time-select>
       </div>
     </div>
     <Line></Line>
     <div class="item">
-      <div class="label">关闭时间</div>
+      <div class="label">{{ $t('Closing time') }}</div>
       <div class="value">
-        <time-select v-model="form.end_time" placeholder="请选择关闭时间"></time-select>
+        <time-select
+          v-model="form.end_time"
+          :placeholder="$t('Please select the closing time')"
+        ></time-select>
       </div>
     </div>
     <Line></Line>

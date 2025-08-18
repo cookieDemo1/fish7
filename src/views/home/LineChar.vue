@@ -1,6 +1,6 @@
 <template>
   <div class="line-char">
-    <div v-if="char?.status === 2" class="offline">离线</div>
+    <div v-if="char?.status === 2" class="offline">{{ $t('Offline') }}</div>
 
     <ul class="select">
       <template v-for="(option, index) in options">
@@ -11,9 +11,10 @@
           :class="{ active: index === activeIndex }"
           @click="activeIndex = index"
         >
-          <div class="value">{{ option.value }} {{ option.unit }}</div>
+          <div class="value">{{ option.value }} {{ $t(option.unit) }}</div>
           <div class="name">
-            {{ option.name }} {{ index === activeIndex && char?.status === 2 ? '(离线)' : '' }}
+            {{ $t(option.name) }}
+            {{ index === activeIndex && char?.status === 2 ? `(${$t('Offline')})` : '' }}
           </div>
         </li>
       </template>
@@ -22,7 +23,7 @@
     <div id="char" class="char"></div>
 
     <div v-if="loading" class="loading">
-      <a-spin :spining="loading" tip="加载中..."></a-spin>
+      <a-spin :spining="loading" :tip="$t('Loading')"></a-spin>
     </div>
   </div>
 </template>
@@ -59,12 +60,14 @@
   ])
   let myChart: any
 
+  const { isZh } = use.useLang()
+
   const { char, getChar, loading } = use.useMainStateAction('char')
   const options = ref<any>([
-    { name: '溶解氧', unit: 'mg/L', key: 'oxygen', value: '--', show: false },
-    { name: '水温值', unit: '℃', key: 'temp', value: '--', show: false },
-    { name: 'PH值', unit: 'PH', key: 'ph', value: '--', show: false },
-    { name: '液位', unit: '米', key: 'level', value: '--', show: false }
+    { name: 'Dissolved oxygen', unit: 'mg/L', key: 'oxygen', value: '--', show: false },
+    { name: 'Water temperature', unit: '℃', key: 'temp', value: '--', show: false },
+    { name: 'PH', unit: 'PH', key: 'ph', value: '--', show: false },
+    { name: 'Liquid level', unit: 'm', key: 'level', value: '--', show: false }
   ])
 
   const activeIndex = ref(0)
@@ -120,10 +123,17 @@
   // 接下来的使用就跟之前一样，初始化图表，设置配置项
 
   const draw = () => {
-    const { date, x, y } = char.value
+    let { date, x, y } = char.value
     const unit = options.value[activeIndex.value].unit
     // console.log('unit', unit)
-    // console.log('date', date)
+    //  {0: '今天', 1: '昨天', 2: '8月16日', 3: '8月15日', 4: '8月14日', 5: '8月13日'}
+    console.log('date', date)
+    if (!isZh) {
+      date[0] = 'Today'
+      date[1] = 'Yesterday'
+      date = date.map((item) => item.replace('月', '-').replace('日', ''))
+    }
+
     // console.log('x', x)
     // console.log('y', y)
 

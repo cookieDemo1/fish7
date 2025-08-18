@@ -4,9 +4,10 @@
       <card-container class="card-container" :show-header="false">
         <div class="task">
           <div class="title">
-            <svg-icon class="icon" name="zrenwu_icon"></svg-icon>子任务-{{
-              type === 'add' ? '新增' : '修改'
-            }}
+            <svg-icon class="icon" name="zrenwu_icon"></svg-icon>
+            {{ $t('Sub-task') }}
+            -
+            {{ type === 'add' ? $t('Add') : $t('Edit1') }}
           </div>
           <div class="container">
             <div class="content">
@@ -14,15 +15,19 @@
                 <m-form-item label="" name="name">
                   <m-input
                     v-model="form.name"
-                    placeholder="请填写子任务名称"
+                    :placeholder="$t('Please enter the name of the sub-task')"
                     :maxlength="20"
                   ></m-input>
                 </m-form-item>
-                <m-form-item class="m-form-item-extra" label="执行操作" name="ope">
+                <m-form-item
+                  class="m-form-item-extra"
+                  :label="$t('Perform an operation')"
+                  name="ope"
+                >
                   <template #extra>
                     <div v-if="form.ope.length" class="edit-button" @click="handleEdit">
                       <svg-icon name="bianji_icon" class="edit-icon"></svg-icon>
-                      编辑
+                      {{ $t('Edit1') }}
                     </div>
                   </template>
                   <template v-if="actions.showEdit">
@@ -72,14 +77,18 @@
                     form.ope = [...actions.item]
                   }
                 "
-                >保存</m-button
+                >{{ $t('Save') }}</m-button
               >
             </div>
           </template>
           <template v-else>
             <div class="buttons">
-              <m-button class="button" shape="round" @click="handleBack">上一步</m-button>
-              <m-button class="button" shape="round" type="primary" @click="onOk">保存</m-button>
+              <m-button class="button" shape="round" @click="handleBack">{{
+                $t('Previous step')
+              }}</m-button>
+              <m-button class="button" shape="round" type="primary" @click="onOk">{{
+                $t('Save')
+              }}</m-button>
             </div>
           </template>
         </div>
@@ -90,7 +99,7 @@
 
 <script setup lang="ts">
   import { Container, Draggable } from 'vue3-smooth-dnd'
-
+  const { t } = useI18n()
   const props = defineProps({
     type: PropTypes.string.def('add')
   })
@@ -100,8 +109,21 @@
   const { tempChildTask } = toRefs(autoTaskStore)
 
   const rules = {
-    name: [{ required: true, message: '请输入子任务名称', trigger: ['change', 'blur'] }],
-    ope: [{ type: 'array', required: true, message: '请选择执行操作', trigger: ['change', 'blur'] }]
+    name: [
+      {
+        required: true,
+        message: t('Please enter the name of the sub-task'),
+        trigger: ['change', 'blur']
+      }
+    ],
+    ope: [
+      {
+        type: 'array',
+        required: true,
+        message: t('Please select to perform the operation'),
+        trigger: ['change', 'blur']
+      }
+    ]
   }
   const formData = {
     ...tempChildTask.value

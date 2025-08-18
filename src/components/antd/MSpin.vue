@@ -1,5 +1,5 @@
 <template>
-  <a-spin class="m-spin" :spinning="false" tip="加载中..." v-bind="attrs">
+  <a-spin class="m-spin" :spinning="false" :tip="$t('Loading...')" v-bind="attrs">
     <template #indicator>
       <LoadingOutlined />
     </template>

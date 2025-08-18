@@ -56,7 +56,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         path: '/home',
         name: 'home',
         meta: {
-          title: '首页',
+          title: 'Home',
           normal: homeNormal,
           active: homeActive,
           menu: true
@@ -66,7 +66,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       {
         path: '/automation',
         name: 'automation',
-        meta: { title: '自动化', normal: autoNormal, active: autoActive, menu: true },
+        meta: { title: 'Automation', normal: autoNormal, active: autoActive, menu: true },
         component: AutoPage,
         props: (route) => route.query
       },

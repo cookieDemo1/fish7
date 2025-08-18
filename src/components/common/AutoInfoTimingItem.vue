@@ -4,9 +4,9 @@
     <div class="info">
       <div class="name">{{ name }}</div>
       <div class="value">
-        <span>{{ item.on || '--' }} 开启</span>
+        <span>{{ item.on || '--' }} {{ $t('Enable') }}</span>
         <span class="split">|</span>
-        <span>{{ item.off || '--' }} 关闭</span>
+        <span>{{ item.off || '--' }} {{ $t('Disable') }}</span>
       </div>
     </div>
   </div>

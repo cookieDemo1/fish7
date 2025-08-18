@@ -1,7 +1,7 @@
 <template>
   <page-container>
     <div class="page-inner">
-      <card-container class="card-container" title="自动化任务">
+      <card-container class="card-container" :title="$t('Automated tasks')">
         <template #action>
           <m-button-link>
             <template #icon>
@@ -12,7 +12,7 @@
         <div class="task-block">
           <div class="childtask-item" @click="handleChildtask">
             <svg-icon class="icon" name="zirenw_icon"></svg-icon>
-            <div class="name">子任务管理</div>
+            <div class="name">{{ $t('Sub-task management') }}</div>
             <svg-icon class="arrow" name="jiantou_icon"></svg-icon>
           </div>
         </div>
@@ -26,7 +26,9 @@
                   <div class="row">
                     <div class="tags">
                       <svg-icon class="task-icon" :name="item.icon"></svg-icon>
-                      <view v-if="item.disable == '1'" class="task-status">已禁用 </view>
+                      <view v-if="item.disable == '1'" class="task-status"
+                        >{{ $t('Disabled') }}
+                      </view>
                     </div>
                     <svg-icon class="arrow" name="jiantou_icon"></svg-icon>
                   </div>
@@ -44,8 +46,9 @@
 </template>
 
 <script setup lang="ts">
-  const { autoTask, getAutoTask } = use.useMainStateAction('autoTask')
+  const { t } = useI18n()
 
+  const { autoTask, getAutoTask } = use.useMainStateAction('autoTask')
   const globalStore = store.useGlobalStore()
   globalStore.registerFunction(getData)
   getData()
@@ -60,7 +63,7 @@
       const { scene = [], timer = [], condition = [], cycle = [] } = autoTask.value || {}
       if (scene.length) {
         res.push({
-          name: '场景任务',
+          name: t('Scene tasks'),
           list: scene.map((item) => {
             return { ...item, icon: 'changjrw_icon', routeName: 'compostaskSceneDetail' }
           })
@@ -68,7 +71,7 @@
       }
       if (timer.length) {
         res.push({
-          name: '定时任务',
+          name: t('Scheduled tasks'),
           list: timer.map((item) => {
             return { ...item, icon: 'dingsrw_icon', routeName: 'compostaskTimerDetail' }
           })
@@ -76,7 +79,7 @@
       }
       if (condition.length) {
         res.push({
-          name: '条件任务',
+          name: t('Conditional tasks'),
           list: condition.map((item) => {
             return { ...item, icon: 'tiaojrw_icon', routeName: 'compostaskConditionDetail' }
           })
@@ -84,7 +87,7 @@
       }
       if (cycle.length) {
         res.push({
-          name: '循环任务',
+          name: t('Cyclic task'),
           list: cycle.map((item) => {
             return { ...item, icon: 'xunh_icon', routeName: 'compostaskLoopDetail' }
           })

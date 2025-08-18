@@ -4,7 +4,7 @@
       v-model="value"
       class="v-time-picker"
       :show-toolbar="false"
-      title="选择时间"
+      :title="$t('Select time')"
       :columns-type="['hour', 'minute', 'second']"
       :formatter="formatter"
       :visible-option-num="5"

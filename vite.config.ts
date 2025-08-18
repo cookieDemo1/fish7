@@ -39,6 +39,7 @@ export default defineConfig({
         // 预先设置
         'vue',
         'vue-router',
+        'vue-i18n',
         {
           '@/utils/PropTypes': [['default', 'PropTypes']],
           '@/utils/index': [['*', 'utils']],

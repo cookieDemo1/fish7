@@ -4,6 +4,7 @@ export * from './table'
 export * from './list'
 export * from './form'
 export * from './options'
+export * from './lang'
 
 export const useResetPosition = ({ resetPosition }: { resetPosition: Function }) => {
   function tempResetPosition() {

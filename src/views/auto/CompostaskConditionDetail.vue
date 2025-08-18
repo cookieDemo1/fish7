@@ -8,28 +8,33 @@
             <div class="tags">
               <div class="task-type">
                 <svg-icon class="icon" name="tiaojrw_icon"></svg-icon>
-                智能条件任务
+                {{ $t('Intelligent conditional task') }}
               </div>
-              <div v-if="autoTaskInfo.disable == '1'" class="task-status">已禁用</div>
+              <div v-if="autoTaskInfo.disable == '1'" class="task-status">{{ $t('Disabled') }}</div>
             </div>
 
             <div class="container">
               <div class="content">
                 <m-spin :spinning="loading">
                   <div class="task-item">
-                    <div class="title">执行条件</div>
+                    <div class="title">{{ $t('Execution conditions') }}</div>
                     <div class="condition-card">
-                      <div class="condition-item">传感器：{{ autoTaskInfo.sensor_name }}</div>
                       <div class="condition-item">
-                        条件：{{
-                          `${autoTaskInfo.arg_name} ${autoTaskInfo.compare} ${autoTaskInfo.value}`
+                        {{ $t('Sensor') }}：{{ autoTaskInfo.sensor_name }}
+                      </div>
+                      <div class="condition-item">
+                        {{ $t('Condition') }}
+                        ：{{
+                          `${$t(autoTaskInfo.arg || '')} ${autoTaskInfo.compare} ${
+                            autoTaskInfo.value
+                          }`
                         }}
                       </div>
                     </div>
                   </div>
 
                   <div class="task-item">
-                    <div class="title">执行任务</div>
+                    <div class="title">{{ $t('Execute task') }}</div>
                     <div class="childtask-list">
                       <div
                         v-for="(item, index) in autoTaskInfo.sub_tasks"
@@ -52,7 +57,11 @@
         </div>
 
         <more-actions
-          :menu-items="[autoTaskInfo.disable == '1' ? '启用' : '禁用', '修改', '删除']"
+          :menu-items="[
+            autoTaskInfo.disable == '1' ? $t('Enable') : $t('Disable'),
+            $t('Edit'),
+            $t('Delete')
+          ]"
           @item-click="handleItemClick"
         ></more-actions>
       </card-container>
@@ -60,9 +69,9 @@
 
     <modal-delete
       v-model="actions.showDelete"
-      title="删除任务"
-      message="确定删除该任务吗？"
-      ok-text="删除"
+      :title="$t('Delete task')"
+      :message="$t('Are you sure to delete this task?')"
+      :ok-text="$t('Delete')"
       :item="actions.item"
       action-name="deleteAutoTaskCondition"
       @callback="handleBack"

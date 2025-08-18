@@ -3,8 +3,8 @@
     <img :src="active ? activeIcon : inactiveIcon" @click="handleClick" />
 
     <div v-if="active" ref="operation" class="operation">
-      <div class="text" @click="onEdit">修改</div>
-      <div class="text" @click="onDelete">删除</div>
+      <div class="text" @click="onEdit">{{ $t('Edit') }}</div>
+      <div class="text" @click="onDelete">{{ $t('Delete') }}</div>
 
       <modal-delete
         :id="id"

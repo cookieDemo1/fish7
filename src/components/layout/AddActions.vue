@@ -2,26 +2,34 @@
   <div class="add-actions">
     <div v-if="type === 'addDevice'" class="add-item" @click="actions.showAddDevice = true">
       <svg-icon class="icon" name="zirenw_an_icon"></svg-icon>
-      <div class="name">添加设备</div>
+      <div class="name">{{ $t('Add device') }}</div>
     </div>
     <div v-if="type === 'addTask'" class="add-item" @click="actions.showAddTask = true">
       <svg-icon class="icon" name="zirenw_an_icon"></svg-icon>
-      <div class="name">添加子任务</div>
+      <div class="name">{{ $t('Add sub-tasks') }}</div>
     </div>
     <div class="line"></div>
     <div class="add-item" @click="actions.showAddTime = true">
       <svg-icon class="icon" name="shij_an_icon"></svg-icon>
-      <div class="name">添加等待时长</div>
+      <div class="name">{{ $t('Add the waiting duration') }}</div>
     </div>
   </div>
 
-  <modal-device-add v-model="actions.showAddDevice" title="添加设备" @callback="handleAddDevice">
+  <modal-device-add
+    v-model="actions.showAddDevice"
+    :title="$t('Add device')"
+    @callback="handleAddDevice"
+  >
   </modal-device-add>
-  <modal-childtask-add v-model="actions.showAddTask" title="添加子任务" @callback="handleAddTask">
+  <modal-childtask-add
+    v-model="actions.showAddTask"
+    :title="$t('Add sub-tasks')"
+    @callback="handleAddTask"
+  >
   </modal-childtask-add>
   <modal-time-picker
     v-model="actions.showAddTime"
-    title="添加等待时长"
+    :title="$t('Add the waiting duration')"
     @callback="handleAddTime"
   ></modal-time-picker>
 </template>

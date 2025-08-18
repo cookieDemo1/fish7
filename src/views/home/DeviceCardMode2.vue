@@ -14,11 +14,11 @@
       <div class="name">
         <!-- 设备没有离线状态 -->
         <!-- <span v-if="item.status == 0" class="offline">离线</span> -->
-        <span class="name-text">{{ item.name }}</span>
+        <span class="name-text">{{ $t(item.name) }}</span>
       </div>
       <div v-if="item.freq != '-1'" class="wrapper-icon">
         <div v-if="item.freq != '-1'" class="edit" @click.stop="handleEdit">
-          <span class="edit-text">频率：{{ item.freq }}%</span>
+          <span class="edit-text"> {{ $t('frequency') }}：{{ item.freq }}%</span>
           <img class="edit-icon" src="@/assets/bianji_icon@2x.png" alt="" />
         </div>
       </div>
@@ -29,8 +29,9 @@
 </template>
 
 <script setup lang="ts">
-  // bianji_icon@2x.png
   import { message } from 'ant-design-vue'
+
+  const { t } = useI18n()
 
   import loadingWhiteIcon from '@/assets/status/loading_white.png'
   import loadingIcon from '@/assets/status/loading.png'
@@ -52,10 +53,10 @@
     const status = props.item.status
 
     if (props.item.is_di) {
-      return message.warning('DI状态无法控制')
+      return message.warning(t('The DI status cannot be controlled'))
     }
     if (status === 0) {
-      return message.warning('该设备当前离线')
+      return message.warning(t('This device is currently offline'))
     }
 
     const action = status === 1 ? 2 : 1
@@ -64,10 +65,10 @@
       .then((res) => {
         if (res.code !== 200) {
           loading.value = false
-          message.error('操作失败')
+          message.error(t('Operation failed'))
         } else {
           setTimeout(() => {
-            message.success('操作成功')
+            message.success(t('Operation successful'))
 
             emits('callback')
             loading.value = false
@@ -75,7 +76,8 @@
         }
       })
       .catch((err) => {
-        message.error('操作失败')
+        message.error(t('Operation failed'))
+
         loading.value = false
       })
   }

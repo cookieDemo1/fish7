@@ -1,7 +1,9 @@
 <template>
   <div class="normal-select">
     <div class="content" @click="isOpen = true">
-      <span v-if="!modelValue" class="value placeholder">{{ placeholder }}</span>
+      <span v-if="!modelValue" class="value placeholder">{{
+        placeholder || $t('Please select')
+      }}</span>
       <span v-if="modelValue" class="value">{{ text }}</span>
 
       <img src="@/assets/auto/xiala_icon@2x.png" class="icon" alt="" />
@@ -21,8 +23,8 @@
         />
 
         <div class="footer">
-          <div class="cancel" @click="close">取消</div>
-          <div class="ok" @click="confirm">确定</div>
+          <div class="cancel" @click="close">{{ $t('Cancel') }}</div>
+          <div class="ok" @click="confirm">{{ $t('Ok') }}</div>
         </div>
       </div>
     </div>
@@ -38,7 +40,7 @@
         value: PropTypes.any.isRequired // 必须包含 value，类型可以是任意
       })
     ).def([]),
-    placeholder: PropTypes.string.def('请选择'),
+    placeholder: PropTypes.string.def(''),
     visibleOptionNum: PropTypes.number.def(3),
     textAlign: PropTypes.string.def('right')
   })

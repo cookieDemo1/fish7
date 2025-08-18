@@ -2,7 +2,9 @@
   <div class="time-select">
     <div class="content" @click="isOpen = true">
       <span v-if="modelValue" class="value">{{ modelValue }}</span>
-      <span v-if="!modelValue" class="value placeholder">{{ placeholder }}</span>
+      <span v-if="!modelValue" class="value placeholder">{{
+        placeholder || $t('Please select')
+      }}</span>
       <span v-if="suffix" class="suffix">{{ suffix }}</span>
       <img src="@/assets/auto/xiala_icon@2x.png" class="icon" alt="" />
     </div>
@@ -13,7 +15,7 @@
         <van-time-picker
           ref="picker"
           v-model="timePickerValue"
-          title="选择时间"
+          :title="$t('Select time')"
           :show-toolbar="false"
           :columns-type="['hour', 'minute', 'second']"
           :option-height="50"
@@ -23,8 +25,8 @@
         />
 
         <div class="footer">
-          <div class="cancel" @click="close">取消</div>
-          <div class="ok" @click="confirm">确定</div>
+          <div class="cancel" @click="close">{{ $t('Cancel') }}</div>
+          <div class="ok" @click="confirm">{{ $t('Ok') }}</div>
         </div>
       </div>
     </div>
@@ -34,7 +36,7 @@
 <script setup lang="ts">
   const props = defineProps({
     modelValue: PropTypes.any.def(null),
-    placeholder: PropTypes.string.def('请选择'),
+    placeholder: PropTypes.string.def(''),
     suffix: PropTypes.string.def(''),
     visibleOptionNum: PropTypes.number.def(5)
   })

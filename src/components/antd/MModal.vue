@@ -87,7 +87,7 @@
         }
       }
       .modal-body {
-        overflow: hidden;
+        overflow: auto;
         min-height: 110px;
         font-size: 20px;
         color: #99acbf;

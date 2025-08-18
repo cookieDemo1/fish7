@@ -9,10 +9,10 @@
     v-bind="attrs"
   >
     <template #footer>
-      <a-button class="button" type="ghost" @click="handleClose">取消</a-button>
-      <a-button class="button" type="primary" :loading="props.confirmLoading" @click="handleOk"
-        >保存</a-button
-      >
+      <a-button class="button" type="ghost" @click="handleClose">{{ $t('Cancel') }}</a-button>
+      <a-button class="button" type="primary" :loading="props.confirmLoading" @click="handleOk">{{
+        $t('Save')
+      }}</a-button>
     </template>
     <template v-for="name in Object.keys(slots)" #[name]>
       <slot :name="name"></slot>

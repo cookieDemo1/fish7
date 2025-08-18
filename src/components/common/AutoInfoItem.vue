@@ -5,13 +5,13 @@
       <div class="name">{{ name }}</div>
     </div>
     <div v-if="result[index] !== undefined" class="status">
-      <span v-if="result[index] === true && successValue === true" class="status-item on"
-        >开启</span
-      >
-      <span v-if="result[index] === true && successValue === false" class="status-item off"
-        >关闭</span
-      >
-      <span v-if="result[index] === false" class="status-item off">关闭</span>
+      <span v-if="result[index] === true && successValue === true" class="status-item on">{{
+        $t('Enable')
+      }}</span>
+      <span v-if="result[index] === true && successValue === false" class="status-item off">{{
+        $t('Disable')
+      }}</span>
+      <span v-if="result[index] === false" class="status-item off">{{ $t('Disable') }}</span>
       <!-- <span v-if="status === 3" class="status-item failed">失败</span>
       <span v-if="status === 0" class="status-item loading">
         <indicator></indicator>

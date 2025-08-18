@@ -2,7 +2,7 @@
   <m-modal v-model="visible" :width="780">
     <div class="modal-content">
       <div class="modal-title">
-        {{ item.type === 'add' ? '添加执行时间' : '修改执行时间' }}
+        {{ item.type === 'add' ? $t('Add execution time') : $t('Edit execution time') }}
         <svg-icon class="right-icon" name="guanbib_button" @click="visible = false"></svg-icon>
       </div>
       <div class="modal-body">
@@ -10,7 +10,7 @@
           <m-form-item label="" name="time">
             <div class="time-card">
               <div class="select-item">
-                <div class="label">时间</div>
+                <div class="label">{{ $t('Time') }}</div>
                 <m-time-picker v-model="form.time"></m-time-picker>
               </div>
             </div>
@@ -18,7 +18,7 @@
           <m-form-item label="" name="week">
             <div class="week-card">
               <div class="week-item">
-                <div class="label">执行日期</div>
+                <div class="label">{{ $t('Execution date') }}</div>
                 <div class="week-checkbox-group">
                   <div
                     v-for="(item, index) in weekOptions"
@@ -42,12 +42,12 @@
           class="button"
           style="color: #dae4e5"
           @click="visible = false"
-          >取消</a-button
+          >{{ $t('Cancel') }}</a-button
         >
-        <a-button v-else type="link" class="button" style="color: #ff5446" @click="onDelete"
-          >删除</a-button
-        >
-        <a-button type="link" class="button" @click="onOk">保存</a-button>
+        <a-button v-else type="link" class="button" style="color: #ff5446" @click="onDelete">{{
+          $t('Delete')
+        }}</a-button>
+        <a-button type="link" class="button" @click="onOk">{{ $t('Save') }}</a-button>
       </div>
     </div>
   </m-modal>
@@ -58,18 +58,20 @@
     modelValue: PropTypes.bool.def(false),
     item: PropTypes.object.def({})
   })
+
+  const { t } = useI18n()
   const emit = defineEmits(['callback'])
 
   const autoTaskStore = store.useAutoTask()
   const { tempComposTask } = toRefs(autoTaskStore)
 
-  const weekOptions = ['一', '二', '三', '四', '五', '六', '日']
+  const weekOptions = [t('Mo'), t('Tu'), t('We'), t('Th'), t('Fr'), t('Sa'), t('Su')]
   const rules = {
-    time: [{ required: true, message: '请选择时间', trigger: ['change', 'blur'] }],
+    time: [{ required: true, message: t('Please select time'), trigger: ['change', 'blur'] }],
     week: [
       {
         required: true,
-        message: '请选择日期',
+        message: t('Please select date'),
         validator: (rule, value, callback) => {
           return new Promise<void>((resolve, reject) => {
             let flag = Object.keys(form).some((key) => {

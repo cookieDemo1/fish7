@@ -8,19 +8,21 @@
             <div class="tags">
               <div class="task-type">
                 <svg-icon class="icon" name="changjrw_icon"></svg-icon>
-                智能场景任务
+                {{ $t('Intelligent scene task') }}
               </div>
-              <div v-if="autoTaskInfo.disable == '1'" class="task-status">已禁用</div>
+              <div v-if="autoTaskInfo.disable == '1'" class="task-status">{{ $t('Disabled') }}</div>
             </div>
 
             <div class="container">
               <div class="content">
                 <m-spin :spinning="loading">
                   <div class="exec">
-                    <div class="exec-button" @click="handleExe('1', autoTaskInfo.id)">立即执行</div>
+                    <div class="exec-button" @click="handleExe('1', autoTaskInfo.id)">
+                      {{ $t('Immediate execution') }}
+                    </div>
                   </div>
                   <div class="task-item">
-                    <div class="title">执行任务</div>
+                    <div class="title">{{ $t('Execute task') }}</div>
                     <div class="childtask-list">
                       <div
                         v-for="(item, index) in autoTaskInfo.sub_tasks"
@@ -44,15 +46,18 @@
           </div>
         </div>
 
-        <more-actions :menu-items="['修改', '删除']" @item-click="handleItemClick"></more-actions>
+        <more-actions
+          :menu-items="[$t('Edit'), $t('Delete')]"
+          @item-click="handleItemClick"
+        ></more-actions>
       </card-container>
     </div>
 
     <modal-delete
       v-model="actions.showDelete"
-      title="删除任务"
-      message="确定删除该任务吗？"
-      ok-text="删除"
+      :title="$t('Delete task')"
+      :message="$t('Are you sure to delete this task?')"
+      :ok-text="$t('Delete')"
       :item="actions.item"
       action-name="deleteAutoTaskScene"
       @callback="handleBack"

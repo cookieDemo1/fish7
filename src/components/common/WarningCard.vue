@@ -2,14 +2,16 @@
   <div class="warning-card">
     <div class="warning-title">
       <img src="@/assets/auto/shujgj_icon@2x.png" alt="" />
-      <span>溶解氧+温度+PH 三合一传感器</span>
+      <span>{{ $t('Oxygen + temperature + PH three-in-one sensor') }}</span>
     </div>
     <div class="condition">
-      触发条件：{{ option[item.triggering.arg] }} {{ compare[item.triggering.compare] }}
+      {{ $t('Trigger condition') }}：{{ option[item.triggering.arg] }}
+      {{ compare[item.triggering.compare] }}
       {{ item.triggering.value }}
     </div>
     <div class="condition">
-      恢复条件：{{ option[item.recovery.arg] }} {{ compare[item.recovery.compare] }}
+      {{ $t('Restoration conditions') }}：{{ option[item.recovery.arg] }}
+      {{ compare[item.recovery.compare] }}
       {{ item.recovery.value }}
     </div>
     <!-- 操作先隐藏 -->
@@ -18,10 +20,11 @@
 </template>
 
 <script setup lang="ts">
+  const { t } = useI18n()
   const option = {
     ph: 'PH',
-    temp: '温度',
-    oxygen: '溶解氧'
+    temp: t('Temperature'),
+    oxygen: t('Oxygen')
   }
 
   const compare = {

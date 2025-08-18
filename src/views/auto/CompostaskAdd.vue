@@ -3,7 +3,7 @@
     <div class="page-inner">
       <card-container class="card-container" :show-header="false">
         <div class="task">
-          <div class="title">新增自动化</div>
+          <div class="title">{{ $t('New automation') }}</div>
           <div class="items">
             <div
               v-for="(item, index) in list"
@@ -23,19 +23,30 @@
 </template>
 
 <script setup lang="ts">
+  const { t } = useI18n()
   const props = defineProps({})
   const autoTaskStore = store.useAutoTask()
   const { taskType, tempComposTask } = toRefs(autoTaskStore)
   const list = ref([
-    { name: '场景任务', icon: 'changjrw_icon', task_type: 'scene', routeName: 'compostaskScene' },
-    { name: '定时任务', icon: 'dingsrw_icon', task_type: 'timer', routeName: 'compostaskTimer' },
     {
-      name: '条件任务',
+      name: t('Scene tasks'),
+      icon: 'changjrw_icon',
+      task_type: 'scene',
+      routeName: 'compostaskScene'
+    },
+    {
+      name: t('Scheduled tasks'),
+      icon: 'dingsrw_icon',
+      task_type: 'timer',
+      routeName: 'compostaskTimer'
+    },
+    {
+      name: t('Conditional tasks'),
       icon: 'tiaojrw_icon',
       task_type: 'condition',
       routeName: 'compostaskCondition'
     },
-    { name: '循环任务', icon: 'xunh_icon', task_type: 'loop', routeName: 'compostaskLoop' }
+    { name: t('Cyclic task'), icon: 'xunh_icon', task_type: 'loop', routeName: 'compostaskLoop' }
   ])
 
   const router = useRouter()
@@ -87,7 +98,7 @@
         }
         .name {
           margin-top: 20px;
-          font-size: 24px;
+          font-size: 23px;
           color: #dae4e5;
         }
         .arrow {

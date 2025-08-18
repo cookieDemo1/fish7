@@ -4,9 +4,9 @@
       <card-container class="card-container" :show-header="false">
         <div class="task">
           <div class="title">
-            <svg-icon class="icon" name="tiaojrw_icon"></svg-icon>条件任务-{{
-              type === 'add' ? '新增' : '修改'
-            }}
+            <svg-icon class="icon" name="tiaojrw_icon"></svg-icon>{{ $t('Conditional tasks') }}
+            -
+            {{ type === 'add' ? $t('Add') : $t('Edit') }}
           </div>
           <div class="container">
             <div class="content">
@@ -14,69 +14,73 @@
                 <m-form-item label="" name="name">
                   <m-input
                     v-model="form.name"
-                    placeholder="请填写任务名称"
+                    :placeholder="$t('Please fill in the task name')"
                     :maxlength="20"
                   ></m-input>
                 </m-form-item>
-                <m-form-item label="执行条件" name="sensor">
+                <m-form-item :label="$t('Execution conditions')" name="sensor">
                   <div class="condition-card">
                     <div class="select-item">
-                      <div class="label">数据源</div>
+                      <div class="label">{{ $t('Data source') }}</div>
                       <normal-select
                         v-model="form.sensor_id"
                         class="select m-select-right"
-                        placeholder="请选择数据源"
+                        :placeholder="$t('Please select data source')"
                         :options="level_1"
                       >
                       </normal-select>
                     </div>
                     <div class="condition-item">
-                      <div class="label">条件</div>
+                      <div class="label">{{ $t('Condition') }}</div>
                       <a-row :gutter="[22, 22]">
                         <a-col :span="8">
                           <normal-select
                             v-model="form.arg"
                             class="m-select-compact"
-                            placeholder="请选择"
+                            :placeholder="$t('Please select')"
                             :options="level_2"
                           >
                           </normal-select>
                           <div class="line"></div>
-                          <div class="val">数据</div>
+                          <div class="val">{{ $t('Data') }}</div>
                         </a-col>
                         <a-col :span="8">
                           <normal-select
                             v-model="form.compare"
                             class="m-select-compact"
-                            placeholder="请选择"
+                            :placeholder="$t('Please select')"
                             :options="compareOptions"
                           >
                           </normal-select>
                           <div class="line"></div>
-                          <div class="val">关系</div>
+                          <div class="val">{{ $t('Relationship') }}</div>
                         </a-col>
                         <a-col :span="8">
                           <m-input-inner
                             v-model="form.value"
                             class="m-input-number-compact"
-                            placeholder="请输入"
+                            :placeholder="$t('Please input')"
                             :bordered="false"
                             :controls="false"
                             type="number"
                           ></m-input-inner>
                           <div class="line"></div>
-                          <div class="val">值</div>
+                          <div class="val">{{ $t('Value') }}</div>
                         </a-col>
                       </a-row>
                     </div>
                   </div>
                 </m-form-item>
 
-                <m-form-item class="m-form-item-extra" label="执行操作" name="sub_tasks">
+                <m-form-item
+                  class="m-form-item-extra"
+                  :label="$t('Perform an operation')"
+                  name="sub_tasks"
+                >
                   <template #extra>
                     <div v-if="form.sub_tasks.length" class="edit-button" @click="handleEdit">
                       <svg-icon name="bianji_icon" class="edit-icon"></svg-icon>
-                      编辑
+                      {{ $t('Edit1') }}
                     </div>
                   </template>
                   <template v-if="actions.showEdit">
@@ -124,14 +128,18 @@
                     form.sub_tasks = [...actions.item]
                   }
                 "
-                >保存</m-button
+                >{{ $t('Save') }}</m-button
               >
             </div>
           </template>
           <template v-else>
             <div class="buttons">
-              <m-button class="button" shape="round" @click="handleBack">上一步</m-button>
-              <m-button class="button" shape="round" type="primary" @click="onOk">保存</m-button>
+              <m-button class="button" shape="round" @click="handleBack">{{
+                $t('Previous step')
+              }}</m-button>
+              <m-button class="button" shape="round" type="primary" @click="onOk">{{
+                $t('Save')
+              }}</m-button>
             </div>
           </template>
         </div>
@@ -142,6 +150,8 @@
 
 <script setup lang="ts">
   import { Container, Draggable } from 'vue3-smooth-dnd'
+
+  const { t } = useI18n()
 
   const props = defineProps({
     type: PropTypes.string.def('add')
@@ -162,7 +172,7 @@
   const level_1 = computed(() => {
     const { list = [] } = autoTaskConditionOption.value || {}
     const { level_1 = [] } = list[0] || {}
-    return level_1.map((item) => ({ ...item, text: item.name, value: item.id }))
+    return level_1.map((item) => ({ ...item, text: t(item.name), value: item.id }))
   })
   const level_2_obj = computed(() => {
     const { list = [] } = autoTaskConditionOption.value || {}
@@ -178,7 +188,7 @@
       const type = (level_1.value[index] || {})['type']
       return (level_2_obj.value[type] || []).map((item) => ({
         ...item,
-        text: item.v,
+        text: t(item.v),
         value: item.k
       }))
     }
@@ -192,11 +202,13 @@
   ]
 
   const rules = {
-    name: [{ required: true, message: '请输入任务名称', trigger: ['change', 'blur'] }],
+    name: [
+      { required: true, message: t('Please enter the task name'), trigger: ['change', 'blur'] }
+    ],
     sensor: [
       {
         required: true,
-        message: '请选择条件',
+        message: t('Please select condition'),
         validator: (rule, value, callback) => {
           return new Promise<void>((resolve, reject) => {
             let flag = ['sensor_id', 'arg', 'compare', 'value'].every((key) => {
@@ -212,7 +224,12 @@
       }
     ],
     sub_tasks: [
-      { type: 'array', required: true, message: '请选择执行操作', trigger: ['change', 'blur'] }
+      {
+        type: 'array',
+        required: true,
+        message: t('Please select to perform the operation'),
+        trigger: ['change', 'blur']
+      }
     ]
   }
   const formData = {

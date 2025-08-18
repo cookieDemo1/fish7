@@ -1,35 +1,44 @@
 <template>
-  <div v-if="visible" class="modal-wrapper">
-    <div class="modal-inner">
-      <h3 class="title">小程序：远程控制码</h3>
+  <teleport to="body">
+    <div v-if="visible" class="modal-wrapper">
+      <div class="modal-inner">
+        <h3 class="title">{{ $t('Mini-program: Remote control code') }}</h3>
 
-      <div class="code-wrapper">
-        <img src="/xiaochengx_img.png" alt="QR Code" style="border-radius: 6px" />
+        <div class="code-wrapper">
+          <img src="/xiaochengx_img.png" alt="QR Code" style="border-radius: 6px" />
+        </div>
+
+        <p class="tip">
+          {{
+            $t('Please scan the code with wechat to unlock remote control on your mobile phone!')
+          }}
+        </p>
+
+        <img
+          src="@/assets/guanbib_button@2x.png"
+          alt=""
+          class="close-icon"
+          @click="visible = false"
+        />
       </div>
-
-      <p class="tip">请使用微信扫一扫，解锁手机远程控制！</p>
-
-      <img
-        src="@/assets/guanbib_button@2x.png"
-        alt=""
-        class="close-icon"
-        @click="visible = false"
-      />
     </div>
-  </div>
+  </teleport>
 </template>
 
 <script setup lang="ts">
   const proprs = defineProps({
     modelValue: PropTypes.bool.def(false)
   })
-  const emit = defineEmits(['update:modelValue'])
+  const emit = defineEmits(['update:modelValue', 'callback'])
   const visible = computed({
     get() {
       return proprs.modelValue
     },
     set(value) {
       emit('update:modelValue', value)
+      if (value === false) {
+        emit('callback')
+      }
     }
   })
 </script>
@@ -76,6 +85,7 @@
         color: #99acbf;
         text-align: center;
         margin-bottom: 30px;
+        padding: 0 30px;
       }
 
       .close-icon {

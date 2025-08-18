@@ -12,14 +12,16 @@
               <div class="dot-wrapper">
                 <div class="dot" :class="opeItem.action == 1 ? 'green' : 'red'"></div>
               </div>
-              <div class="action">{{ opeItem.action == 1 ? '开启设备' : '关闭设备' }}：</div>
-              <div class="name">{{ opeItem.name }}</div>
+              <div class="action">
+                {{ opeItem.action == 1 ? $t('Start device') : $t('Close device') }}：
+              </div>
+              <div class="name">{{ $t(opeItem.name) }}</div>
             </template>
             <template v-else>
               <div class="dot-wrapper">
                 <svg-icon class="icon" name="ddshij_h_icon"></svg-icon>
               </div>
-              <div class="action">等待时长：</div>
+              <div class="action">{{ $t('Waiting duration') }}：</div>
               <div class="name">{{ secondsTostring(opeItem.seconds) }}</div>
             </template>
           </div>
@@ -33,14 +35,16 @@
             <div class="dot-wrapper">
               <div class="dot" :class="opeItem.action == 1 ? 'green' : 'red'"></div>
             </div>
-            <div class="action">{{ opeItem.action == 1 ? '开启设备' : '关闭设备' }}：</div>
-            <div class="name">{{ opeItem.name }}</div>
+            <div class="action">
+              {{ opeItem.action == 1 ? $t('Start device') : $t('Close device') }}：
+            </div>
+            <div class="name">{{ $t(opeItem.name) }}</div>
           </template>
           <template v-else>
             <div class="dot-wrapper">
               <svg-icon class="icon" name="ddshij_h_icon"></svg-icon>
             </div>
-            <div class="action">等待时长：</div>
+            <div class="action">{{ $t('Waiting duration') }}：</div>
             <div class="name">{{ secondsTostring(opeItem.seconds) }}</div>
           </template>
         </div>
@@ -49,12 +53,12 @@
 
     <more-actions
       v-if="showActions"
-      :menu-items="['修改', '删除']"
+      :menu-items="[$t('Edit'), $t('Delete')]"
       @item-click="handleItemClick"
     ></more-actions>
     <div v-if="showExe" class="exe-button" @click="emit('exe')">
       <svg-icon class="icon" name="zhixing_icon" />
-      单独执行
+      {{ $t('Executed separately') }}
     </div>
   </div>
 </template>
@@ -89,10 +93,11 @@
     padding: 24px;
     background: #424b59;
     border-radius: 12px;
+    margin-bottom: 20px;
 
-    & + .childtask-item {
-      margin-top: 20px;
-    }
+    // & + .childtask-item {
+    //   margin-top: 20px;
+    // }
 
     .title {
       display: flex;

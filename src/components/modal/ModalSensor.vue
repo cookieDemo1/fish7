@@ -4,7 +4,7 @@
       <div class="card-header">
         <div class="title">
           <div class="status" :class="item.status == '1' ? 'green' : 'red'">
-            {{ item.status == '1' ? '在线' : '离线' }}
+            {{ item.status == '1' ? $t('Online') : $t('Offline') }}
           </div>
           {{ item.title }}
         </div>
@@ -34,7 +34,7 @@
         </div>
 
         <div class="chart-container">
-          <div class="title">最近5天数据对比</div>
+          <div class="title">{{ $t('Data comparison of the last five days') }}</div>
           <v-chart class="chart" :option="option" autoresize />
         </div>
       </div>

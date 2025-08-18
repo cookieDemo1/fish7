@@ -1,3 +1,7 @@
+import i18n from '@/i18n'
+
+const { t } = i18n.global // 通过 i18n.global 访问
+
 export const times = Array.from(Array(24))
   .map((item, index) => {
     const hh = index < 10 ? '0' + index : '' + index
@@ -88,13 +92,13 @@ export function secondsTostring(seconds: number) {
   const m = Math.floor((seconds % 3600) / 60)
   const s = seconds % 60
   let result = ''
-  if (h > 0) result += `${h}小时`
-  if (m > 0) result += `${m}分钟`
-  if (s > 0) result += `${s}秒`
-  return result || '0秒' // 处理秒数为0的情况
+  if (h > 0) result += `${h}` + t('hour')
+  if (m > 0) result += `${m}` + t('minute')
+  if (s > 0) result += `${s}` + t('second')
+  return result || '0' + t('second') // 处理秒数为0的情况
 }
 
-const weekOptions = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+const weekOptions = [t('Mo1'), t('Tu1'), t('We1'), t('Th1'), t('Fr1'), t('Sa1'), t('Su1')]
 export function formatWeek(item: any) {
   const res = Array.from(Array(7))
     .map((i, index) => {

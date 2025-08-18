@@ -1,9 +1,9 @@
 <template>
-  <m-modal v-model="visible" :width="672" title="回水泵">
+  <m-modal v-model="visible" :width="672" :title="$t('Return water pump')">
     <div class="m-modal-wrapper">
-      <div class="title">回水泵</div>
+      <div class="title">{{ $t('Return water pump') }}</div>
       <div class="content">
-        <div class="left">频率</div>
+        <div class="left">{{ $t('Frequency') }}</div>
         <div class="slider">
           <a-slider
             v-model:value="value"
@@ -27,8 +27,8 @@
         </div>
       </div>
       <div class="footer">
-        <div class="footer-item cancel" @click.stop="handleCancel">取消</div>
-        <div class="footer-item ok" @click.stop="handleOk">保存</div>
+        <div class="footer-item cancel" @click.stop="handleCancel">{{ $t('Cancel') }}</div>
+        <div class="footer-item ok" @click.stop="handleOk">{{ $t('Save') }}</div>
       </div>
     </div>
     <m-loading :loading="loading"></m-loading>

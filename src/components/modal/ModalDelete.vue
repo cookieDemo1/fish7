@@ -1,9 +1,9 @@
 <template>
   <m-modal
     v-model="visible"
-    :title="`删除${title}`"
-    cancel-text="取消"
-    ok-text="删除"
+    :title="$t('Delete') + `${title}`"
+    :cancel-text="$t('Cancel')"
+    :ok-text="$t('Delete')"
     :ok-button-props="{ danger: true }"
     :confirm-loading="okButton"
     @ok="onOk"
@@ -14,10 +14,10 @@
         <slot>{{ message }}</slot>
       </div>
       <div class="modal-footer">
-        <a-button type="link" style="color: #dae4e5" class="button" @click="visible = false"
-          >取消</a-button
-        >
-        <a-button type="link" danger class="button" @click="onOk">删除</a-button>
+        <a-button type="link" style="color: #dae4e5" class="button" @click="visible = false">{{
+          $t('Cancel')
+        }}</a-button>
+        <a-button type="link" danger class="button" @click="onOk">{{ $t('Delete') }}</a-button>
       </div>
     </div>
   </m-modal>

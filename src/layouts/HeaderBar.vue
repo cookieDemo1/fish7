@@ -1,15 +1,16 @@
 <template>
   <header class="header-bar">
     <div class="logo">
-      <img src="@/assets/top_img@2x.png" class="bg-img" alt="logo" />
-      <img src="@/assets/logowenz_img@2x.png" class="logo-img" alt="logo" />
+      <!-- <img src="@/assets/top_img@2x.png" class="bg-img" alt="logo" /> -->
+      <img src="@/assets/logo_img@2x.png" class="logo-img" alt="logo" />
+      <span class="nav-text">{{ $t('Smart Fish Farming') }}</span>
     </div>
     <div class="header">
       <!-- 首页和自动化显示路由 -->
-      <template v-if="activeRoute === '/home' || activeRoute === '/automation'">
+      <template v-if="route.meta.menu">
         <ul class="nav">
           <li
-            v-for="item in routes"
+            v-for="item in firstRoutes"
             :key="item.path"
             class="nav-item"
             :class="{ active: item.path === activeRoute }"
@@ -20,14 +21,23 @@
               :src="item.path === activeRoute ? (item.meta.active as string) : (item.meta.normal as string)"
             />
 
-            <span>{{ item.meta.title }}</span>
+            <span>{{ $t(item.meta.title as string) }}</span>
           </li>
 
-          <!-- 小程序码，不在路由中 -->
-          <li class="nav-item" :class="{ active: actions.showCode }" @click="actions.handleCode">
-            <img class="route-icon" :src="actions.showCode ? activeMiniIcon : normalMiniIcon" />
-            <span>小程序</span>
-          </li>
+          <!-- 小程序码，不在路由中, 中文显示在外面，英文显示在里面 -->
+          <template v-if="isZh">
+            <li class="nav-item" :class="{ active: actions.showCode }" @click="actions.handleCode">
+              <img class="route-icon" :src="actions.showCode ? activeMiniIcon : normalMiniIcon" />
+              <span>{{ $t('Mini Program') }}</span>
+            </li>
+          </template>
+
+          <template v-if="!isZh || secondRoutes.length > 0">
+            <li class="nav-item more" :class="{ active: actions.showMore }" @click="handleMore">
+              <img class="route-icon" :src="actions.showMore ? activeMoreIcon : normalMoreIcon" />
+              <span>{{ $t('More') }}</span>
+            </li>
+          </template>
         </ul>
       </template>
       <!-- 其他页面显示返回 -->
@@ -39,6 +49,7 @@
       </template>
       <div class="info">
         <div ref="timeRef" class="time"></div>
+        <img :src="lang == 'zh' ? zhIcon : enIcon" alt="" class="icon lang" @click="onLang" />
         <img
           :src="fullscreen ? fullscreenIcon : nomralscreenIcon"
           alt=""
@@ -49,9 +60,24 @@
         <img src="@/assets/refe_button@2x.png" alt="" class="icon refresh" @click="onRefresh" />
       </div>
     </div>
+
+    <!-- 这个弹出框路由的高亮还没做，暂时不做 -->
+    <teleport to="body">
+      <ul v-if="actions.showMore" class="sub-nav">
+        <li
+          v-if="!isZh"
+          class="sub-nav-item"
+          :class="{ active: actions.showCode }"
+          @click="handleInnerCode()"
+        >
+          <img class="route-icon" :src="actions.showCode ? activeMiniIcon : normalMiniIcon" />
+          <span>{{ $t('Mini Program') }}</span>
+        </li>
+      </ul>
+    </teleport>
   </header>
 
-  <modal-code v-model="actions.showCode"></modal-code>
+  <modal-code v-model="actions.showCode" @callback="actions.showMore = false"></modal-code>
 </template>
 
 <script setup lang="ts">
@@ -61,11 +87,29 @@
   import normalMiniIcon from '@/assets/button_xiaocx_nor@2x.png'
   import activeMiniIcon from '@/assets/button_xiaocx_click@2x.png'
 
+  import normalMoreIcon from '@/assets/button_more_nor@2x.png'
+  import activeMoreIcon from '@/assets/button_more_click@2x.png'
+
+  import zhIcon from '@/assets/zh@2x.png'
+  import enIcon from '@/assets/en@2x.png'
   import { asyncRoutes } from '@/config/router.config'
+
+  const { lang, setLang, isZh } = use.useLang()
+
+  const onLang = () => {
+    setLang(lang === 'zh' ? 'en' : 'zh')
+  }
+
   const { radom, setRadom } = store.useRefreshStore()
   const routes = [...asyncRoutes[0].children].filter((item) => item.meta.menu)
 
-  const { actions } = use.useActions(['code'])
+  const firstRoutes = routes.slice(0, 2)
+  const secondRoutes = routes.slice(2)
+
+  console.log('firstRoutes', firstRoutes)
+  console.log('secondRoutes', secondRoutes)
+
+  const { actions } = use.useActions(['code', 'more'])
 
   const activeRoute = ref('')
   const route = useRoute()
@@ -76,7 +120,6 @@
   watch(
     route,
     () => {
-      console.log(route)
       activeRoute.value = route.path
       text.value = (route.meta.text as string) || ''
     },
@@ -129,6 +172,31 @@
   const onRefresh = () => {
     setRadom()
   }
+
+  const handleInnerCode = () => {
+    actions.handleCode()
+  }
+
+  const handleMore = (e) => {
+    e.stopPropagation()
+    e.stopImmediatePropagation()
+    actions.showMore = true
+  }
+
+  const globalClick = (event) => {
+    if (actions.showMore === true) {
+      actions.showMore = false
+    }
+  }
+
+  // 路由弹出框点击其他的时候，关闭路由弹出框
+  onMounted(() => {
+    document.getElementById('app').addEventListener('click', globalClick)
+  })
+
+  onUnmounted(() => {
+    document.getElementById('app').removeEventListener('click', globalClick)
+  })
 </script>
 
 <style lang="less" scoped>
@@ -144,21 +212,23 @@
       top: 0;
       left: 50%;
       transform: translateX(-50%);
-      .bg-img {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
+      background-image: url('../assets/top_img@2x.png');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       .logo-img {
-        width: 147px;
-        height: 50px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        width: 31px;
+        height: 32px;
+      }
+
+      .nav-text {
+        font-size: 22px;
+        color: #dae4e5;
+        font-weight: 500;
+        margin-left: 10px;
       }
     }
     .header {
@@ -188,7 +258,7 @@
         margin: 0;
         padding: 0;
         .nav-item {
-          &.active {
+          &.active > span {
             font-weight: bold;
             color: @primaryColor;
           }
@@ -202,8 +272,11 @@
           }
         }
         .nav-item + .nav-item {
-          // margin-left: 45px;
-          margin-left: 20px;
+          margin-left: 16px;
+        }
+
+        .nav-item.more {
+          position: relative;
         }
       }
 
@@ -218,6 +291,31 @@
           font-size: 17px;
           margin-left: 8px;
         }
+      }
+    }
+  }
+
+  .sub-nav {
+    position: absolute;
+    top: 63px;
+    left: 303px;
+    width: 346px;
+    max-height: 360px;
+    background-color: #353e51;
+    border-radius: 8px;
+    overflow: auto;
+
+    .sub-nav-item {
+      height: 80px;
+      padding: 19px 24px;
+
+      display: flex;
+      align-items: center;
+      font-size: 17px;
+      .route-icon {
+        width: 40px;
+        height: 40px;
+        margin-right: 8px;
       }
     }
   }

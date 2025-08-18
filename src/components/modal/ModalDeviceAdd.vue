@@ -37,7 +37,7 @@
                   :class="{ green: actions.item.action == 1 }"
                   @click="actions.item.action = 1"
                 >
-                  <div class="name">开启</div>
+                  <div class="name">{{ $t('Enalbe') }}</div>
                   <div>
                     <m-radio class="radio" :value="1"></m-radio>
                   </div>
@@ -47,7 +47,7 @@
                   :class="{ green: actions.item.action == 2 }"
                   @click="actions.item.action = 2"
                 >
-                  <div class="name">关闭</div>
+                  <div class="name">{{ $t('Disable') }}</div>
                   <div>
                     <m-radio class="radio" :value="2"></m-radio>
                   </div>
@@ -55,7 +55,7 @@
               </a-radio-group>
             </div>
             <div class="action-button">
-              <m-button type="primary" class="button" @click="onOk">保存</m-button>
+              <m-button type="primary" class="button" @click="onOk">{{ $t('Save') }}</m-button>
             </div>
           </div>
         </transition>
