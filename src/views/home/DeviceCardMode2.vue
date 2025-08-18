@@ -31,10 +31,10 @@
 <script setup lang="ts">
   import { message } from 'ant-design-vue'
 
-  const { t } = useI18n()
-
   import loadingWhiteIcon from '@/assets/status/loading_white.png'
   import loadingIcon from '@/assets/status/loading.png'
+
+  const { t } = useI18n()
 
   const imgMap = constant.imgMap
 
