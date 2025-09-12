@@ -87,8 +87,9 @@
   const { char, getChar } = use.useMainStateAction('char')
   getChar({ type: 'oxygen' })
   watch(char, (val) => {
-    const { sensor_data } = char.value
-    showChar.value = Object.keys(sensor_data).length > 0
+    const { sensor_data = {} } = char.value
+    const { s20b } = sensor_data
+    showChar.value = Object.keys(s20b).length > 0
   })
 </script>
 

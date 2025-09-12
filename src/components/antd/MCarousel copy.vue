@@ -3,15 +3,16 @@
     <div class="circle" @click="handlePrev">
       <img src="@/assets/jiantou_z_icon@2x.png" class="icon" alt="" />
     </div>
-    <van-swipe
+    <a-carousel
       ref="carouselRef"
       class="m-carousel"
+      :dots="false"
+      :before-change="handleBeforeChange"
       v-bind="attrs"
-      :show-indicators="false"
-      @change="handleBeforeChange"
+      :initial-slide="0"
     >
       <slot name="default"></slot>
-    </van-swipe>
+    </a-carousel>
 
     <div class="circle" @click="handleNext">
       <img src="@/assets/jiantou_y_icon@2x.png" class="icon" alt="" />
@@ -25,7 +26,25 @@
     goTo: Function
   }
 
+  const slots = useSlots()
   const attrs = useAttrs()
+
+  const props = defineProps({
+    activeIndex: PropTypes.number
+  })
+
+  const initSlider = ref(0)
+  watch(
+    () => props.activeIndex,
+    (newVal) => {
+      console.log('轮播内部')
+      console.log(newVal)
+      initSlider.value = Math.floor(newVal / 3)
+    },
+    {
+      immediate: true
+    }
+  )
 
   const emits = defineEmits(['change'])
 
@@ -39,11 +58,13 @@
     carouselRef.value!.next()
   }
 
-  const handleBeforeChange = (to) => {
+  const handleBeforeChange = (form, to) => {
+    console.log(to)
     emits('change', to)
   }
 
   defineExpose({
+    goto: (page) => carouselRef.value!.goTo(page, true),
     next: () => carouselRef.value!.next()
   })
 </script>

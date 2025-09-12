@@ -4,28 +4,36 @@
 
     <template v-if="!actions.showCursor">
       <ul class="select">
-        <li
-          v-for="(option, index) in options"
-          :key="index"
-          class="option"
-          :class="{ active: index === activeIndex }"
-          @click="activeIndex = index"
-        >
-          <div class="value">{{ option.value }} {{ $t(option.unit) }}</div>
-          <div class="name">
-            {{ $t(option.name) }}
-            {{ index === activeIndex && char?.status === 2 ? `(${$t('Offline')})` : '' }}
-          </div>
-        </li>
+        <template v-for="(option, index) in options">
+          <li
+            v-if="option.show"
+            :key="index"
+            class="option"
+            :class="{ active: index === activeIndex }"
+            @click="activeIndex = index"
+          >
+            <div class="value">{{ option.value }} {{ $t(option.unit) }}</div>
+            <div class="name">
+              {{ $t(option.name) }}
+              {{ index === activeIndex && char?.status === 2 ? `(${$t('Offline')})` : '' }}
+            </div>
+          </li>
+        </template>
       </ul>
     </template>
+    {{ activeIndex }}
 
     <template v-if="actions.showCursor">
-      <m-carousel ref="carouselRef" @change="handleChange">
-        <van-swipe-item v-for="(_, i) in Math.ceil(options.length / 3)" :key="i">
-          <ul class="select">
+      <m-carousel
+        ref="carouselRef"
+        :key="activeIndex"
+        :active-index="activeIndex"
+        @change="handleChange"
+      >
+        <ul v-for="(_, i) in Math.ceil(options.length / 3)" :key="i" class="select">
+          <template v-for="(option, index) in options.slice(i * 3, (i + 1) * 3)">
             <li
-              v-for="(option, index) in options.slice(i * 3, (i + 1) * 3)"
+              v-if="option.show"
               :key="index"
               class="option"
               :class="{ active: i * 3 + index === activeIndex }"
@@ -33,14 +41,15 @@
             >
               <div class="value">{{ option.value }} {{ $t(option.unit) }}</div>
               <div class="name">
+                {{ activeIndex }}
                 {{ $t(option.name) }}
                 {{
                   i * 3 + index === activeIndex && char?.status === 2 ? `(${$t('Offline')})` : ''
                 }}
               </div>
             </li>
-          </ul>
-        </van-swipe-item>
+          </template>
+        </ul>
       </m-carousel>
     </template>
 
@@ -94,9 +103,8 @@
     { name: 'Water temperature', unit: '℃', key: 'temp', value: '--', show: false },
     { name: 'PH', unit: 'PH', key: 'ph', value: '--', show: false },
     { name: 'Level', unit: 'm', key: 'level', value: '--', show: false },
-    { name: '盐度', unit: 'PSU', key: 'a1', value: '--', show: false },
-    { name: '亚硝酸盐', unit: 'mg/L', key: 'a2', value: '--', show: false },
-    { name: '氨氮', unit: 'mg/L', key: 'a3', value: '--', show: false }
+    { name: 'A2', unit: 'A', key: 'a1', value: '--', show: false },
+    { name: 'A3', unit: 'A', key: 'a2', value: '--', show: false }
   ])
 
   const activeIndex = ref(0)
@@ -157,9 +165,6 @@
 
       item.show = s20b[item.key] !== null && s20b[item.key] !== undefined
     })
-
-    const tempOptions = options.value.filter((item) => item.show)
-    options.value = tempOptions
     draw()
   })
 
