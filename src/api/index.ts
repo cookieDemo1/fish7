@@ -69,6 +69,10 @@ export const requestApi = {
   sn: {
     url: () => `/api/red/sn`,
     methods: [GET]
+  },
+  always: {
+    url: () => `/api/red/onoff`,
+    methods: [GET, POST]
   }
   // taskList: {
   //   url: () => '/api/red/auto/tasks',

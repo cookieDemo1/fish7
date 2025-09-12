@@ -27,6 +27,8 @@ import homeNormal from '@/assets/button_home_nor@2x.png'
 import homeActive from '@/assets/button_home_click@2x.png'
 import autoNormal from '@/assets/button_auto_nor@2x.png'
 import autoActive from '@/assets/button_auto_click@2x.png'
+import alwaysNormal from '@/assets/button_changkaicb_nor@2x.png'
+import alwaysActive from '@/assets/button_changkaicb_click@2x.png'
 
 const RouteView = {
   name: 'route-view',
@@ -70,6 +72,15 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: AutoPage,
         props: (route) => route.query
       },
+
+      // {
+      //   path: '/always',
+      //   name: 'always',
+      //   meta: { title: 'Always', normal: alwaysNormal, active: alwaysActive, menu: true },
+      //   component: AutoPage,
+      //   props: (route) => route.query
+      // },
+
       {
         path: '/childtask/manage',
         name: 'childtaskManage',

@@ -28,6 +28,7 @@ declare module 'vue' {
     LoopOperation: typeof import('./src/components/common/LoopOperation.vue')['default']
     MButton: typeof import('./src/components/antd/MButton.vue')['default']
     MButtonLink: typeof import('./src/components/antd/MButtonLink.vue')['default']
+    MCarousel: typeof import('./src/components/antd/MCarousel.vue')['default']
     MCheckbox: typeof import('./src/components/antd/MCheckbox.vue')['default']
     MDrawer: typeof import('./src/components/antd/MDrawer.vue')['default']
     MEmpty: typeof import('./src/components/antd/MEmpty.vue')['default']

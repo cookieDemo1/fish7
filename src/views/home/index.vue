@@ -11,7 +11,7 @@
 
     <!-- 可左右滚动 -->
 
-    <div class="wrapper-slider">
+    <div v-if="showChar" class="wrapper-slider">
       <div class="slider">
         <div class="row">
           <div
@@ -33,20 +33,15 @@
         </div>
       </div>
     </div>
-    <!-- <template v-if="mode === 'mode2' || mode === 'mode1'">
-      <div class="wrapper" style="padding: 0 24px">
-        <a-row :gutter="[14, 14]">
-          <a-col
-            v-for="(item, index) in switchList"
-            :key="index"
-            :span="item.freq == '-1' ? 6 : 12"
-          >
-            <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
-          </a-col>
-        </a-row>
-      </div>
-    </template> -->
-    <div class="char">
+
+    <div v-else class="wrapper" style="padding: 0 24px">
+      <a-row :gutter="[14, 14]">
+        <a-col v-for="(item, index) in switchList" :key="index" :span="item.freq == '-1' ? 8 : 8">
+          <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
+        </a-col>
+      </a-row>
+    </div>
+    <div v-if="showChar" class="char">
       <LineChar />
     </div>
 
@@ -79,15 +74,21 @@
   const switchList = ref([])
 
   watch(switchState, (val) => {
-    console.log('switchState', val)
     switchList.value = val.map((item) => {
       return { ...item, do: item.do.replace('di_', ''), is_di: item.do.includes('di') }
     })
 
-    console.log('switchList', switchList)
     slicePosition.value = Math.ceil(val.length / 2)
 
     sliderWidth.value = 306 * slicePosition.value + 12 * (slicePosition.value - 1) + 48 + 'px'
+  })
+
+  const showChar = ref(false)
+  const { char, getChar } = use.useMainStateAction('char')
+  getChar({ type: 'oxygen' })
+  watch(char, (val) => {
+    const { sensor_data } = char.value
+    showChar.value = Object.keys(sensor_data).length > 0
   })
 </script>
 

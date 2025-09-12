@@ -2,23 +2,56 @@
   <div class="line-char">
     <div v-if="char?.status === 2" class="offline">{{ $t('Offline') }}</div>
 
-    <ul class="select">
-      <template v-for="(option, index) in options">
-        <li
-          v-if="option.show"
-          :key="index"
-          class="option"
-          :class="{ active: index === activeIndex }"
-          @click="activeIndex = index"
-        >
-          <div class="value">{{ option.value }} {{ $t(option.unit) }}</div>
-          <div class="name">
-            {{ $t(option.name) }}
-            {{ index === activeIndex && char?.status === 2 ? `(${$t('Offline')})` : '' }}
-          </div>
-        </li>
-      </template>
-    </ul>
+    <template v-if="!actions.showCursor">
+      <ul class="select">
+        <template v-for="(option, index) in options">
+          <li
+            v-if="option.show"
+            :key="index"
+            class="option"
+            :class="{ active: index === activeIndex }"
+            @click="activeIndex = index"
+          >
+            <div class="value">{{ option.value }} {{ $t(option.unit) }}</div>
+            <div class="name">
+              {{ $t(option.name) }}
+              {{ index === activeIndex && char?.status === 2 ? `(${$t('Offline')})` : '' }}
+            </div>
+          </li>
+        </template>
+      </ul>
+    </template>
+    {{ activeIndex }}
+
+    <template v-if="actions.showCursor">
+      <m-carousel ref="carouselRef" :active-index="activeIndex" @change="handleChange">
+        <template #default="slotProps">
+          <ul v-for="(_, i) in Math.ceil(options.length / 3)" :key="i" class="select">
+            <template v-for="(option, index) in options.slice(i * 3, (i + 1) * 3)">
+              <li
+                v-if="option.show"
+                :key="index"
+                class="option"
+                :class="{ active: i * 3 + index === slotProps.globalIndex }"
+                @click="handleActiveChange(i * 3 + index)"
+              >
+                <div class="value">{{ option.value }} {{ $t(option.unit) }}</div>
+                <div class="name">
+                  {{ slotProps.globalIndex }}
+
+                  {{ $t(option.name) }}
+                  {{
+                    i * 3 + index === slotProps.globalIndex && char?.status === 2
+                      ? `(${$t('Offline')})`
+                      : ''
+                  }}
+                </div>
+              </li>
+            </template>
+          </ul>
+        </template>
+      </m-carousel>
+    </template>
 
     <div id="char" class="char"></div>
 
@@ -61,13 +94,17 @@
   let myChart: any
 
   const { isZh } = use.useLang()
+  const carouselRef = ref(null)
+  const { actions } = use.useActions(['cursor'])
 
   const { char, getChar, loading } = use.useMainStateAction('char')
   const options = ref<any>([
     { name: 'Dissolved oxygen', unit: 'mg/L', key: 'oxygen', value: '--', show: false },
     { name: 'Water temperature', unit: '℃', key: 'temp', value: '--', show: false },
     { name: 'PH', unit: 'PH', key: 'ph', value: '--', show: false },
-    { name: 'Liquid level', unit: 'm', key: 'level', value: '--', show: false }
+    { name: 'Level', unit: 'm', key: 'level', value: '--', show: false },
+    { name: 'A2', unit: 'A', key: 'a1', value: '--', show: false },
+    { name: 'A3', unit: 'A', key: 'a2', value: '--', show: false }
   ])
 
   const activeIndex = ref(0)
@@ -88,6 +125,7 @@
   watch(
     activeIndex,
     (val) => {
+      console.log(val)
       type = options.value[val].key
       myChart && myChart.clear()
       stopLoop()
@@ -102,9 +140,23 @@
     stopLoop()
   })
 
+  const handleChange = (current: number) => {
+    activeIndex.value = current * 3
+  }
+
+  const handleActiveChange = (index: number) => {
+    activeIndex.value = index
+  }
   watch(char, (val) => {
     const { date, sensor_data = { s20b: {} }, status, x, y } = val
     const { s20b } = sensor_data
+
+    if (Object.keys(s20b).length > 4) {
+      actions.showCursor = true
+    } else {
+      actions.showCursor = false
+    }
+
     options.value.forEach((item) => {
       item.value =
         s20b[item.key] !== null && s20b[item.key] !== undefined && s20b[item.key] !== ''
@@ -343,7 +395,7 @@
       width: 570px;
       // margin-bottom: 0;
       margin: 0 auto;
-      display: flex;
+      display: flex !important;
       padding: 0;
       .option {
         flex: 1;
