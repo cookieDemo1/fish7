@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --host --port 5000",
+    "dev:zh": "vite --host --port 5000 --mode zh",
     "build": "vue-tsc --noEmit --skipLibCheck && vite build",
+    "build:zh": "vue-tsc --noEmit --skipLibCheck && vite build --mode zh",
     "preview": "vite preview",
     "serve": "vite preview --host",
     "lint": "eslint ./src --ext .vue,.js,.ts,.tsx",

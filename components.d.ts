@@ -30,7 +30,6 @@ declare module 'vue' {
     MButton: typeof import('./src/components/antd/MButton.vue')['default']
     MButtonLink: typeof import('./src/components/antd/MButtonLink.vue')['default']
     MCarousel: typeof import('./src/components/antd/MCarousel.vue')['default']
-    'MCarousel copy': typeof import('./src/components/antd/MCarousel copy.vue')['default']
     MCheckbox: typeof import('./src/components/antd/MCheckbox.vue')['default']
     MDrawer: typeof import('./src/components/antd/MDrawer.vue')['default']
     MEmpty: typeof import('./src/components/antd/MEmpty.vue')['default']

@@ -1,9 +1,15 @@
+const LANG = import.meta.env.VITE_APP_LANG as string
+
+console.log('LANG:', LANG)
+
 export const useLang = () => {
-  console.log(localStorage.getItem('lang'))
-  const lang = localStorage.getItem('lang') || (navigator.language.includes('zh') ? 'zh' : 'en')
-  const isZh = lang === 'zh'
+  const lang =
+    LANG === 'zh'
+      ? 'zh'
+      : localStorage.getItem('lang') || (navigator.language.includes('zh') ? 'zh' : 'en')
+  const isZh = LANG === 'zh' || lang === 'zh'
   const setLang = (lang) => {
-    localStorage.setItem('lang', lang)
+    localStorage.setItem('lang', LANG === 'ZH' ? 'zh' : lang)
     window.location.reload()
   }
   return {

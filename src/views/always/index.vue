@@ -20,7 +20,12 @@
   import SwitchItem from './components/SwitchItem.vue'
   import Tip from './components/Tip.vue'
 
-  const controlOptions = use.useDoumenControlOptions()
+  // const controlOptions = use.useDoumenControlOptions()
+  const controlOptions = {
+    controlList: {
+      value: []
+    }
+  }
 
   const controlList = ref([])
 

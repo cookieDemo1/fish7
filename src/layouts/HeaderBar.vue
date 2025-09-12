@@ -49,7 +49,13 @@
       </template>
       <div class="info">
         <div ref="timeRef" class="time"></div>
-        <img :src="lang == 'zh' ? zhIcon : enIcon" alt="" class="icon lang" @click="onLang" />
+        <img
+          v-if="LANG !== 'zh'"
+          :src="lang == 'zh' ? zhIcon : enIcon"
+          alt=""
+          class="icon lang"
+          @click="onLang"
+        />
         <img
           :src="fullscreen ? fullscreenIcon : nomralscreenIcon"
           alt=""
@@ -93,6 +99,8 @@
   import zhIcon from '@/assets/zh@2x.png'
   import enIcon from '@/assets/en@2x.png'
   import { asyncRoutes } from '@/config/router.config'
+
+  const LANG = import.meta.env.VITE_APP_LANG as string
 
   const { lang, setLang, isZh } = use.useLang()
 
