@@ -93,7 +93,7 @@
     { name: 'Dissolved oxygen', unit: 'mg/L', key: 'oxygen', value: '--', show: false },
     { name: 'Water temperature', unit: '℃', key: 'temp', value: '--', show: false },
     { name: 'PH', unit: 'PH', key: 'ph', value: '--', show: false },
-    { name: 'Level', unit: 'm', key: 'level', value: '--', show: false },
+    { name: 'Liquid level', unit: 'm', key: 'level', value: '--', show: false },
     { name: '盐度', unit: 'PSU', key: 's', value: '--', show: false },
     { name: '亚硝酸盐', unit: 'mg/L', key: 'no2', value: '--', show: false },
     { name: '氨氮', unit: 'mg/L', key: 'andan', value: '--', show: false }

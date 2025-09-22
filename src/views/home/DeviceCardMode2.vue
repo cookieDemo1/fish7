@@ -52,7 +52,7 @@
   const handleClick = () => {
     const status = props.item.status
 
-    if (props.item.is_di) {
+    if (props.item.is_di || props.item.do.includes('di')) {
       return message.warning(t('The DI status cannot be controlled'))
     }
     if (status === 0) {
@@ -61,7 +61,8 @@
 
     const action = status === 1 ? 2 : 1
     loading.value = true
-    postControlSwitch({ DO: props.item.do, action: action })
+    console.log(props.item)
+    postControlSwitch({ DO: parseInt(props.item.do), action: action })
       .then((res) => {
         if (res.code !== 200) {
           loading.value = false

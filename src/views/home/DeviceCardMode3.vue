@@ -49,7 +49,7 @@
   const handleClick = () => {
     const status = props.item.status
 
-    if (props.item.di_do === 'di') {
+    if (props.item.is_di || props.item.do.includes('di')) {
       return message.warning('DI状态无法控制')
     }
     if (status === 0) {
@@ -58,7 +58,7 @@
 
     const action = status === 1 ? 2 : 1
     loading.value = true
-    postControlSwitch({ DO: parseInt(props.item.id), action: action })
+    postControlSwitch({ DO: parseInt(props.item.do), action: action })
       .then((res) => {
         if (res.code !== 200) {
           loading.value = false
