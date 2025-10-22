@@ -55,7 +55,6 @@
         // min-height: 78px;
         padding-top: 20px;
         padding-bottom: 20px;
-        position: relative;
         // height: 100px;
         font-weight: bold;
         font-size: 24px;
@@ -64,6 +63,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        position: sticky;
+        top: 0;
+        background: #1f2839;
+        z-index: 999;
 
         .left-icon {
           position: absolute;

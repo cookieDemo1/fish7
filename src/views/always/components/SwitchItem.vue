@@ -6,11 +6,15 @@
 
     <div class="left">
       <img class="icon" :src="item.icon" alt="" />
-      <div class="name">{{ item.name }}</div>
+      <div class="name">{{ $t(item.name) }}</div>
     </div>
     <div class="right" @click="actions.handleEdit">
       <span class="state" :class="{ green: item.on_off == '2', red: item.on_off == '3' }">{{
-        item.on_off == '2' ? '保持开启' : item.on_off == '3' ? '保持关闭' : '禁用'
+        item.on_off == '2'
+          ? $t('Keep it on')
+          : item.on_off == '3'
+          ? $t('Keep it off')
+          : $t('Disabled')
       }}</span>
       <template v-if="item.on_off == '2' || item.on_off == '3'">
         <span class="line"></span>
@@ -39,7 +43,9 @@
 <style lang="less" scoped>
   .switch-item {
     width: 628px;
-    height: 90px;
+    // height: 90px;
+    height: 80px;
+
     background-color: #424b59;
     border-radius: 12px;
     position: relative;

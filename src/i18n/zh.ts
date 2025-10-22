@@ -135,7 +135,16 @@ const zh = {
   oxygen: '溶解氧',
   temp: '水温',
   ph: 'ph',
-  More: '更多'
+  More: '更多',
+  'Always Open And Always Closed': '常开常闭',
+  tip1: '常开常闭功能是为了防止操作失误，从而导致发生事故',
+  tip2: '示例1：可将增氧泵设为常开，超限时长为10分钟。假如人为关闭增氧泵，并且关闭时间超过10分钟，系统将自动开启增氧泵，以防止鱼池缺氧。',
+  tip3: '示例2：可将鱼池排空阀设为常闭，超限时长为30秒。假如人为开启鱼池排空阀，并且开启时间超过30秒，系统将自动关闭鱼池排空阀，以防止鱼池中的水排空。',
+  'Keep it on': '保持开启',
+  'Keep it off': '保持关闭',
+  'Over-limit duration': '超限时长',
+  Duration: '时长',
+  'Select Over-limit Duration': '选择超限时长'
 }
 
 export default zh

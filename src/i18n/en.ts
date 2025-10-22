@@ -135,7 +135,16 @@ const en = {
   oxygen: 'Oxygen',
   temp: 'Water temperature',
   ph: 'PH',
-  More: 'More'
+  More: 'More',
+  'Always Open And Always Closed': 'Always Open And Always Closed',
+  tip1: 'The normally open and normally closed function is designed to prevent operational errors that could lead to accidents',
+  tip2: 'Example 1: The oxygenation pump can be set to be on all the time, with an over-limit duration of 10 minutes. If the oxygenation pump is manually turned off and the shutdown time exceeds 10 minutes, the system will automatically start the oxygenation pump to prevent the fish pond from lacking oxygen.',
+  tip3: 'Example 2: The fishpond vent valve can be set to be normally closed, with an over-limit duration of 30 seconds. If the fishpond drain valve is opened manually and the opening time exceeds 30 seconds, the system will automatically close the fishpond drain valve to prevent the water in the fishpond from being drained.',
+  'Keep it on': 'Keep It ON',
+  'Keep it off': 'Keep It OFF',
+  'Over-limit duration': 'Over-limit duration',
+  Duration: 'Duration',
+  'Select Over-limit Duration': 'Select Over-limit Duration'
 }
 
 export default en

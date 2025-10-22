@@ -24,17 +24,9 @@
             <span>{{ $t(item.meta.title as string) }}</span>
           </li>
 
-          <!-- 小程序码，不在路由中, 中文显示在外面，英文显示在里面 -->
-          <template v-if="isZh">
-            <li class="nav-item" :class="{ active: actions.showCode }" @click="actions.handleCode">
-              <img class="route-icon" :src="actions.showCode ? activeMiniIcon : normalMiniIcon" />
-              <span>{{ $t('Mini Program') }}</span>
-            </li>
-          </template>
-
-          <template v-if="!isZh || secondRoutes.length > 0">
-            <li class="nav-item more" :class="{ active: actions.showMore }" @click="handleMore">
-              <img class="route-icon" :src="actions.showMore ? activeMoreIcon : normalMoreIcon" />
+          <template v-if="secondRoutes.length > 0">
+            <li class="nav-item more" :class="{ active: moreActive }" @click="handleMore">
+              <img class="route-icon" :src="moreActive ? activeMoreIcon : normalMoreIcon" />
               <span>{{ $t('More') }}</span>
             </li>
           </template>
@@ -47,6 +39,7 @@
           <span class="back-text">{{ text }}</span>
         </div>
       </template>
+      <!-- 右侧的全屏和中英文切换按钮 -->
       <div class="info">
         <div ref="timeRef" class="time"></div>
         <img
@@ -70,20 +63,41 @@
     <!-- 这个弹出框路由的高亮还没做，暂时不做 -->
     <teleport to="body">
       <ul v-if="actions.showMore" class="sub-nav">
-        <li
-          v-if="!isZh"
-          class="sub-nav-item"
-          :class="{ active: actions.showCode }"
-          @click="handleInnerCode()"
-        >
+        <li class="sub-nav-item" :class="{ active: actions.showCode }" @click="handleInnerCode()">
           <img class="route-icon" :src="actions.showCode ? activeMiniIcon : normalMiniIcon" />
           <span>{{ $t('Mini Program') }}</span>
+          <img
+            v-if="actions.showCode"
+            src="@/assets/xuanzh_icon@2x.png"
+            class="active-icon"
+            alt=""
+          />
+        </li>
+        <li
+          v-for="item in secondRoutes"
+          :key="item.path"
+          class="sub-nav-item"
+          :class="{ active: item.path === activeRoute }"
+          @click="handleSceondRoute(item.path)"
+        >
+          <img
+            class="route-icon"
+            :src="item.path === activeRoute ? (item.meta.active as string) : (item.meta.normal as string)"
+          />
+          <span class="sub-nav-title">{{ $t(item.meta.title as string) }}</span>
+
+          <img
+            v-if="item.path === activeRoute"
+            src="@/assets/xuanzh_icon@2x.png"
+            class="active-icon"
+            alt=""
+          />
         </li>
       </ul>
     </teleport>
   </header>
 
-  <modal-code v-model="actions.showCode" @callback="actions.showMore = false"></modal-code>
+  <modal-code v-model="actions.showCode" @callback="actions.showCode = false"></modal-code>
 </template>
 
 <script setup lang="ts">
@@ -101,6 +115,8 @@
   import { asyncRoutes } from '@/config/router.config'
 
   const LANG = import.meta.env.VITE_APP_LANG as string
+
+  const moreActive = ref(false)
 
   const { lang, setLang, isZh } = use.useLang()
 
@@ -130,6 +146,7 @@
     () => {
       activeRoute.value = route.path
       text.value = (route.meta.text as string) || ''
+      moreActive.value = secondRoutes.findIndex((item) => item.path === route.path) > -1
     },
     {
       immediate: true
@@ -138,6 +155,11 @@
 
   const handleBack = () => {
     router.go(-1)
+  }
+
+  const handleSceondRoute = (path) => {
+    router.push(path)
+    actions.showMore = false
   }
 
   const timeRef = ref()
@@ -182,6 +204,7 @@
   }
 
   const handleInnerCode = () => {
+    actions.showMore = false
     actions.handleCode()
   }
 
@@ -316,6 +339,7 @@
     .sub-nav-item {
       height: 80px;
       padding: 19px 24px;
+      position: relative;
 
       display: flex;
       align-items: center;
@@ -324,6 +348,26 @@
         width: 40px;
         height: 40px;
         margin-right: 8px;
+      }
+
+      .sub-nav-title {
+        padding-right: 48px;
+        word-wrap: break-word;
+        word-break: break-all; /* 任意字符处换行，包括单词中间 */
+        white-space: normal; /* 默认值，按单词换行 */
+      }
+
+      &.active {
+        color: #00e4f8;
+      }
+
+      .active-icon {
+        position: absolute;
+        top: 50%;
+        right: 24px;
+        transform: translateY(-50%);
+        width: 22px;
+        height: 22px;
       }
     }
   }

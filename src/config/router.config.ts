@@ -9,6 +9,7 @@ const Home = () => import('@/views/home/index.vue')
 // const Automatic = () => import('@/views/automatic/index.vue')
 
 const AutoPage = () => import('@/views/auto/index.vue')
+const AlwaysPage = () => import('@/views/always/index.vue')
 const CompostaskAdd = () => import('@/views/auto/CompostaskAdd.vue')
 const CompostaskScene = () => import('@/views/auto/CompostaskScene.vue')
 const CompostaskSceneDetail = () => import('@/views/auto/CompostaskSceneDetail.vue')
@@ -73,13 +74,18 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         props: (route) => route.query
       },
 
-      // {
-      //   path: '/always',
-      //   name: 'always',
-      //   meta: { title: 'Always', normal: alwaysNormal, active: alwaysActive, menu: true },
-      //   component: AutoPage,
-      //   props: (route) => route.query
-      // },
+      {
+        path: '/always',
+        name: 'always',
+        meta: {
+          title: 'Always Open And Always Closed',
+          normal: alwaysNormal,
+          active: alwaysActive,
+          menu: true
+        },
+        component: AlwaysPage,
+        props: (route) => route.query
+      },
 
       {
         path: '/childtask/manage',

@@ -1,5 +1,7 @@
 <template>
   <div class="device-card" :class="{ freq: item.freq != '-1' }" @click="handleClick">
+    <div class="circle" :class="{ red: item.on_off == 2, green: item.on_off == 3 }"></div>
+
     <div class="icon">
       <template v-if="!loading">
         <img :src="imgMap[item.icon_type][item.status]" class="status-icon" alt="" />
@@ -101,9 +103,24 @@
     background-size: 100% 100%;
     background-repeat: no-repeat;
     padding: 10px 23px 12px;
-    // position: relative;
+    position: relative;
     display: flex;
     align-items: center;
+    .circle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      top: 9px;
+      left: 9px;
+      &.red {
+        background-color: #ff5446;
+      }
+
+      &.green {
+        background-color: #16ce67;
+      }
+    }
 
     &.freq {
       background-image: url('../../assets/kapbjc_img@2x.png');
