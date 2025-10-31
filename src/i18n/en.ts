@@ -144,7 +144,10 @@ const en = {
   'Keep it off': 'Keep It OFF',
   'Over-limit duration': 'Over-limit duration',
   Duration: 'Duration',
-  'Select Over-limit Duration': 'Select Over-limit Duration'
+  'Select Over-limit Duration': 'Select Over-limit Duration',
+  Salinity: 'Salinity',
+  Nitrite: 'Nitrite',
+  'Ammonia Nitrogen': 'Ammonia Nitrogen'
 }
 
 export default en

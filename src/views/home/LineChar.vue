@@ -1,5 +1,5 @@
 <template>
-  <div class="line-char">
+  <div v-if="showChar" class="line-char">
     <div v-if="char?.status === 2" class="offline">{{ $t('Offline') }}</div>
 
     <template v-if="!actions.showCursor">
@@ -94,19 +94,20 @@
     { name: 'Water temperature', unit: '℃', key: 'temp', value: '--', show: false },
     { name: 'PH', unit: 'PH', key: 'ph', value: '--', show: false },
     { name: 'Liquid level', unit: 'm', key: 'level', value: '--', show: false },
-    { name: '盐度', unit: 'PSU', key: 's', value: '--', show: false },
-    { name: '亚硝酸盐', unit: 'mg/L', key: 'no2', value: '--', show: false },
-    { name: '氨氮', unit: 'mg/L', key: 'andan', value: '--', show: false }
+    { name: 'Salinity', unit: 'PSU', key: 's', value: '--', show: false },
+    { name: 'Nitrite', unit: 'mg/L', key: 'no2', value: '--', show: false },
+    { name: 'Ammonia Nitrogen', unit: 'mg/L', key: 'andan', value: '--', show: false }
   ])
 
   const activeIndex = ref(0)
+  const showChar = ref(false)
 
   let type = ''
   let interval = null
   const startLoop = () => {
-    getChar({ type })
+    type ? getChar({ type }) : getChar()
     interval = setInterval(() => {
-      getChar({ type })
+      type ? getChar({ type }) : getChar()
     }, 10000)
   }
 
@@ -114,19 +115,17 @@
     interval && clearInterval(interval)
     interval = null
   }
-  watch(
-    activeIndex,
-    (val) => {
-      console.log(val)
-      type = options.value[val].key
-      myChart && myChart.clear()
-      stopLoop()
-      startLoop()
-    },
-    {
-      immediate: true
-    }
-  )
+
+  watch(activeIndex, (val) => {
+    console.log('IndexChange')
+
+    type = options.value[val].key
+
+    myChart && myChart.clear()
+
+    stopLoop()
+    startLoop()
+  })
 
   onBeforeUnmount(() => {
     stopLoop()
@@ -159,12 +158,28 @@
     })
 
     const tempOptions = options.value.filter((item) => item.show)
+    // 首次进来时给tpye赋值
+    if (tempOptions.length > 0 && type === '') {
+      type = tempOptions[0].key
+    }
     options.value = tempOptions
-    draw()
+
+    showChar.value = Object.keys(s20b).length > 0
+
+    // 显示的时候才去画图，要在下一个nextTich否则#char元素还不存在
+    if (showChar.value) {
+      nextTick(() => {
+        if (!myChart) {
+          myChart = echarts.init(document.getElementById('char'))
+        }
+        draw()
+      })
+    }
   })
 
   onMounted(() => {
-    myChart = echarts.init(document.getElementById('char'))
+    stopLoop()
+    startLoop()
   })
 
   // 接下来的使用就跟之前一样，初始化图表，设置配置项

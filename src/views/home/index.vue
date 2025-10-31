@@ -41,7 +41,7 @@
         </a-col>
       </a-row>
     </div>
-    <div v-if="showChar" class="char">
+    <div class="char">
       <LineChar />
     </div>
 
@@ -84,8 +84,9 @@
   })
 
   const showChar = ref(false)
+
   const { char, getChar } = use.useMainStateAction('char')
-  getChar({ type: 'oxygen' })
+  // getChar()
   watch(char, (val) => {
     const { sensor_data = {} } = char.value
     const { s20b } = sensor_data

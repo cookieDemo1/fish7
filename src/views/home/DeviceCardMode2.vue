@@ -63,7 +63,7 @@
     const action = status === 1 ? 2 : 1
     loading.value = true
     console.log(props.item)
-    postControlSwitch({ DO: parseInt(props.item.do), action: action })
+    postControlSwitch({ DO: props.item.do, action: action })
       .then((res) => {
         if (res.code !== 200) {
           loading.value = false

@@ -75,7 +75,7 @@
   function handleOk(event) {
     event.stopPropagation()
     loading.value = true
-    postFreq({ DO: parseInt(props.item.id), freq: value.value })
+    postFreq({ DO: props.item.do, freq: value.value })
       .then((res) => {
         if (res.code !== 200) {
           loading.value = false
