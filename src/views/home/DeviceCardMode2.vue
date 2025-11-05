@@ -1,6 +1,6 @@
 <template>
   <div class="device-card" @click="handleClick">
-    <div class="circle" :class="{ red: item.on_off == 2, green: item.on_off == 3 }"></div>
+    <div class="circle" :class="{ red: item.on_off == 3, green: item.on_off == 2 }"></div>
     <div class="icon">
       <template v-if="!loading">
         <img :src="imgMap[item.icon_type][item.status]" class="status-icon" alt="" />

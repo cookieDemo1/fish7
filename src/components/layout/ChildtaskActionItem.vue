@@ -8,7 +8,7 @@
           <svg-icon v-else class="icon" name="shebi_g_icon"></svg-icon>
           <div>
             <div class="name">{{ item.name }}</div>
-            <div class="status">{{ item.action == 1 ? $t('Enable') : $t('Disable') }}</div>
+            <div class="status">{{ item.action == 1 ? $t('ON') : $t('OFF') }}</div>
           </div>
         </div>
         <svg-icon class="drag-icon" name="yidong_icon"></svg-icon>
@@ -35,7 +35,7 @@
           <svg-icon v-else class="icon" name="shebi_g_icon"></svg-icon>
           <div>
             <div class="name">{{ item.name }}</div>
-            <div class="status">{{ item.action == 1 ? $t('Enable') : $t('Disable') }}</div>
+            <div class="status">{{ item.action == 1 ? $t('ON') : $t('OFF') }}</div>
           </div>
         </div>
         <svg-icon class="arrow" name="jiantou_icon"></svg-icon>

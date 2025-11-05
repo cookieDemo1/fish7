@@ -147,7 +147,9 @@ const en = {
   'Select Over-limit Duration': 'Select Over-limit Duration',
   Salinity: 'Salinity',
   Nitrite: 'Nitrite',
-  'Ammonia Nitrogen': 'Ammonia Nitrogen'
+  'Ammonia Nitrogen': 'Ammonia Nitrogen',
+  ON: 'ON',
+  OFF: 'OFF'
 }
 
 export default en

@@ -147,7 +147,9 @@ const zh = {
   'Select Over-limit Duration': '选择超限时长',
   Salinity: '盐度',
   Nitrite: '亚硝酸盐',
-  'Ammonia Nitrogen': '氨氮'
+  'Ammonia Nitrogen': '氨氮',
+  ON: '开启',
+  OFF: '关闭'
 }
 
 export default zh

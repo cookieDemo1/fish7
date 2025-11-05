@@ -19,7 +19,7 @@
                 :class="{ green: actions.item.action == 1 }"
                 @click="actions.item.action = 1"
               >
-                <div class="name">{{ $t('Enalbe') }}</div>
+                <div class="name">{{ $t('ON') }}</div>
                 <div>
                   <m-radio class="radio" :value="1"></m-radio>
                 </div>
@@ -29,7 +29,7 @@
                 :class="{ green: actions.item.action == 2 }"
                 @click="actions.item.action = 2"
               >
-                <div class="name">{{ $t('Disable') }}</div>
+                <div class="name">{{ $t('OFF') }}</div>
                 <div>
                   <m-radio class="radio" :value="2"></m-radio>
                 </div>

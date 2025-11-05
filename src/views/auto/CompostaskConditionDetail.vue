@@ -20,13 +20,21 @@
                     <div class="title">{{ $t('Execution conditions') }}</div>
                     <div class="condition-card">
                       <div class="condition-item">
-                        {{ $t('Sensor') }}：{{ autoTaskInfo.sensor_name }}
+                        {{ $t('Sensor') }}：{{ $t(autoTaskInfo.sensor_name || '') }}
                       </div>
                       <div class="condition-item">
                         {{ $t('Condition') }}
                         ：{{
-                          `${$t(autoTaskInfo.arg || '')} ${autoTaskInfo.compare} ${
-                            autoTaskInfo.value
+                          `${
+                            autoTaskInfo.arg && autoTaskInfo.arg.includes('DI')
+                              ? $t(autoTaskInfo.sensor_name || '')
+                              : $t(autoTaskInfo.arg || '')
+                          } ${autoTaskInfo.compare} ${
+                            autoTaskInfo.arg && autoTaskInfo.arg.includes('DI')
+                              ? autoTaskInfo.value == 1
+                                ? $t('ON')
+                                : $t('OFF')
+                              : autoTaskInfo.value
                           }`
                         }}
                       </div>

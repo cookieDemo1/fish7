@@ -1,17 +1,16 @@
 <template>
   <div class="normal-select">
     <div class="content" @click="isOpen = true">
-      <span v-if="!modelValue" class="value placeholder">{{
-        placeholder || $t('Please select')
-      }}</span>
-      <span v-if="modelValue" class="value">{{ text }}</span>
-
+      <template v-if="modelValue === undefined || modelValue === null || modelValue === ''">
+        <span class="value placeholder">{{ placeholder || $t('Please select') }}</span>
+      </template>
+      <template v-else>
+        <span class="value">{{ text }}</span>
+      </template>
       <img src="@/assets/auto/xiala_icon@2x.png" class="icon" alt="" />
     </div>
     <div v-if="isOpen" class="select-modal-wrapper" @click="isOpen = false">
       <div class="select-modal" @click.stop="() => {}">
-        <!-- <div class="title">{{ text }}</div> -->
-
         <van-picker
           ref="picker"
           v-model="selectedValues"
@@ -53,11 +52,14 @@
 
   const selectedValues = ref([])
   watch(
-    () => props.modelValue,
-    (value) => {
-      selectedValues.value = [value]
+    () => [props.modelValue, props.options],
+    () => {
+      selectedValues.value = [props.modelValue]
       let selected = props.options.find((item) => item.value === props.modelValue)
+      console.log(selected)
+
       text.value = selected?.text || ''
+      console.log(text.value)
     },
     {
       immediate: true

@@ -22,6 +22,7 @@
                   <div class="condition-card">
                     <div class="select-item">
                       <div class="label">{{ $t('Data source') }}</div>
+
                       <normal-select
                         v-model="form.sensor_id"
                         class="select m-select-right"
@@ -49,21 +50,36 @@
                             v-model="form.compare"
                             class="m-select-compact"
                             :placeholder="$t('Please select')"
-                            :options="compareOptions"
+                            :options="
+                              form.arg && form.arg.includes('DI')
+                                ? diCompareOptions
+                                : compareOptions
+                            "
                           >
                           </normal-select>
                           <div class="line"></div>
                           <div class="val">{{ $t('Relationship') }}</div>
                         </a-col>
                         <a-col :span="8">
-                          <m-input-inner
-                            v-model="form.value"
-                            class="m-input-number-compact"
-                            :placeholder="$t('Please input')"
-                            :bordered="false"
-                            :controls="false"
-                            type="number"
-                          ></m-input-inner>
+                          <template v-if="form.arg && form.arg.includes('DI')">
+                            <normal-select
+                              v-model="form.value"
+                              class="m-select-compact"
+                              :placeholder="$t('Please select')"
+                              :options="diValueOptions"
+                            ></normal-select>
+                          </template>
+                          <template v-else>
+                            <m-input-inner
+                              v-model="form.value"
+                              class="m-input-number-compact"
+                              :placeholder="$t('Please input')"
+                              :bordered="false"
+                              :controls="false"
+                              type="number"
+                            ></m-input-inner>
+                          </template>
+
                           <div class="line"></div>
                           <div class="val">{{ $t('Value') }}</div>
                         </a-col>
@@ -199,6 +215,13 @@
     { text: '>', value: '>' },
     { text: '=', value: '=' },
     { text: '<', value: '<' }
+  ]
+
+  const diCompareOptions = [{ text: '=', value: '=' }]
+
+  const diValueOptions = [
+    { text: t('ON'), value: 1 },
+    { text: t('OFF'), value: 0 }
   ]
 
   const rules = {

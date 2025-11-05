@@ -13,10 +13,10 @@
       "
     >
       <span :class="{ btn: true, on: true, active: status === 1 }" @click="handleClick(1)">{{
-        $t('Enable')
+        $t('ON')
       }}</span>
       <span :class="{ btn: true, off: true, active: status === 2 }" @click="handleClick(2)">{{
-        $t('Disable')
+        $t('OFF')
       }}</span>
     </div>
   </div>

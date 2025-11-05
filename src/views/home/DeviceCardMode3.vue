@@ -1,6 +1,6 @@
 <template>
   <div class="device-card" :class="{ freq: item.freq != '-1' }" @click="handleClick">
-    <div class="circle" :class="{ red: item.on_off == 2, green: item.on_off == 3 }"></div>
+    <div class="circle" :class="{ red: item.on_off == 3, green: item.on_off == 2 }"></div>
 
     <div class="icon">
       <template v-if="!loading">
