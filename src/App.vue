@@ -13,6 +13,11 @@
   import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
   import autofit from '@/utils/autofit'
 
+  const mode = import.meta.env.VITE_APP_MODE as string
+
+  const width = mode === 'inch10' ? 1280 : 1024
+  const height = mode === 'inch10' ? 800 : 600
+
   const locale = zhCN
 
   // 使用key刷新页面，location.reload()会导致页面退出全屏
@@ -23,8 +28,8 @@
     () => {
       nextTick(() => {
         autofit.init({
-          dw: 1024,
-          dh: 600,
+          dw: width,
+          dh: height,
           el: '.screen',
           // limit: 0.8,
           resize: true
@@ -37,8 +42,8 @@
 
   onMounted(() => {
     autofit.init({
-      dw: 1024,
-      dh: 600,
+      dw: width,
+      dh: height,
       el: '.screen',
       // limit: 0.8,
       resize: true

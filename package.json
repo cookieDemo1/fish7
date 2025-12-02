@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "vite --host --port 5000",
     "dev:zh": "vite --host --port 5000 --mode zh",
+    "dev:inch10": "vite --host --port 5000 --mode inch10",
     "build": "vue-tsc --noEmit --skipLibCheck && vite build",
     "build:zh": "vue-tsc --noEmit --skipLibCheck && vite build --mode zh",
+    "build:inch10": "vue-tsc --noEmit --skipLibCheck && vite build --mode inch10",
     "preview": "vite preview",
     "serve": "vite preview --host",
     "lint": "eslint ./src --ext .vue,.js,.ts,.tsx",

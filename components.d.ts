@@ -49,6 +49,7 @@ declare module 'vue' {
     ModalDeviceAdd: typeof import('./src/components/modal/ModalDeviceAdd.vue')['default']
     ModalDeviceChange: typeof import('./src/components/modal/ModalDeviceChange.vue')['default']
     ModalFrequencyEdit: typeof import('./src/components/modal/ModalFrequencyEdit.vue')['default']
+    ModalMeter: typeof import('./src/components/modal/ModalMeter.vue')['default']
     ModalSensor: typeof import('./src/components/modal/ModalSensor.vue')['default']
     ModalTimePicker: typeof import('./src/components/modal/ModalTimePicker.vue')['default']
     ModalTimeWeek: typeof import('./src/components/modal/ModalTimeWeek.vue')['default']

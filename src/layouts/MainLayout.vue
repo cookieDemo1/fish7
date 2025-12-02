@@ -1,6 +1,11 @@
 <template>
   <section class="main-layout">
-    <header-bar></header-bar>
+    <template v-if="mode === 'inch10'">
+      <header-bar-inch10></header-bar-inch10>
+    </template>
+    <template v-else>
+      <HeaderBar></HeaderBar>
+    </template>
 
     <main class="main" :class="{ padding: isHome }">
       <router-view />
@@ -10,6 +15,9 @@
 
 <script setup lang="ts">
   import HeaderBar from './HeaderBar.vue'
+  import HeaderBarInch10 from './HeaderBarInch10.vue'
+
+  const mode = import.meta.env.MODE
 
   const route = useRoute()
   const isHome = ref(false)
@@ -28,8 +36,10 @@
   .main-layout {
     z-index: 0;
     position: relative;
-    width: 1024px;
-    height: 600px;
+    // width: 1024px;
+    // height: 600px;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     background-size: 100% 100%;
     display: flex;
