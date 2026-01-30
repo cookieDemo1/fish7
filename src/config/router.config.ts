@@ -5,7 +5,7 @@ const mode = import.meta.env.VITE_APP_MODE as string
 const MainLayout = () => import('@/layouts/MainLayout.vue')
 //404
 const NotFound = () => import('@/views/404.vue')
-const Home = () => import('@/views/home/index.vue')
+const Inch7Home = () => import('@/views/home/inch7Index.vue')
 
 const Inch10Home = () => import('@/views/home/Inch10Index.vue')
 
@@ -203,7 +203,7 @@ const fish7Router: Array<RouteRecordRaw> = [
           active: homeActive,
           menu: true
         },
-        component: Home
+        component: Inch7Home
       },
       {
         path: '/automation',
@@ -310,4 +310,5 @@ const fish7Router: Array<RouteRecordRaw> = [
 
 console.log(mode)
 
-export const asyncRoutes: Array<RouteRecordRaw> = mode === 'inch10' ? fish10Router : fish7Router
+export const asyncRoutes: Array<RouteRecordRaw> =
+  mode === 'inch10' || mode === 'inch21' ? fish10Router : fish7Router

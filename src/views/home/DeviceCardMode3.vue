@@ -99,11 +99,28 @@
     width: 100%;
     height: 98px;
     border-radius: 11px;
-    background-image: url('../../assets/kapbj_img@2x.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    // background-image: url('../../assets/kapbj_img@2x.png');
+    // background-size: 100% 100%;
+    // background-repeat: no-repeat;
     padding: 10px 23px 12px;
     position: relative;
+
+    &:before {
+      display: block;
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+
+      border-top: 45px solid transparent;
+      border-right: 100px solid transparent;
+      border-bottom: 45px solid transparent;
+      border-left: 100px solid transparent;
+      border-image: url('@/assets/kapbj_img@2x.png') 90 200 90 200 fill;
+    }
     display: flex;
     align-items: center;
     .circle {
@@ -123,7 +140,7 @@
     }
 
     &.freq {
-      background-image: url('../../assets/kapbjc_img@2x.png');
+      // background-image: url('../../assets/kapbjc_img@2x.png');
     }
 
     .icon {

@@ -15,8 +15,8 @@
 
   const mode = import.meta.env.VITE_APP_MODE as string
 
-  const width = mode === 'inch10' ? 1280 : 1024
-  const height = mode === 'inch10' ? 800 : 600
+  const width = mode === 'inch21' ? 1920 : mode === 'inch10' ? 1280 : 1024
+  const height = mode === 'inch21' ? 1080 : mode === 'inch10' ? 800 : 600
 
   const locale = zhCN
 

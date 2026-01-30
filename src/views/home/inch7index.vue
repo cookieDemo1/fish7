@@ -90,6 +90,7 @@
   watch(char, (val) => {
     const { sensor_data = {} } = char.value
     const { s20b } = sensor_data
+
     showChar.value = Object.keys(s20b).length > 0
   })
 </script>

@@ -1,6 +1,6 @@
 <template>
   <section class="main-layout">
-    <template v-if="mode === 'inch10'">
+    <template v-if="mode === 'inch10' || mode === 'inch21'">
       <header-bar-inch10></header-bar-inch10>
     </template>
     <template v-else>
