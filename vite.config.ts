@@ -104,8 +104,8 @@ export default defineConfig({
     hmr: true,
     proxy: {
       '/api': {
-        // target: 'http://127.0.0.1:3000/',
-        target: 'http://172.16.14.223',
+        target: 'http://127.0.0.1:3000/',
+        // target: 'http://172.16.14.223',
         // target: 'http://172.16.14.77',
         changeOrigin: true
       }

@@ -58,7 +58,7 @@ const zh = {
   'Please enter the name of the sub-task': '请输入子任务名称',
   'Sub-task': '子任务',
   'Intelligent conditional task': '智能条件任务',
-  Sensor: '传感器：',
+  Sensor: '传感器',
   Enable: '启用',
   Disable: '禁用',
   'Delete task': '删除任务',
