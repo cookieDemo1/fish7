@@ -18,6 +18,20 @@
   const width = mode === 'inch21' ? 1920 : mode === 'inch10' ? 1280 : 1024
   const height = mode === 'inch21' ? 1080 : mode === 'inch10' ? 800 : 600
 
+  console.log(document.documentElement.clientWidth, document.documentElement.clientHeight)
+  // const width =
+  //   mode === 'inch21'
+  //     ? document.documentElement.clientWidth
+  //     : mode === 'inch10'
+  //     ? document.documentElement.clientWidth
+  //     : 1024
+  // const height =
+  //   mode === 'inch21'
+  //     ? document.documentElement.clientHeight
+  //     : mode === 'inch10'
+  //     ? document.documentElement.clientHeight
+  //     : 600
+
   const locale = zhCN
 
   // 使用key刷新页面，location.reload()会导致页面退出全屏

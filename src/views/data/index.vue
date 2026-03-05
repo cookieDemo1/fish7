@@ -1,6 +1,6 @@
 <template>
   <div class="data">
-    <div>
+    <div v-if="meter">
       <Meter :data="meter"></Meter>
     </div>
     <div class="char" style="margin-top: 16px">
@@ -14,7 +14,7 @@
   import LineChar from './LineChar.vue'
 
   const { char, getChar, loading } = use.useMainStateAction('char')
-  const meter = ref({})
+  const meter = ref(null)
   watch(
     char,
     (val) => {
@@ -30,4 +30,14 @@
   )
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .data {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .char {
+      flex: 1;
+    }
+  }
+</style>

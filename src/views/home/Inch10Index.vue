@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <div style="margin: 0 0 16px 24px">
+    <!-- <div style="margin: 0 0 16px 24px">
       <Light :list="lightStatus"></Light>
-    </div>
+    </div> -->
     <div class="wrapper" style="padding: 0 24px">
       <a-row :gutter="[14, 14]">
         <a-col v-for="(item, index) in switchList" :key="index" :span="item.freq == '-1' ? 6 : 12">

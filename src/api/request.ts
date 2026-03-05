@@ -14,12 +14,13 @@ export interface Error {
   message: any
 }
 
+const base = window.location.protocol + '//' + window.location.host.split(':')[0]
+console.log('base', base)
 const instance = axios.create({
   timeout: 100000, // 请求超时时间
+
   // baseURL: window.location.origin.replace(':3000', '')
-  baseURL: import.meta.env.DEV
-    ? window.location.origin
-    : window.location.origin.replace(':3000', '')
+  baseURL: import.meta.env.DEV ? window.location.origin : base
 })
 
 // 异常拦截器

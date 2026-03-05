@@ -366,7 +366,7 @@
 
 <style lang="less" scoped>
   .line-char {
-    height: 624px;
+    height: 100%;
     background-color: #1f2838;
     border-radius: 12px;
     position: relative;
