@@ -4,8 +4,11 @@ const zh = {
   Automation: '自动化',
   'Mini Program': '小程序',
   'Dissolved oxygen': '溶解氧',
+  'Dissolved oxygen1': '溶解氧1',
+  'Dissolved oxygen2': '溶解氧2',
   'Water temperature': '水温值',
   PH: 'PH值',
+  'PH Text': 'PH',
   'Liquid level': '液位',
   Offline: '离线',
   m: '米',
@@ -149,7 +152,8 @@ const zh = {
   Nitrite: '亚硝酸盐',
   'Ammonia Nitrogen': '氨氮',
   ON: '开启',
-  OFF: '关闭'
+  OFF: '关闭',
+  Ozone: '臭氧'
 }
 
 export default zh

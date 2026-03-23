@@ -1,48 +1,23 @@
 <template>
+  <!-- 图表无滚动版本，未使用 -->
   <div v-if="showChar" class="line-char">
     <div v-if="char?.status === 2" class="offline">{{ $t('Offline') }}</div>
 
-    <template v-if="!actions.showCursor">
-      <ul class="select">
-        <li
-          v-for="(option, index) in options"
-          :key="index"
-          class="option"
-          :class="{ active: index === activeIndex }"
-          @click="activeIndex = index"
-        >
-          <div class="value">{{ option.value }} {{ $t(option.unit) }}</div>
-          <div class="name">
-            {{ $t(option.name) }}
-            {{ index === activeIndex && char?.status === 2 ? `(${$t('Offline')})` : '' }}
-          </div>
-        </li>
-      </ul>
-    </template>
-
-    <template v-if="actions.showCursor">
-      <m-carousel2 ref="carouselRef" @change="handleChange">
-        <van-swipe-item v-for="(_, i) in Math.ceil(options.length / 5)" :key="i">
-          <ul class="select">
-            <li
-              v-for="(option, index) in options.slice(i * 5, (i + 1) * 5)"
-              :key="index"
-              class="option"
-              :class="{ active: i * 5 + index === activeIndex }"
-              @click="handleActiveChange(i * 5 + index)"
-            >
-              <div class="value">{{ option.value }} {{ $t(option.unit) }}</div>
-              <div class="name">
-                {{ $t(option.name) }}
-                {{
-                  i * 3 + index === activeIndex && char?.status === 2 ? `(${$t('Offline')})` : ''
-                }}
-              </div>
-            </li>
-          </ul>
-        </van-swipe-item>
-      </m-carousel2>
-    </template>
+    <ul class="select">
+      <li
+        v-for="(option, index) in options"
+        :key="index"
+        class="option"
+        :class="{ active: index === activeIndex }"
+        @click="activeIndex = index"
+      >
+        <div class="value">{{ option.value }} {{ $t(option.unit) }}</div>
+        <div class="name">
+          {{ $t(option.name) }}
+          {{ index === activeIndex && char?.status === 2 ? `(${$t('Offline')})` : '' }}
+        </div>
+      </li>
+    </ul>
 
     <div id="char" class="char"></div>
 
@@ -96,9 +71,9 @@
 
     { name: 'Water temperature', unit: '℃', key: 'temp', value: '--', show: false },
 
-    { name: 'PH Text', unit: 'PH Text', key: 'ph', value: '--', show: false },
-    { name: 'PH1', unit: 'PH Text', key: 'ph1', value: '--', show: false },
-    { name: 'PH2', unit: 'PH Text', key: 'ph2', value: '--', show: false },
+    { name: 'PH', unit: 'PH', key: 'ph', value: '--', show: false },
+    { name: 'PH1', unit: 'PH', key: 'ph1', value: '--', show: false },
+    { name: 'PH2', unit: 'PH', key: 'ph2', value: '--', show: false },
 
     { name: 'ORP1', unit: 'mV', key: 'orp1', value: '--', show: false },
     { name: 'ORP2', unit: 'mV', key: 'orp2', value: '--', show: false },
@@ -143,7 +118,7 @@
   })
 
   const handleChange = (current: number) => {
-    activeIndex.value = current * 5
+    activeIndex.value = current * 3
   }
 
   const handleActiveChange = (index: number) => {
@@ -153,7 +128,7 @@
     const { date, sensor_data = { s20b: {} }, status, x, y } = val
     const { s20b } = sensor_data
 
-    if (Object.keys(s20b).length > 5) {
+    if (Object.keys(s20b).length > 4) {
       actions.showCursor = true
     } else {
       actions.showCursor = false
@@ -169,11 +144,13 @@
     })
 
     const tempOptions = options.value.filter((item) => item.show)
-    // 首次进来时给tpye赋值
+
     if (tempOptions.length > 0 && type === '') {
       type = tempOptions[0].key
     }
     options.value = tempOptions
+
+    console.log(options.value)
 
     showChar.value = Object.keys(s20b).length > 0
 
@@ -413,7 +390,7 @@
       height: 56px;
       border-radius: 32px;
       background: rgba(255, 255, 255, 0.15);
-      width: 900px;
+      width: 950px;
       // margin-bottom: 0;
       margin: 0 auto;
       display: flex !important;

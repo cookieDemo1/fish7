@@ -4,8 +4,13 @@ const en = {
   Automation: 'Automation',
   'Mini Program': 'MiniProgram',
   'Dissolved oxygen': 'Dissolved oxygen',
+  'Dissolved oxygen1': 'Dissolved oxygen 1',
+  'Dissolved oxygen2': 'Dissolved oxygen 2',
+
   'Water temperature': 'Water temperature',
   PH: 'PH',
+  'PH Text': 'PH',
+
   'Liquid level': 'Liquid level',
   Offline: 'Offline',
   m: 'm',
@@ -149,7 +154,8 @@ const en = {
   Nitrite: 'Nitrite',
   'Ammonia Nitrogen': 'Ammonia Nitrogen',
   ON: 'ON',
-  OFF: 'OFF'
+  OFF: 'OFF',
+  Ozone: '臭氧'
 }
 
 export default en
