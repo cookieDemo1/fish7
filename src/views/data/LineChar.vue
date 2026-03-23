@@ -95,10 +95,12 @@
     { name: 'Dissolved oxygen2', unit: 'mg/L', key: 'oxygen2', value: '--', show: false },
 
     { name: 'Water temperature', unit: '℃', key: 'temp', value: '--', show: false },
+    { name: 'Water temperature1', unit: '℃', key: 'temp1', value: '--', show: false },
+    { name: 'Water temperature2', unit: '℃', key: 'temp2', value: '--', show: false },
 
-    { name: 'PH Text', unit: 'PH Text', key: 'ph', value: '--', show: false },
-    { name: 'PH1', unit: 'PH Text', key: 'ph1', value: '--', show: false },
-    { name: 'PH2', unit: 'PH Text', key: 'ph2', value: '--', show: false },
+    { name: 'PH Text', unit: 'PH', key: 'ph', value: '--', show: false },
+    { name: 'PH1', unit: 'PH', key: 'ph1', value: '--', show: false },
+    { name: 'PH2', unit: 'PH', key: 'ph2', value: '--', show: false },
 
     { name: 'ORP1', unit: 'mV', key: 'orp1', value: '--', show: false },
     { name: 'ORP2', unit: 'mV', key: 'orp2', value: '--', show: false },

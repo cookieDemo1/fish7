@@ -8,6 +8,9 @@ const en = {
   'Dissolved oxygen2': 'Dissolved oxygen 2',
 
   'Water temperature': 'Water temperature',
+  'Water temperature1': 'Water temperature 1',
+  'Water temperature2': 'Water temperature 2',
+
   PH: 'PH',
   'PH Text': 'PH',
 

@@ -7,6 +7,9 @@ const zh = {
   'Dissolved oxygen1': '溶解氧1',
   'Dissolved oxygen2': '溶解氧2',
   'Water temperature': '水温值',
+  'Water temperature1': '水温值1',
+  'Water temperature2': '水温值2',
+
   PH: 'PH值',
   'PH Text': 'PH',
   'Liquid level': '液位',
