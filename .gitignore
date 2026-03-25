@@ -27,3 +27,10 @@ dist.zip
 # eslint cache
 .eslintcache
 src/auto-imports.d.ts
+
+dist7
+dist10
+dist21
+dist7.zip
+dist10.zip
+dist21.zip
