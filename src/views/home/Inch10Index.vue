@@ -1,26 +1,97 @@
 <template>
   <div class="home">
-    <!-- <div style="margin: 0 0 16px 24px">
-      <Light :list="lightStatus"></Light>
-    </div> -->
-    <div class="wrapper" style="padding: 0 24px">
-      <a-row :gutter="[14, 14]">
-        <a-col v-for="(item, index) in switchList" :key="index" :span="item.freq == '-1' ? 6 : 12">
-          <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
-        </a-col>
-      </a-row>
+    <div id="wrapper" class="wrapper" style="padding: 0 24px">
+      <div id="A">
+        <card-second backgroud="#1f2b38">
+          <p class="title">A系统</p>
+          <a-row :gutter="[14, 14]">
+            <a-col
+              v-for="(item, index) in system.A"
+              :key="index"
+              :span="item.freq == '-1' ? 6 : 12"
+            >
+              <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
+            </a-col>
+          </a-row>
+        </card-second>
+      </div>
+      <div id="B">
+        <card-second backgroud="#1f2b38">
+          <p class="title">B系统</p>
+          <a-row :gutter="[14, 14]">
+            <a-col
+              v-for="(item, index) in system.B"
+              :key="index"
+              :span="item.freq == '-1' ? 6 : 12"
+            >
+              <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
+            </a-col>
+          </a-row>
+        </card-second>
+      </div>
+
+      <div id="C">
+        <card-second backgroud="#1f2b38">
+          <p class="title">头水系统</p>
+          <a-row :gutter="[14, 14]">
+            <a-col
+              v-for="(item, index) in system.C"
+              :key="index"
+              :span="item.freq == '-1' ? 6 : 12"
+            >
+              <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
+            </a-col>
+          </a-row>
+        </card-second>
+      </div>
+
+      <div id="D">
+        <card-second backgroud="#1f2b38">
+          <p class="title">公共系统</p>
+          <a-row :gutter="[14, 14]">
+            <a-col
+              v-for="(item, index) in system.D"
+              :key="index"
+              :span="item.freq == '-1' ? 6 : 12"
+            >
+              <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
+            </a-col>
+          </a-row>
+        </card-second>
+      </div>
+
+      <div id="E">
+        <card-second backgroud="#1f2b38">
+          <p class="title">其他</p>
+          <a-row :gutter="[14, 14]">
+            <a-col
+              v-for="(item, index) in system.E"
+              :key="index"
+              :span="item.freq == '-1' ? 6 : 12"
+            >
+              <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
+            </a-col>
+          </a-row>
+        </card-second>
+      </div>
+
+      <div :style="{ height: blankHeight }"></div>
     </div>
 
-    <div class="sn">{{ sn?.sn }}</div>
+    <div class="menu">
+      <MAnchor></MAnchor>
+    </div>
   </div>
+  <div class="sn">{{ sn?.sn }}</div>
 </template>
 
 <script setup lang="ts">
   import DeviceCardMode3 from './DeviceCardMode3.vue'
-  import Light from './Light.vue'
   let interval: any
-  const slicePosition = ref(0)
-  const sliderWidth = ref('0px')
+  const mode = import.meta.env.VITE_APP_MODE as string
+
+  const blankHeight = ref(mode === 'inch10' ? '520px' : '800px')
+
   // switch是关键字需要重命名一下
   const { getSwitch, switch: switchState } = use.useMainStateAction('switch')
   getSwitch()
@@ -34,35 +105,51 @@
   const { getSn, sn } = use.useMainStateAction('sn')
   getSn()
 
+  const systemMaps = {
+    A: ['1', '3', '5', 'di_4_2', '7', '8', '6'],
+    B: ['2', '4', '3_1', 'di_5_2', '5_1', '6_1', '4_1'],
+    C: ['7_1', '8_1', '1_2'],
+    D: ['2_2'],
+    E: ['1_1', '2_1', '3_2', '4_2']
+  }
+
+  const system = ref({
+    A: [],
+    B: [],
+    C: [],
+    D: [],
+    E: []
+  })
+
   const switchList = ref([])
 
-  const lightStatus = ref([
-    { name: 'green', key: '绿灯', status: 1 },
-    { name: 'yellow', key: '黄灯', status: 1 },
-    { name: 'red', key: '红灯', status: 1 }
-  ])
-
   watch(switchState, (val) => {
-    const tempList = val.map((item) => {
-      return { ...item, do: item.do.replace('di_', ''), is_di: item.do.includes('di') }
+    let tempList = val.map((item) => {
+      return {
+        ...item,
+        do: item.do.replace('di_', ''),
+        is_di: item.do.includes('di'),
+        origin_do: item.do
+      }
     })
 
-    switchList.value = tempList.filter((item) => {
+    tempList = tempList.filter((item) => {
       return item.name !== '绿灯' && item.name !== '黄灯' && item.name !== '红灯'
     })
 
-    let tempLight = {}
-    for (let i = 0; i < tempList.length; i++) {
-      tempLight[tempList[i].name] = tempList[i].status
-    }
+    const sytemTemp = { A: [], B: [], C: [], D: [], E: [] }
 
-    lightStatus.value = [
-      { name: 'green', key: '绿灯', status: tempLight['绿灯'] },
-      { name: 'yellow', key: '黄灯', status: tempLight['黄灯'] },
-      { name: 'red', key: '红灯', status: tempLight['红灯'] }
-    ]
+    tempList.forEach((item) => {
+      Object.keys(systemMaps).forEach((key) => {
+        const map = systemMaps[key]
 
-    console.log(lightStatus.value)
+        if (map.includes(item.origin_do)) {
+          sytemTemp[key].push(item)
+        }
+      })
+    })
+
+    system.value = sytemTemp
   })
 
   const showChar = ref(false)
@@ -77,59 +164,53 @@
 </script>
 
 <style lang="less" scoped>
+  .sn {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 12px;
+    color: #656a78;
+  }
   .home {
-    .sn {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 25px;
-      line-height: 25px;
-      text-align: center;
-      font-size: 12px;
-      color: #656a78;
-    }
-    // margin-bottom: 12px;
-    .char {
-      margin-top: 12px;
-      padding: 0 24px;
-    }
+    height: 100%;
+    display: flex;
 
-    .wrapper-slider {
-      // width: 1024px;
-      overflow-x: scroll;
-      /* 隐藏滚动条 */
+    .wrapper {
+      scroll-behavior: smooth;
+      flex: 1;
+      overflow: scroll;
       scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE 和 Edge */
+      -ms-overflow-style: none; /* IE 10+ */
+      &::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Edge */
+      }
 
-      .slider {
-        padding: 0 24px;
-        // 一行5个
-        // width: 1626px;
-        // 一行四个
-        width: v-bind(sliderWidth);
-        overflow: visible;
+      #B,
+      #C,
+      #D,
+      #E {
+        margin-top: 16px;
+      }
+      .title {
+        margin: 0;
+        padding: 0;
+
+        font-size: 20px;
+        font-weight: bold;
+        color: #dae4e5;
+        margin-bottom: 12px;
       }
     }
-    .wrapper-slider::-webkit-scrollbar {
-      display: none; /* Chrome, Safari 和 Opera */
-    }
 
-    .row {
+    .menu {
+      width: 174px;
       display: flex;
-      flex-wrap: nowrap;
-
-      .col {
-        width: 306px;
-        flex-shrink: 0;
-      }
-      .col + .col {
-        margin-left: 12px;
-      }
-    }
-
-    .row + .row {
-      margin-top: 12px;
+      align-items: center;
+      // justify-content: center;
     }
   }
 </style>

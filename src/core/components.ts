@@ -62,6 +62,7 @@ const modalComponent = import.meta.glob('../components/modal/*.vue', {
 const files = Object.assign({}, antdComponent, commonComponent, layoutComponent, modalComponent)
 
 export const setupComponents = (app: App) => {
+  // 全局注册了
   app.use(Antd)
   Object.keys(files).forEach((path) => {
     const name = path.replace(/.*\/|\.vue/g, '')
