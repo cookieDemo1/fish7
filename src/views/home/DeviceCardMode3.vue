@@ -104,6 +104,7 @@
     // background-repeat: no-repeat;
     padding: 10px 23px 12px;
     position: relative;
+    z-index: 0;
 
     &:before {
       display: block;

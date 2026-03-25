@@ -2,7 +2,7 @@
   <div class="home">
     <div id="wrapper" class="wrapper" style="padding: 0 24px">
       <div id="A">
-        <card-second backgroud="#1f2b38">
+        <div class="card">
           <p class="title">A系统</p>
           <a-row :gutter="[14, 14]">
             <a-col
@@ -13,10 +13,10 @@
               <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
             </a-col>
           </a-row>
-        </card-second>
+        </div>
       </div>
       <div id="B">
-        <card-second backgroud="#1f2b38">
+        <div class="card">
           <p class="title">B系统</p>
           <a-row :gutter="[14, 14]">
             <a-col
@@ -27,11 +27,11 @@
               <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
             </a-col>
           </a-row>
-        </card-second>
+        </div>
       </div>
 
       <div id="C">
-        <card-second backgroud="#1f2b38">
+        <div class="card">
           <p class="title">头水系统</p>
           <a-row :gutter="[14, 14]">
             <a-col
@@ -42,11 +42,11 @@
               <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
             </a-col>
           </a-row>
-        </card-second>
+        </div>
       </div>
 
       <div id="D">
-        <card-second backgroud="#1f2b38">
+        <div class="card">
           <p class="title">公共系统</p>
           <a-row :gutter="[14, 14]">
             <a-col
@@ -57,11 +57,11 @@
               <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
             </a-col>
           </a-row>
-        </card-second>
+        </div>
       </div>
 
       <div id="E">
-        <card-second backgroud="#1f2b38">
+        <div class="card">
           <p class="title">其他</p>
           <a-row :gutter="[14, 14]">
             <a-col
@@ -72,7 +72,7 @@
               <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
             </a-col>
           </a-row>
-        </card-second>
+        </div>
       </div>
 
       <div :style="{ height: blankHeight }"></div>
@@ -187,6 +187,12 @@
       -ms-overflow-style: none; /* IE 10+ */
       &::-webkit-scrollbar {
         display: none; /* Chrome, Safari, Edge */
+      }
+
+      .card {
+        background-color: #1f2838;
+        padding: 20px 24px;
+        border-radius: 18px;
       }
 
       #B,
