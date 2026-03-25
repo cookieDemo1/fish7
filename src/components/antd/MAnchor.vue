@@ -102,7 +102,7 @@
 
     // 检查每个区块
     navItems.value.forEach((item) => {
-      const element = document.querySelector(item.id)
+      const element: HTMLDivElement = document.querySelector(item.id)
       if (element) {
         const elementRect = element.getBoundingClientRect()
         const wrapperRect = wrapper.getBoundingClientRect()
