@@ -70,7 +70,7 @@
 
     // justify-content: space-between;
     .m-carousel {
-      width: 900px;
+      width: 1280px;
       border-radius: 32px;
       overflow: hidden;
       // margin: 0 auto !important;

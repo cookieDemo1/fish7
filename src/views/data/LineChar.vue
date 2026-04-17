@@ -22,20 +22,20 @@
 
     <template v-if="actions.showCursor">
       <m-carousel2 ref="carouselRef" @change="handleChange">
-        <van-swipe-item v-for="(_, i) in Math.ceil(options.length / 5)" :key="i">
+        <van-swipe-item v-for="(_, i) in Math.ceil(options.length / 7)" :key="i">
           <ul class="select">
             <li
-              v-for="(option, index) in options.slice(i * 5, (i + 1) * 5)"
+              v-for="(option, index) in options.slice(i * 7, (i + 1) * 7)"
               :key="index"
               class="option"
-              :class="{ active: i * 5 + index === activeIndex }"
-              @click="handleActiveChange(i * 5 + index)"
+              :class="{ active: i * 7 + index === activeIndex }"
+              @click="handleActiveChange(i * 7 + index)"
             >
               <div class="value">{{ option.value }} {{ $t(option.unit) }}</div>
               <div class="name">
                 {{ $t(option.name) }}
                 {{
-                  i * 3 + index === activeIndex && char?.status === 2 ? `(${$t('Offline')})` : ''
+                  i * 7 + index === activeIndex && char?.status === 2 ? `(${$t('Offline')})` : ''
                 }}
               </div>
             </li>
@@ -415,7 +415,7 @@
       height: 56px;
       border-radius: 32px;
       background: rgba(255, 255, 255, 0.15);
-      width: 900px;
+      width: 1260px;
       // margin-bottom: 0;
       margin: 0 auto;
       display: flex !important;
