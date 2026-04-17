@@ -5,11 +5,7 @@
         <div class="card">
           <p class="title">A系统</p>
           <a-row :gutter="[14, 14]">
-            <a-col
-              v-for="(item, index) in system.A"
-              :key="index"
-              :span="item.freq == '-1' ? 6 : 12"
-            >
+            <a-col v-for="(item, index) in system.A" :key="index" :span="item.freq == '-1' ? 4 : 8">
               <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
             </a-col>
           </a-row>
@@ -19,11 +15,7 @@
         <div class="card">
           <p class="title">B系统</p>
           <a-row :gutter="[14, 14]">
-            <a-col
-              v-for="(item, index) in system.B"
-              :key="index"
-              :span="item.freq == '-1' ? 6 : 12"
-            >
+            <a-col v-for="(item, index) in system.B" :key="index" :span="item.freq == '-1' ? 4 : 8">
               <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
             </a-col>
           </a-row>
@@ -32,43 +24,9 @@
 
       <div id="C">
         <div class="card">
-          <p class="title">头水系统</p>
-          <a-row :gutter="[14, 14]">
-            <a-col
-              v-for="(item, index) in system.C"
-              :key="index"
-              :span="item.freq == '-1' ? 6 : 12"
-            >
-              <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
-            </a-col>
-          </a-row>
-        </div>
-      </div>
-
-      <div id="D">
-        <div class="card">
-          <p class="title">公共系统</p>
-          <a-row :gutter="[14, 14]">
-            <a-col
-              v-for="(item, index) in system.D"
-              :key="index"
-              :span="item.freq == '-1' ? 6 : 12"
-            >
-              <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
-            </a-col>
-          </a-row>
-        </div>
-      </div>
-
-      <div id="E">
-        <div class="card">
           <p class="title">其他</p>
           <a-row :gutter="[14, 14]">
-            <a-col
-              v-for="(item, index) in system.E"
-              :key="index"
-              :span="item.freq == '-1' ? 6 : 12"
-            >
+            <a-col v-for="(item, index) in system.C" :key="index" :span="item.freq == '-1' ? 4 : 8">
               <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
             </a-col>
           </a-row>
@@ -106,19 +64,15 @@
   getSn()
 
   const systemMaps = {
-    A: ['1', '3', '5', 'di_4_2', '7', '8', '6'],
-    B: ['2', '4', '3_1', 'di_5_2', '5_1', '6_1', '4_1'],
-    C: ['7_1', '8_1', '1_2'],
-    D: ['2_2'],
-    E: ['1_1', '2_1', '3_2', '4_2']
+    A: ['1', '3', '5', '7', 'di_3_2', '1_1', '4_1', '6_1', '3_2', '4_2', 'di_6_2', 'di_5_2'],
+    B: ['2', '4', '6', '8', 'di_4_2', '2_1', '5_1', '7_1', '5_2', '6_2', 'di_8_2', 'di_7_2'],
+    C: ['1_2', '2_2', '8_1', '3_1', '8_2', '7_2']
   }
 
   const system = ref({
     A: [],
     B: [],
-    C: [],
-    D: [],
-    E: []
+    C: []
   })
 
   const switchList = ref([])
@@ -137,7 +91,7 @@
       return item.name !== '绿灯' && item.name !== '黄灯' && item.name !== '红灯'
     })
 
-    const sytemTemp = { A: [], B: [], C: [], D: [], E: [] }
+    const sytemTemp = { A: [], B: [], C: [] }
 
     tempList.forEach((item) => {
       Object.keys(systemMaps).forEach((key) => {

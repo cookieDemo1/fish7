@@ -23,9 +23,7 @@
   const navItems = ref([
     { id: '#A', title: 'A系统' },
     { id: '#B', title: 'B系统' },
-    { id: '#C', title: '头水系统' },
-    { id: '#D', title: '公共系统' },
-    { id: '#E', title: '其他' }
+    { id: '#C', title: '其他' }
   ])
 
   // 滚动到指定区块
