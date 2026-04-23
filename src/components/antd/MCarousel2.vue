@@ -8,6 +8,7 @@
       class="m-carousel"
       v-bind="attrs"
       :show-indicators="false"
+      :style="{ width: mode === 'inch21' ? '1260px' : '900px' }"
       @change="handleBeforeChange"
     >
       <slot name="default"></slot>
@@ -19,6 +20,8 @@
   </div>
 </template>
 <script setup lang="ts">
+  const mode = import.meta.env.VITE_APP_MODE as string
+  const width = ref(mode === 'inch21' ? '1260px' : '900px')
   interface CarouselMethods {
     prev: Function
     next: Function
@@ -70,7 +73,7 @@
 
     // justify-content: space-between;
     .m-carousel {
-      width: 1280px;
+      // width: v-bind(width);
       border-radius: 32px;
       overflow: hidden;
       // margin: 0 auto !important;

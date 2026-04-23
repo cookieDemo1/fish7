@@ -3,7 +3,7 @@
     <div v-if="char?.status === 2" class="offline">{{ $t('Offline') }}</div>
 
     <template v-if="!actions.showCursor">
-      <ul class="select">
+      <ul class="select" :style="{ width: mode === 'inch21' ? '1260px' : '900px' }">
         <li
           v-for="(option, index) in options"
           :key="index"
@@ -22,20 +22,22 @@
 
     <template v-if="actions.showCursor">
       <m-carousel2 ref="carouselRef" @change="handleChange">
-        <van-swipe-item v-for="(_, i) in Math.ceil(options.length / 7)" :key="i">
+        <van-swipe-item v-for="(_, i) in Math.ceil(options.length / count)" :key="i">
           <ul class="select">
             <li
-              v-for="(option, index) in options.slice(i * 7, (i + 1) * 7)"
+              v-for="(option, index) in options.slice(i * count, (i + 1) * count)"
               :key="index"
               class="option"
-              :class="{ active: i * 7 + index === activeIndex }"
-              @click="handleActiveChange(i * 7 + index)"
+              :class="{ active: i * count + index === activeIndex }"
+              @click="handleActiveChange(i * count + index)"
             >
               <div class="value">{{ option.value }} {{ $t(option.unit) }}</div>
               <div class="name">
                 {{ $t(option.name) }}
                 {{
-                  i * 7 + index === activeIndex && char?.status === 2 ? `(${$t('Offline')})` : ''
+                  i * count + index === activeIndex && char?.status === 2
+                    ? `(${$t('Offline')})`
+                    : ''
                 }}
               </div>
             </li>
@@ -71,7 +73,11 @@
   import { CanvasRenderer } from 'echarts/renderers'
 
   const mode = import.meta.env.VITE_APP_MODE as string
+  const width = ref(mode === 'inch21' ? '1260px' : '900px')
   const count = mode === 'inch21' ? 7 : 5
+
+  console.log('width', width.value)
+  console.log('count', count)
 
   // 注册必须的组件
   echarts.use([
@@ -418,7 +424,7 @@
       height: 56px;
       border-radius: 32px;
       background: rgba(255, 255, 255, 0.15);
-      width: 1260px;
+      // width: v-bind(width);
       // margin-bottom: 0;
       margin: 0 auto;
       display: flex !important;
