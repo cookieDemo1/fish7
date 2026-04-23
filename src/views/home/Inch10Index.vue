@@ -5,7 +5,11 @@
         <div class="card">
           <p class="title">A系统</p>
           <a-row :gutter="[14, 14]">
-            <a-col v-for="(item, index) in system.A" :key="index" :span="item.freq == '-1' ? 4 : 8">
+            <a-col
+              v-for="(item, index) in system.A"
+              :key="index"
+              :span="item.freq == '-1' ? spanSwitch : spanFreq"
+            >
               <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
             </a-col>
           </a-row>
@@ -15,7 +19,11 @@
         <div class="card">
           <p class="title">B系统</p>
           <a-row :gutter="[14, 14]">
-            <a-col v-for="(item, index) in system.B" :key="index" :span="item.freq == '-1' ? 4 : 8">
+            <a-col
+              v-for="(item, index) in system.B"
+              :key="index"
+              :span="item.freq == '-1' ? spanSwitch : spanFreq"
+            >
               <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
             </a-col>
           </a-row>
@@ -26,7 +34,11 @@
         <div class="card">
           <p class="title">其他</p>
           <a-row :gutter="[14, 14]">
-            <a-col v-for="(item, index) in system.C" :key="index" :span="item.freq == '-1' ? 4 : 8">
+            <a-col
+              v-for="(item, index) in system.C"
+              :key="index"
+              :span="item.freq == '-1' ? spanSwitch : spanFreq"
+            >
               <DeviceCardMode3 :item="item" @callback="() => getSwitch()" />
             </a-col>
           </a-row>
@@ -49,6 +61,9 @@
   const mode = import.meta.env.VITE_APP_MODE as string
 
   const blankHeight = ref(mode === 'inch10' ? '520px' : '800px')
+
+  const spanSwitch = mode === 'inch10' ? 6 : 4
+  const spanFreq = mode === 'inch10' ? 12 : 8
 
   // switch是关键字需要重命名一下
   const { getSwitch, switch: switchState } = use.useMainStateAction('switch')

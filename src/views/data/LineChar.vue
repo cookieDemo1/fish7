@@ -70,6 +70,9 @@
   // 引入 Canvas 渲染器，注意引入 CanvasRenderer 或者 SVGRenderer 是必须的一步
   import { CanvasRenderer } from 'echarts/renderers'
 
+  const mode = import.meta.env.VITE_APP_MODE as string
+  const count = mode === 'inch21' ? 7 : 5
+
   // 注册必须的组件
   echarts.use([
     TitleComponent,
