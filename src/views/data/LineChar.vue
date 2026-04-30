@@ -120,8 +120,8 @@
     { name: 'Ammonia Nitrogen', unit: 'mg/L', key: 'andan', value: '--', show: false },
     { name: 'Ozone', unit: 'mg/L', key: 'ozone', value: '--', show: false },
 
-    { name: 'COD', unit: '℃', key: 'cod', value: '--', show: false },
-    { name: 'BOD', unit: '℃', key: 'bod', value: '--', show: false },
+    { name: 'COD', unit: 'mg/L', key: 'cod', value: '--', show: false },
+    { name: 'BOD', unit: 'mg/L', key: 'bod', value: '--', show: false },
     { name: 'Turbidity', unit: 'NTU', key: 'tur', value: '--', show: false }
   ])
 
