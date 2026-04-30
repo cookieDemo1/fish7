@@ -156,7 +156,8 @@ const zh = {
   'Ammonia Nitrogen': '氨氮',
   ON: '开启',
   OFF: '关闭',
-  Ozone: '臭氧'
+  Ozone: '臭氧',
+  Turbidity: '浊度'
 }
 
 export default zh

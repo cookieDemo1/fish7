@@ -89,15 +89,7 @@
   const { actions } = use.useActions(['cursor'])
 
   const { char, getChar, loading } = use.useMainStateAction('char')
-  const options = ref<any>([
-    { name: 'Dissolved oxygen', unit: 'mg/L', key: 'oxygen', value: '--', show: false },
-    { name: 'Water temperature', unit: '℃', key: 'temp', value: '--', show: false },
-    { name: 'PH', unit: 'PH', key: 'ph', value: '--', show: false },
-    { name: 'Liquid level', unit: 'm', key: 'level', value: '--', show: false },
-    { name: 'Salinity', unit: 'PSU', key: 's', value: '--', show: false },
-    { name: 'Nitrite', unit: 'mg/L', key: 'no2', value: '--', show: false },
-    { name: 'Ammonia Nitrogen', unit: 'mg/L', key: 'andan', value: '--', show: false }
-  ])
+  const options = ref<any>([...constant.sensorMap])
 
   const activeIndex = ref(0)
   const showChar = ref(false)

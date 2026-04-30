@@ -77,3 +77,29 @@ export const imgMap = {
     2: fqOff
   }
 }
+
+export const sensorMap = [
+  { name: 'Dissolved oxygen', unit: 'mg/L', key: 'oxygen', value: '--', show: false },
+  { name: 'Dissolved oxygen1', unit: 'mg/L', key: 'oxygen1', value: '--', show: false },
+  { name: 'Dissolved oxygen2', unit: 'mg/L', key: 'oxygen2', value: '--', show: false },
+
+  { name: 'Water temperature', unit: '℃', key: 'temp', value: '--', show: false },
+  { name: 'Water temperature1', unit: '℃', key: 'temp1', value: '--', show: false },
+  { name: 'Water temperature2', unit: '℃', key: 'temp2', value: '--', show: false },
+
+  { name: 'PH Text', unit: 'PH', key: 'ph', value: '--', show: false },
+  { name: 'PH1', unit: 'PH', key: 'ph1', value: '--', show: false },
+  { name: 'PH2', unit: 'PH', key: 'ph2', value: '--', show: false },
+
+  { name: 'ORP1', unit: 'mV', key: 'orp1', value: '--', show: false },
+  { name: 'ORP2', unit: 'mV', key: 'orp2', value: '--', show: false },
+
+  { name: 'Liquid level', unit: 'm', key: 'level', value: '--', show: false },
+  { name: 'Salinity', unit: 'PSU', key: 's', value: '--', show: false },
+  { name: 'Nitrite', unit: 'mg/L', key: 'no2', value: '--', show: false },
+  { name: 'Ammonia Nitrogen', unit: 'mg/L', key: 'andan', value: '--', show: false },
+  { name: 'Ozone', unit: 'mg/L', key: 'ozone', value: '--', show: false },
+  { name: 'COD', unit: 'mg/L', key: 'cod', value: '--', show: false },
+  { name: 'BOD', unit: 'mg/L', key: 'bod', value: '--', show: false },
+  { name: 'Turbidity', unit: 'NTU', key: 'tur', value: '--', show: false }
+]

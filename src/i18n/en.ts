@@ -158,7 +158,8 @@ const en = {
   'Ammonia Nitrogen': 'Ammonia Nitrogen',
   ON: 'ON',
   OFF: 'OFF',
-  Ozone: '臭氧'
+  Ozone: 'Ozone',
+  Turbidity: 'Turbidity'
 }
 
 export default en
