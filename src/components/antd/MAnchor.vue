@@ -21,9 +21,9 @@
 
   // 导航项配置
   const navItems = ref([
-    { id: '#A', title: 'A系统' },
-    { id: '#B', title: 'B系统' },
-    { id: '#C', title: '水头公共系统' }
+    { id: '#A', title: 'C组(9-12号池)系统' },
+    { id: '#B', title: 'D组(13-16)号池系统' },
+    { id: '#C', title: 'CD组头水系统' }
   ])
 
   // 滚动到指定区块
@@ -209,7 +209,7 @@
     background: #1f2838;
     border-radius: 16px;
     padding: 20px 0;
-    width: 150px;
+    width: 200px;
     z-index: 1000;
   }
 

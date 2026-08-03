@@ -3,7 +3,7 @@
     <div id="wrapper" class="wrapper" style="padding: 0 24px">
       <div id="A">
         <div class="card">
-          <p class="title">A系统</p>
+          <p class="title">C组(9-12号池)系统</p>
           <a-row :gutter="[14, 14]">
             <a-col
               v-for="(item, index) in system.A"
@@ -17,7 +17,7 @@
       </div>
       <div id="B">
         <div class="card">
-          <p class="title">B系统</p>
+          <p class="title">D组(13-16)号池系统</p>
           <a-row :gutter="[14, 14]">
             <a-col
               v-for="(item, index) in system.B"
@@ -32,7 +32,7 @@
 
       <div id="C">
         <div class="card">
-          <p class="title">水头公共系统</p>
+          <p class="title">CD组头水系统</p>
           <a-row :gutter="[14, 14]">
             <a-col
               v-for="(item, index) in system.C"
@@ -182,7 +182,7 @@
     }
 
     .menu {
-      width: 174px;
+      width: 224px;
       display: flex;
       align-items: center;
       // justify-content: center;
