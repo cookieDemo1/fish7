@@ -21,9 +21,9 @@
 
   // 导航项配置
   const navItems = ref([
-    { id: '#A', title: 'A系统' },
-    { id: '#B', title: 'B系统' },
-    { id: '#C', title: '头水系统' },
+    { id: '#A', title: 'A组(1-4号池)系统' },
+    { id: '#B', title: 'B组(5-8号池)系统' },
+    { id: '#C', title: 'AB组头水系统' },
     { id: '#D', title: '公共系统' },
     { id: '#E', title: '其他' }
   ])
@@ -211,7 +211,7 @@
     background: #1f2838;
     border-radius: 16px;
     padding: 20px 0;
-    width: 150px;
+    width: 200px;
     z-index: 1000;
   }
 
