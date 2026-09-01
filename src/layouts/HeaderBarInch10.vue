@@ -48,21 +48,24 @@
           </li>
         </ul>
         <div ref="timeRef" class="time"></div>
-        <img
-          v-if="LANG !== 'zh'"
-          :src="lang == 'zh' ? zhIcon : enIcon"
-          alt=""
-          class="icon lang"
-          @click="onLang"
-        />
-        <img
-          :src="fullscreen ? fullscreenIcon : nomralscreenIcon"
-          alt=""
-          class="icon full-screen"
-          @click="onFullScreen"
-        />
-
-        <img src="@/assets/refe_button@2x.png" alt="" class="icon refresh" @click="onRefresh" />
+        <span class="icon-wrap" @click="onLang">
+          <img
+            v-if="LANG !== 'zh'"
+            :src="lang == 'zh' ? zhIcon : enIcon"
+            alt=""
+            class="icon lang"            
+          />
+        </span>
+        <span class="icon-wrap" @click="onFullScreen">
+          <img
+            :src="fullscreen ? fullscreenIcon : nomralscreenIcon"
+            alt=""
+            class="icon full-screen" 
+          />
+        </span>
+        <span class="icon-wrap" @click="onRefresh">
+          <img src="@/assets/refe_button@2x.png" alt="" class="icon refresh" />
+        </span>
       </div>
     </div>
   </header>
@@ -167,7 +170,7 @@
 
 <style lang="less" scoped>
   .header-bar {
-    height: 62px;
+    height: 72px;
     padding: 0 24px;
     position: relative;
 
@@ -204,12 +207,19 @@
       justify-content: space-between;
 
       .info {
+        height: 100%;
         display: flex;
         align-items: center;
-        .icon {
-          width: 48px;
-          height: 42px;
+        .icon-wrap{
           margin-left: 16px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+        }
+        .icon {
+          width: 56px;
+          height: 50px;
         }
         .time {
           font-size: 16px;
@@ -223,17 +233,19 @@
         display: flex;
         margin: 0;
         padding: 0;
+        height: 100%;
         .nav-item {
+          height: 100%;
           &.active > span {
             font-weight: bold;
             color: @primaryColor;
           }
           display: flex;
           align-items: center;
-          font-size: 17px;
+          font-size: 19px;
           .route-icon {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             margin-right: 8px;
           }
         }
