@@ -1,7 +1,10 @@
 <template>
   <section class="main-layout">
-    <template v-if="mode === 'inch10' || mode === 'inch21'">
+    <template v-if="mode === 'inch10'">
       <header-bar-inch10></header-bar-inch10>
+    </template>
+    <template v-else-if="mode === 'inch21'">
+      <header-bar-inch21></header-bar-inch21>
     </template>
     <template v-else>
       <HeaderBar></HeaderBar>
@@ -16,6 +19,7 @@
 <script setup lang="ts">
   import HeaderBar from './HeaderBar.vue'
   import HeaderBarInch10 from './HeaderBarInch10.vue'
+  import HeaderBarInch21 from './HeaderBarInch21.vue'
 
   const mode = import.meta.env.MODE
 
