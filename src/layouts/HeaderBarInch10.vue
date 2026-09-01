@@ -10,7 +10,7 @@
       <template v-if="route.meta.menu">
         <ul class="nav">
           <li
-            v-for="item in routes"
+            v-for="item in firstRoutes"
             :key="item.path"
             class="nav-item"
             :class="{ active: item.path === activeRoute }"
@@ -24,12 +24,12 @@
             <span>{{ $t(item.meta.title as string) }}</span>
           </li>
 
-          <!-- <template v-if="secondRoutes.length > 0">
+          <template v-if="secondRoutes.length > 0">
             <li class="nav-item more" :class="{ active: moreActive }" @click="handleMore">
               <img class="route-icon" :src="moreActive ? activeMoreIcon : normalMoreIcon" />
               <span>{{ $t('More') }}</span>
             </li>
-          </template> -->
+          </template>
         </ul>
       </template>
       <!-- 其他页面显示返回 -->
@@ -41,12 +41,6 @@
       </template>
       <!-- 右侧的全屏和中英文切换按钮 -->
       <div class="info">
-        <ul class="nav" style="margin-right: 30px">
-          <li class="nav-item" :class="{ active: actions.showCode }" @click="handleInnerCode()">
-            <img class="route-icon" :src="actions.showCode ? activeMiniIcon : normalMiniIcon" />
-            <span>{{ $t('Mini Program') }}</span>
-          </li>
-        </ul>
         <div ref="timeRef" class="time"></div>
         <span class="icon-wrap" @click="onLang">
           <img
@@ -69,6 +63,41 @@
       </div>
     </div>
   </header>
+
+  <teleport to="body">
+    <ul v-if="actions.showMore" class="sub-nav">
+      <li
+        v-for="item in secondRoutes"
+        :key="item.path"
+        class="sub-nav-item"
+        :class="{ active: item.path === activeRoute }"
+        @click="handleSceondRoute(item.path)"
+      >
+        <img
+          class="route-icon"
+          :src="item.path === activeRoute ? (item.meta.active as string) : (item.meta.normal as string)"
+        />
+        <span class="sub-nav-title">{{ $t(item.meta.title as string) }}</span>
+
+        <img
+          v-if="item.path === activeRoute"
+          src="@/assets/xuanzh_icon@2x.png"
+          class="active-icon"
+          alt=""
+        />
+      </li>
+      <li class="sub-nav-item" :class="{ active: actions.showCode }" @click="handleInnerCode()">
+        <img class="route-icon" :src="actions.showCode ? activeMiniIcon : normalMiniIcon" />
+        <span>{{ $t('Mini Program') }}</span>
+        <img
+          v-if="actions.showCode"
+          src="@/assets/xuanzh_icon@2x.png"
+          class="active-icon"
+          alt=""
+        />
+      </li>
+    </ul>
+  </teleport>
 
   <modal-code v-model="actions.showCode" @callback="actions.showCode = false"></modal-code>
 </template>
@@ -98,6 +127,11 @@
   const { radom, setRadom } = store.useRefreshStore()
   const routes = [...asyncRoutes[0].children].filter((item) => item.meta.menu)
 
+  const firstRoutes = routes.slice(0, 2)
+  const secondRoutes = routes.slice(2)
+
+  const moreActive = ref(false)
+
   const { actions } = use.useActions(['code', 'more'])
 
   const activeRoute = ref('')
@@ -111,6 +145,7 @@
     () => {
       activeRoute.value = route.path
       text.value = (route.meta.text as string) || ''
+      moreActive.value = secondRoutes.findIndex((item) => item.path === route.path) > -1
     },
     {
       immediate: true
@@ -166,6 +201,32 @@
     actions.showMore = false
     actions.handleCode()
   }
+
+  const handleSceondRoute = (path) => {
+    router.push(path)
+    actions.showMore = false
+  }
+
+  const handleMore = (e) => {
+    e.stopPropagation()
+    e.stopImmediatePropagation()
+    actions.showMore = true
+  }
+
+  const globalClick = (event) => {
+    if (actions.showMore === true) {
+      actions.showMore = false
+    }
+  }
+
+  // 路由弹出框点击其他的时候，关闭路由弹出框
+  onMounted(() => {
+    document.getElementById('app').addEventListener('click', globalClick)
+  })
+
+  onUnmounted(() => {
+    document.getElementById('app').removeEventListener('click', globalClick)
+  })
 </script>
 
 <style lang="less" scoped>
@@ -269,6 +330,52 @@
           font-size: 17px;
           margin-left: 8px;
         }
+      }
+    }
+  }
+
+  .sub-nav {
+    position: absolute;
+    top: 73px;
+    left: 262px;
+    width: 346px;
+    max-height: 360px;
+    background-color: #353e51;
+    border-radius: 8px;
+    overflow: auto;
+
+    .sub-nav-item {
+      height: 80px;
+      padding: 19px 24px;
+      position: relative;
+
+      display: flex;
+      align-items: center;
+      font-size: 17px;
+      .route-icon {
+        width: 40px;
+        height: 40px;
+        margin-right: 8px;
+      }
+
+      .sub-nav-title {
+        padding-right: 48px;
+        word-wrap: break-word;
+        word-break: break-all; /* 任意字符处换行，包括单词中间 */
+        white-space: normal; /* 默认值，按单词换行 */
+      }
+
+      &.active {
+        color: #00e4f8;
+      }
+
+      .active-icon {
+        position: absolute;
+        top: 50%;
+        right: 24px;
+        transform: translateY(-50%);
+        width: 22px;
+        height: 22px;
       }
     }
   }
