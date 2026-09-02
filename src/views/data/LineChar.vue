@@ -198,6 +198,11 @@
     let max = Math.ceil(Math.max(...numericArray))
     let min = Math.floor(Math.min(...numericArray))
 
+    if (numericArray.length === 0) {
+      min = 0
+      max = 10
+    }
+
     // let min = tempMin - Math.ceil((tempMax - tempMin) * 0.1)
 
     // 配置项

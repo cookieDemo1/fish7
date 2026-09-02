@@ -198,6 +198,13 @@
     let max = Math.ceil(Math.max(...numericArray))
     let min = Math.floor(Math.min(...numericArray))
 
+    // 当 y 轴数据全部是空字符串时，array1D 为空数组，
+    // min/max 会变成 Infinity/-Infinity 导致 y 轴不显示，这里兜底固定为 0 ~ 10
+    if (numericArray.length === 0) {
+      min = 0
+      max = 10
+    }
+
     // let min = tempMin - Math.ceil((tempMax - tempMin) * 0.1)
 
     // 配置项
