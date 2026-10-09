@@ -91,8 +91,8 @@
   const { char, getChar, loading } = use.useMainStateAction('char')
   const options = ref<any>([
     { name: 'Dissolved oxygen', unit: 'mg/L', key: 'oxygen', value: '--', show: false },
-    { name: 'Dissolved oxygen1', unit: 'mg/L', key: 'oxygen1', value: '--', show: false },
-    { name: 'Dissolved oxygen2', unit: 'mg/L', key: 'oxygen2', value: '--', show: false },
+    { name: 'A系统溶解氧', unit: 'mg/L', key: 'oxygen1', value: '--', show: false },
+    { name: 'B系统溶解氧', unit: 'mg/L', key: 'oxygen2', value: '--', show: false },
 
     { name: 'Water temperature', unit: '℃', key: 'temp', value: '--', show: false },
     { name: 'Water temperature1', unit: '℃', key: 'temp1', value: '--', show: false },
@@ -102,8 +102,8 @@
     { name: 'PH1', unit: 'PH', key: 'ph1', value: '--', show: false },
     { name: 'PH2', unit: 'PH', key: 'ph2', value: '--', show: false },
 
-    { name: 'ORP1', unit: 'mV', key: 'orp1', value: '--', show: false },
-    { name: 'ORP2', unit: 'mV', key: 'orp2', value: '--', show: false },
+    { name: 'A系统ORP', unit: 'mV', key: 'orp1', value: '--', show: false },
+    { name: 'B系统ORP', unit: 'mV', key: 'orp2', value: '--', show: false },
 
     { name: 'Liquid level', unit: 'm', key: 'level', value: '--', show: false },
     { name: 'Salinity', unit: 'PSU', key: 's', value: '--', show: false },
