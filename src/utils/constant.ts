@@ -82,6 +82,7 @@ export const sensorMap = [
   { name: 'Dissolved oxygen', unit: 'mg/L', key: 'oxygen', value: '--', show: false },
   { name: 'Dissolved oxygen1', unit: 'mg/L', key: 'oxygen1', value: '--', show: false },
   { name: 'Dissolved oxygen2', unit: 'mg/L', key: 'oxygen2', value: '--', show: false },
+  { name: 'Dissolved oxygen3', unit: 'mg/L', key: 'oxygen3', value: '--', show: false },
 
   { name: 'Water temperature', unit: '℃', key: 'temp', value: '--', show: false },
   { name: 'Water temperature1', unit: '℃', key: 'temp1', value: '--', show: false },

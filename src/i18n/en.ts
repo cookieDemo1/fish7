@@ -6,6 +6,7 @@ const en = {
   'Dissolved oxygen': 'Dissolved oxygen',
   'Dissolved oxygen1': 'Dissolved oxygen 1',
   'Dissolved oxygen2': 'Dissolved oxygen 2',
+  'Dissolved oxygen3': 'Dissolved oxygen 3',
 
   'Water temperature': 'Water temperature',
   'Water temperature1': 'Water temperature 1',
